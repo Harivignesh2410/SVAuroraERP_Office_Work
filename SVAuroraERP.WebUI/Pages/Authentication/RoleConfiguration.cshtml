@@ -1,0 +1,135 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Authentication.RoleConfigurationModel
+@{
+	ViewData["Title"] = "Role Configuration";
+}
+
+<style>
+	.page-name-col {
+		width: 20%; /* Adjust as needed */
+	}
+
+	.select-all-col {
+		width: 10%; /* Smaller width for Select All */
+		text-align: center;
+	}
+
+	.privilege-col {
+		width: 7%; /* Uniform width for privilege checkboxes */
+		text-align: center;
+	}
+</style>
+<div class="WebPageContent d-none">
+
+	<!-- start page title -->
+	<div class="row">
+		<div class="col-12">
+			<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+				<h4 class="mb-sm-0 font-size-18">Role Configuration</h4>
+
+				<div class="page-title-right">
+					<ol class="breadcrumb m-0">
+						<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+						<li class="breadcrumb-item"><a href="#">Authentication</a></li>
+						<li class="breadcrumb-item active">Role Configuration</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="WebPageContent d-none"></div>
+	<div class="card" id="divRecordList">
+		<div class="card-body border-bottom">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 card-title flex-grow-1"></h5>
+				<div class="flex-shrink-0">
+					<button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+						<i class="mdi mdi-refresh label-icon"></i>Refresh
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="card-body p4">
+			<div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+				<table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+					<thead class="table-light">
+                        <tr>
+                            <th>S No.</th>
+                            <th>Role</th>
+                            <th>Description</th>
+                            <th>Application Type</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="card" id="divAddEditView">
+		<div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+			<h5 class="card-title text-white" id="divCardTitle">
+				<i class="fas fa-edit me-1"></i>Configure User Role
+			</h5>
+			<button type="button" class="btn-close btn-close-white CloseButton" aria-label="Close"></button>
+		</div>
+		<div class="card-body">
+			<div class="row g-3">
+				<div class="row d-flex justify-content-between">
+					<div class="col-md-10"></div>
+					<div class="col-md-2">
+						<input type="text" id="searchBox" class="form-control " placeholder="Search by Page Name..." />
+					</div>
+				</div>
+
+				<div id="divMenuLayout"></div>
+			</div>
+		</div>
+		<div class="card-footer d-flex justify-content-between">
+			<button id="btnClose" type="button" class="btn btn-outline-danger waves-effect"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+			<button id="btnSave" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save</button>
+		</div>
+	</div>
+</div>
+
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+
+@section Scripts {
+	<input type="hidden" id="hdnRoleID" />
+	<input type="hidden" id="hdnRoleModuleID" />
+
+	<script type="text/javascript">
+		// Define the URL as a JavaScript variable
+		var ListDataURL = '@Url.Page("/Authentication/Roles", "RolesList")';
+		var PageControlDataURL = '@Url.Page("/Authentication/RoleConfiguration", "PageControlList")';
+		var SaveUpdateDataUrl = '@Url.Page("/Authentication/RoleConfiguration", "SaveUpdateData")';
+		var GetRoleConfigurationbyRoleIDUrl = '@Url.Page("/Authentication/RoleConfiguration", "RoleConfigurationbyRoleID")';
+		var GetRoleByIDDataUrl = '@Url.Page("/Authentication/Roles", "RoleByID")';
+		var currentPageControlID = @Model.CurrentPageControlID;
+		var GetMenuLayoutUrl = '@Url.Page("/Authentication/RoleConfiguration", "MenuLayout")';
+
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+
+
+		var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+	</script>
+
+	<script src="~/customjs/authentication/jroleconfiguration.js" type="text/javascript" asp-append-version="true"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData = new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN, PageAuditData);
+		});
+	</script>
+}

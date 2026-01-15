@@ -1,0 +1,209 @@
+@page
+@model SVAuroraERP.WebUI.Pages.Dealer.DealerHolidayModel
+@{
+    ViewData["Title"] = "Dealer Holiday";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Dealer Holiday</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Dealer</a></li>
+                    <li class="breadcrumb-item active">DealerHoliday</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="WebPageContent d-none">
+    <div class="card">
+        <div class="card-body border-bottom">
+            <div class="d-flex align-items-center">
+                <h5 class="mb-0 card-title flex-grow-1"></h5>
+                <div class="flex-shrink-0">
+                    <button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#divAddEditModal" title="Click here to Add New">
+                        <i class="fas fa-plus-square label-icon"></i>Add New
+                    </button>
+                    <button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+                        <i class="mdi mdi-refresh label-icon"></i>Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body border-bottom">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">OEM</label>
+                    <select id="filterOEM" class="form-select select2">
+                        <option value="0">--All OEM--</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Dealer</label>
+                    <select id="filterDealer" class="form-select select2">
+                        <option value="0">--All Dealers--</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">From Date</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                        <input type="text" id="filterFromDate" class="form-control" readonly="true" title="Click to view Calendar">
+                        <div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">To Date</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                        <input type="text" id="filterToDate" class="form-control" readonly="true" title="Click to view Calendar">
+                        <div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">&nbsp;</label>
+                    <div class="d-flex gap-2">
+                        <button id="btnFilter" type="button" class="btn btn-primary waves-effect waves-light flex-fill">
+                            <i class="mdi mdi-filter"></i>Filter
+                        </button>
+                        <button id="btnClearFilter" type="button" class="btn btn-secondary waves-effect waves-light flex-fill" title="Clear all filters">
+                            <i class="mdi mdi-filter-remove"></i>Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+                <table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+                    <thead class="table-light">
+                        <tr>
+                            <th>S No.</th>
+                            <th>OEM</th>
+                            <th>Dealer</th>
+                            <th>Holiday Date</th>
+                            <th>Reason</th>
+                            <th>Holiday Types</th>
+                            <th class="text-center">Full Day</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="divAddEditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title add-task-title text-white" style="display: block;"><i class="bx bxs-plus-square font-size-20 align-middle me-1"></i> </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="card-title-desc text-danger">Please fill in all required fields&nbsp;*</p>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group" id="divOEMID">
+                                <label for="ddlOEM" class="col-form-label">OEM&nbsp;<span class="text-danger me-1">*</span></label>
+                                <select id="ddlOEM" class="form-select select2" asp-items="Model.OEMList">
+                                </select>
+                            </div>
+                            <div class="form-group" id="divDealerID">
+                                <label for="ddlDealer" class="col-form-label">Dealer&nbsp;<span class="text-danger me-1">*</span></label>
+                                <select id="ddlDealer" class="form-select select2" asp-items="Model.DealerList">
+                                </select>
+                            </div>
+                            <div class="form-group" id="divHolidayDate">
+                                <label for="txtHolidayDate" class="col-form-label">Holiday Date&nbsp;<span class="text-danger me-1">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                    <input type="text" id="txtHolidayDate" class="form-control" name="txtHolidayDate" readonly="true" title="Click to view Calendar" required>
+                                    <div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="divReason">
+                                <label for="txtReason" class="col-form-label">Reason</label>
+                                <input id="txtReason" name="txtReason" type="text" class="form-control" placeholder="Please enter reason..." maxlength="200">
+                            </div>
+                            <div class="form-check mt-2">
+                                <div class="form-check-inline form-check-success">
+                                    <input type="checkbox" class="form-check-input" id="chkIsFullDay" checked="checked">
+                                    <label class="custom-control-label" for="chkIsFullDay">Full Day</label>
+                                </div>
+                            </div>
+                            <div class="form-group" id="divHolidayTypes">
+                                <label class="col-form-label">Holiday Types</label>
+                                <div id="divHolidayTypeList" class="border p-3" style="max-height: 200px; overflow-y: auto;">
+                                    @foreach (var holidayType in Model.HolidayTypeList)
+                                    {
+                                        <div class="form-check">
+                                            <input class="form-check-input holiday-type-checkbox" type="checkbox" value="@holidayType.HolidayTypeID" id="chkHolidayType_@holidayType.HolidayTypeID">
+                                            <label class="form-check-label" for="chkHolidayType_@holidayType.HolidayTypeID">
+                                                @holidayType.TypeName
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-between mt-2" id="divRecordLog">
+                                <div class="col-md-6">
+                                    <span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="fw-lighter fst-italic" id="spnLastUpdatedDate"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button id="btnClose" type="button" class="btn btn-outline-danger waves-effect" data-bs-dismiss="modal"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+                    <button id="btnSave" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save</button>
+                    <button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-edit font-size-20 align-middle me-2"></i>Update</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+</div>
+
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+
+@section Scripts {
+    <input type="hidden" id="hdnDealerHolidayID" />
+
+    <script type="text/javascript">
+		// Define the URL as a JavaScript variable
+
+		var SaveUpdateDataUrl = '@Url.Page("/Dealer/DealerHoliday", "SaveUpdateData")';
+        var ListDataUrl = '@Url.Page("/Dealer/DealerHoliday", "DealerHolidayToDataTable")';
+        var GetDealersByOEMIDUrl = '@Url.Page("/Dealer/DealerHoliday", "DealersByOEMID")';
+        var OEMList = @Json.Serialize(Model.OEMList.Where(t => t.Value != "0").Select(t => new { Value = t.Value, Text = t.Text }));
+        var GetDataByIDUrl = '@Url.Page("/Dealer/DealerHoliday", "DealerHolidayByID")';
+		var DeleteDataUrl = '@Url.Page("/Dealer/DealerHoliday", "DeleteData")';
+
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+                  var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+        var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+        var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+        var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+        var _CMPermissions  = @Json.Serialize(Model.Permissions);
+        var currentPageControlID = @Model.CurrentPageControlID;
+    </script>
+
+    <script src="~/customjs/dealer/jdealerholiday.js" type="text/javascript" asp-append-version="true"></script>
+    <script type="text/javascript">
+		$(document).ready(function () {
+            var PageAuditData= new Object();
+            PageAuditData.PageControlID = currentPageControlID;
+            PageAuditData.URL = window.location.href;
+            InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+    </script>
+}
+

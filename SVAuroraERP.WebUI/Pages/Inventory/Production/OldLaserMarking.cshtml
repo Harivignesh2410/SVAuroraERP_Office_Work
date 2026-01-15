@@ -1,0 +1,147 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.Production.OldLaserMarkingModel
+@{
+
+	ViewData["Title"] = "LaserNo Marking";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">LaserNo Marking</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item active">Production</li>
+					<li class="breadcrumb-item active">LaserNo Marking</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="WebPageContent d-none ">
+	<div id="divSearchPage">
+		@* @* this div for displaying the number of count in the list in js file *@ 
+		<div class="card">
+			<div class="card-body">
+				<div id="divSearchResultSummary">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card" id="divLaserNoMarking">
+		<div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+			<h5 class="card-title text-white" id="divCardTitle">
+				<i class='bx bxs-edit font-size-20 align-middle me-1'></i>&nbsp; Update Laser Marking
+			</h5>
+			<button type="button" class="btn btn-sm btn-danger text-white" id="btnCloseWindow" title="Click here to Close Window">
+				<i class="fas fa-window-close align-middle"></i>
+			</button>
+		</div>
+		<div class="card-body">
+			<div id="divPendingStockRequestTrans"></div>
+
+			<div class="alert alert-info mt-3" role="alert">
+				<i class="mdi mdi-check-all me-3"></i>Output Component Type
+			</div>
+			<div class="row g-3 mb-3">
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divMachineType">
+						<label for="ddlMachineType" class="col-form-label">Machine Type&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlMachineType" class="form-select select2" asp-data-placeholder="Select Machine Type" asp-items="Model.MachineTypeList">
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divEmployee">
+						<label for="ddlEmployee" class="col-form-label">Operator&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlEmployeee" class="form-select select2" asp-data-placeholder="Select Employee" asp-items="Model.EmployeeList">
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divApprovedQty">
+						<label for="txtApprovedQty" class="col-form-label">Approved Qty&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtApprovedQty" class="form-control MaxThreshold decimal" readonly placeholder="0.00" maxlength="50" />
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divLaserNoPrefix">
+						<label for="txtLaserNoPrefix" class="col-form-label">LaserNo Prefix&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtLaserNoPrefix" class="form-control MaxThreshold" placeholder="Please Enter Prefix of Laser No" maxlength="20" />
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divLaserStartingNo">
+						<label for="txtLaserStartingNo" class="col-form-label">Starting LaserNo &nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtLaserStartingNo" class="form-control MaxThreshold " placeholder="0" maxlength="4" />
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divNoOfPlateCount">
+						<label for="txtNoOfPlateCount" class="col-form-label">No of Plate&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtNoOfPlateCount" class="form-control MaxThreshold " placeholder="0" maxlength="4" />
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divRejectedPlateC0unt">
+						<label for="txtRejectedPlateC0unt" class="col-form-label">Rejected Plates</label>
+						<input type="text" id="txtRejectedPlateCount" class="form-control MaxThreshold " placeholder="0" maxlength="4" />
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divStartingNo">
+						<label for="txtStartingNo" class="col-form-label">Starting No&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtStartingNo" class="form-control MaxThreshold " readonly placeholder="0" />
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divEndingNo">
+						<label for="txtEndingNo" class="col-form-label">Ending No&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtEndingNo" class="form-control MaxThreshold " readonly placeholder="0" />
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-6">
+					<label class="form-label">Remarks</label>
+					<textarea class="form-control" rows="3" placeholder="Remarks" id="txtRemarks"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer d-flex justify-content-between">
+			<button id="btnClose" type="button" class="btn btn-outline-danger waves-effect">
+				<i class="fas fa-window-close font-size-16 me-2"></i>Close
+			</button>
+			<div class="ms-auto">
+				<button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light">
+					<i class="bx bx-book-bookmark font-size-20 align-middle me-2"></i>Punching
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+	<input type="hidden" id="hdnStockRequestID" />
+	<input type="hidden" id="hdnRequestedBy" />
+
+	<script type="text/javascript">
+		 var GetLaserNoMarkingListUrl= '@Url.Page("/Inventory/Production/LaserNoMarking", "LaserNoMarkingList")';
+		 var GetStockRequestDetailsByIDUrl = '@Url.Page("/Inventory/Production/StockRequest", "StockRequestByID")';
+		  var SaveLaserNoMarkingUrl= '@Url.Page("/Inventory/Production/LaserNoMarking", "SaveLaserNoMarking")';
+
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+	</script>
+
+	<script src="~/customjs/inventory/production/jlasernomarking.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+	</script>
+}

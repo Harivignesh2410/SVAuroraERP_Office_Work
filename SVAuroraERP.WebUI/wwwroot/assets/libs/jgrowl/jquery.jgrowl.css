@@ -1,0 +1,387 @@
+
+div.jGrowl
+{
+    z-index: 9999;
+    color: #fff;
+    font-size: 12px;
+    width: 50%;
+}
+
+/** Special IE6 Style Positioning **/
+div.ie6
+{
+    position: absolute;
+}
+
+div.ie6.top-right
+{
+    right: auto;
+    bottom: auto;
+    left: expression( ( 0 - jGrowl.offsetWidth + ( document.documentElement.clientWidth ? document.documentElement.clientWidth : document.body.clientWidth ) + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+    top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+}
+
+div.ie6.top-left
+{
+    left: expression( ( 0 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+    top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+}
+
+div.ie6.bottom-right
+{
+    left: expression( ( 0 - jGrowl.offsetWidth + ( document.documentElement.clientWidth ? document.documentElement.clientWidth : document.body.clientWidth ) + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+    top: expression( ( 0 - jGrowl.offsetHeight + ( document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+}
+
+div.ie6.bottom-left
+{
+    left: expression( ( 0 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+    top: expression( ( 0 - jGrowl.offsetHeight + ( document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+}
+
+div.ie6.center
+{
+    left: expression( ( 0 + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+    top: expression( ( 0 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+    width: 100%;
+}
+
+/** Normal Style Positions **/
+div.jGrowl
+{
+    position: absolute;
+}
+
+body > div.jGrowl
+{
+    position: fixed;
+}
+
+div.jGrowl.top-left
+{
+    left: 0px;
+    top: 0px;
+}
+
+div.jGrowl.top-right
+{
+    right: 0px;
+    top: 0px;
+}
+
+div.jGrowl.bottom-left
+{
+    left: 0px;
+    bottom: 0px;
+}
+
+div.jGrowl.bottom-right
+{
+    right: 0px;
+    bottom: 0px;
+}
+
+div.jGrowl.center
+{
+    top: 0px;
+    width: 50%;
+    left: 25%;
+}
+
+/** Cross Browser Styling **/
+div.center div.jGrowl-notification, div.center div.jGrowl-closer
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.jGrowl div.jGrowl-notification, div.jGrowl div.jGrowl-closer
+{
+    background-color: #000;
+    opacity: .85;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)";
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=85);
+    zoom: 1;
+    width: 98%;
+    padding: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+    text-align: left;
+    display: none;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+div.jGrowl div.jGrowl-notification
+{
+    min-height: 40px;
+}
+
+div.jGrowl div.jGrowl-notification, div.jGrowl div.jGrowl-closer
+{
+    margin: 10px;
+}
+
+div.jGrowl div.jGrowl-notification div.jGrowl-header
+{
+    font-weight: bold;
+    font-size: .85em;
+}
+
+div.jGrowl div.jGrowl-notification div.jGrowl-close
+{
+    z-index: 99;
+    float: right;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+div.jGrowl div.jGrowl-closer
+{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    cursor: pointer;
+    font-size: .9em;
+    font-weight: bold;
+    text-align: center;
+}
+
+/** Hide jGrowl when printing **/
+@media print
+{
+    div.jGrowl
+    {
+        display: none;
+    }
+}
+
+.nav-pills.nav-default > li > a:hover, .nav-pills.nav-default > li.active > a
+{
+    background: #E6E6E6;
+    color: #666666;
+}
+.nav-pills.nav-primary > li > a:hover, .nav-pills.nav-primary > li.active > a
+{
+    background: #7BAEDA;
+    color: #FFFFFF;
+}
+.nav-pills.nav-success > li > a:hover, .nav-pills.nav-success > li.active > a
+{
+    background: #8DCD8D;
+    color: #FFFFFF;
+}
+.nav-pills.nav-info > li > a:hover, .nav-pills.nav-info > li.active > a
+{
+    background: #8CD3E8;
+    color: #FFFFFF;
+}
+.nav-pills.nav-warning > li > a:hover, .nav-pills.nav-warning > li.active > a
+{
+    background: #F4C583;
+    color: #FFFFFF;
+}
+.nav-pills.nav-danger > li > a:hover, .nav-pills.nav-danger > li.active > a
+{
+    background: #E48784;
+    color: #FFFFFF;
+}
+.nav-pills.nav-soft > li > a:hover, .nav-pills.nav-soft > li.active > a
+{
+    background: #ACACCF;
+    color: #FFFFFF;
+}
+.nav-pills.nav-dark > li > a:hover, .nav-pills.nav-dark > li.active > a
+{
+    background: #A0A0A0;
+    color: #FFFFFF;
+}
+.nav-pills.nav-bright > li > a:hover, .nav-pills.nav-bright > li.active > a
+{
+    background: #CC99CC;
+    color: #666666;
+}
+
+/* THEMES */
+div.jGrowl div.default
+{
+    background: #E6E6E6;
+    opacity: 1;
+    filter: alpha(opacity = 100);
+    color: #666;
+}
+div.jGrowl div.default div.message
+{
+    padding: 5px;
+    color: #666;
+}
+div.jGrowl div.default div.close
+{
+    padding: 5px;
+    color: transparent;
+    padding: 0px;
+    margin: 5px;
+    width: 17px;
+}
+div.jGrowl div.primary
+{
+    background: #7BAEDA;
+    opacity: 1;
+    filter: alpha(opacity = 100);
+    color: #FFF;
+}
+div.jGrowl div.primary div.message
+{
+    padding: 5px;
+    color: #FFF;
+}
+div.jGrowl div.primary div.close
+{
+    padding: 5px;
+    color: transparent;
+    padding: 0px;
+    margin: 5px;
+    width: 17px;
+}
+div.jGrowl div.success
+{
+    background: #8DCD8D;
+    opacity: 1;
+    filter: alpha(opacity = 100);
+    color: #FFF;
+}
+div.jGrowl div.success div.message
+{
+    padding: 5px;
+    color: #FFF;
+}
+div.jGrowl div.success div.close
+{
+    padding: 5px;
+    color: transparent;
+    padding: 0px;
+    margin: 5px;
+    width: 17px;
+}
+div.jGrowl div.info
+{
+    background: #8CD3E8;
+    opacity: 1;
+    filter: alpha(opacity = 100);
+    color: #FFF;
+}
+div.jGrowl div.info div.message
+{
+    padding: 5px;
+    color: #FFF;
+}
+div.jGrowl div.info div.close
+{
+    padding: 5px;
+    color: transparent;
+    padding: 0px;
+    margin: 5px;
+    width: 17px;
+}
+div.jGrowl div.warning
+{
+    background: #F4C583;
+    opacity: 1;
+    filter: alpha(opacity = 100);
+    color: #FFF;
+}
+div.jGrowl div.warning div.message
+{
+    padding: 5px;
+    color: #FFF;
+}
+div.jGrowl div.warning div.close
+{
+    padding: 5px;
+    color: transparent;
+    padding: 0px;
+    margin: 5px;
+    width: 17px;
+}
+div.jGrowl div.danger
+{
+    background: #E48784;
+    opacity: 1;
+    filter: alpha(opacity = 100);
+    color: #FFF;
+}
+div.jGrowl div.danger div.message
+{
+    padding: 5px;
+    color: #FFF;
+}
+div.jGrowl div.danger div.close
+{
+    padding: 5px;
+    color: transparent;
+    padding: 0px;
+    margin: 5px;
+    width: 17px;
+}
+div.jGrowl div.soft
+{
+    background: #ACACCF;
+    opacity: 1;
+    filter: alpha(opacity = 100);
+    color: #FFF;
+}
+div.jGrowl div.soft div.message
+{
+    padding: 5px;
+    color: #FFF;
+}
+div.jGrowl div.soft div.close
+{
+    padding: 5px;
+    color: transparent;
+    padding: 0px;
+    margin: 5px;
+    width: 17px;
+}
+div.jGrowl div.dark
+{
+    background: #A0A0A0;
+    opacity: 1;
+    filter: alpha(opacity = 100);
+    color: #FFF;
+}
+div.jGrowl div.dark div.message
+{
+    padding: 5px;
+    color: #FFF;
+}
+div.jGrowl div.dark div.close
+{
+    padding: 5px;
+    color: transparent;
+    padding: 0px;
+    margin: 5px;
+    width: 17px;
+}
+div.jGrowl div.bright
+{
+    background: #CC99CC;
+    opacity: 1;
+    filter: alpha(opacity = 100);
+    color: #FFF;
+}
+div.jGrowl div.bright div.message
+{
+    padding: 5px;
+    color: #FFF;
+}
+div.jGrowl div.bright div.close
+{
+    padding: 5px;
+    color: transparent;
+    padding: 0px;
+    margin: 5px;
+    width: 17px;
+}

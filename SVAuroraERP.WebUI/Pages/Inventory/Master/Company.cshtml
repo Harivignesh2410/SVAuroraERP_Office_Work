@@ -1,0 +1,204 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.Master.CompanyModel
+@{
+	ViewData["Title"] = "Company";
+}
+<!-- start page title -->
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Company</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item"><a href="#">Master</a></li>
+					<li class="breadcrumb-item active">Company</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="WebPageContent d-none">
+	<div class="card" id="divAddEdit">
+		<div class="card-body">
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active bg-primary text-white" data-toggle="tab" href="#GeneralTab" role="tab" aria-selected="true" id="aGeneralTab">General</a>
+				</li>
+			</ul>
+			<p class="text-muted mb-3 mt-2">Please fill in all required fields&nbsp;<span class="text-danger">*</span></p>
+			<div class="row g-3 mb-2">
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divCompanyName">
+						<label>Company Name&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtCompanyName" class="form-control MaxThreshold" placeholder="Please enter Company Name" maxlength="250" />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divGstNo">
+						<label>GST No&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtGstNo" class="form-control MaxThreshold" placeholder="Please Enter GST No" maxlength="15" />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divPanNo">
+						<label>PAN No&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtPanNo" class="form-control MaxThreshold" placeholder="Please Enter Pan No" maxlength="10" />
+					</div>
+				</div>
+			</div>
+			<div class="alert alert-info" role="alert">
+				Address
+			</div>
+			<div class="row g-3 mb-2">
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divAddressLine1">
+						<label>Address Line 1&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtAddressLine1" class="form-control MaxThreshold" placeholder="Please enter Address Line 1" maxlength="250" />
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divAddressLine2">
+						<label>Address Line 2</label>
+						<input type="text" id="txtAddressLine2" class="form-control MaxThreshold" placeholder="Please enter Address Line 2" maxlength="250" />
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divCity">
+						<label>City</label>
+						<input type="text" id="txtCity" class="form-control MaxThreshold" placeholder="Please enter City" maxlength="200" />
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divState">
+						<label>State</label>
+						<input type="text" id="txtState" class="form-control MaxThreshold" placeholder="Please enter State" maxlength="200" />
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divPinCode">
+						<label>Pincode</label>
+						<input type="text" id="txtPincode" class="form-control MaxThreshold" placeholder="Please enter Pincode" maxlength="6" />
+					</div>
+				</div>
+			</div>
+			<div class="alert alert-info" role="alert">
+				Contact Information
+			</div>
+			<div class="row g-3 mb-2">
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divTelNo1">
+						<label>Tel No (1)</label>
+						<input type="text" id="txtTelNo1" class="form-control MaxThreshold" placeholder="Please enter Tel No (1)" maxlength="15" />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divTelNo2">
+						<label>Tel No (2)</label>
+						<input type="text" id="txtTelNo2" class="form-control MaxThreshold" placeholder="Please enter Tel No (2)" maxlength="15" />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divMobileNo">
+						<label>Mobile No&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtMobileNo" class="form-control MaxThreshold" placeholder="Please enter Mobile No Without (+91)" maxlength="10" />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divEmail">
+						<label>Email&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtEmail" class="form-control MaxThreshold" placeholder="Please enter Email" maxlength="250" />
+					</div>
+				</div>
+			</div>
+			<div class="alert alert-info" role="alert">
+				Bank Details
+			</div>
+			<div class="row g-3 mb-2">
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divBankName">
+						<label>Name Of Bank</label>
+						<input type="text" id="txtBankName" class="form-control MaxThreshold" placeholder="Please enter  Name of Bank" maxlength="250" />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divBranchName">
+						<label>Branch Name</label>
+						<input type="text" id="txtBranchName" class="form-control MaxThreshold" placeholder="Please Enter Branch Name" maxlength="250" />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divIFSCCode">
+						<label>IFSC Code</label>
+						<input type="text" id="txtIFSCCode" class="form-control MaxThreshold" placeholder="Please enter IFSC Code" maxlength="15" />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divAccountHolder">
+						<label>Account Holder Name</label>
+						<input type="text" id="txtAccountHolder" class="form-control MaxThreshold" placeholder="Please enter Account Holder Name" maxlength="250" />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divAccountType">
+						<label>Account Type</label>
+						<select id="ddlAccountType" class="form-control select2" data-placeholder="Supplier">
+							<option value="0" selected="selected">--Select--</option>
+							<option value="1"> Current account</option>
+							<option value="2"> Savings Account</option>
+							<option value="3">Others</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divAccountNo">
+						<label>Account No</label>
+						<input type="text" id="txtAccountNo" class="form-control MaxThreshold" placeholder="Please Enter Account No" maxlength="50" />
+					</div>
+				</div>
+				<div class="row d-flex justify-content-between mt-2" id="divRecordLog">
+					<div class="col-md-6">
+						<span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+					</div>
+					<div class="col-md-6 text-end">
+						<span class="fw-lighter fst-italic" id="spnLastUpdatedDate"></span>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="card-footer d-flex justify-content-between">
+			<button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light ms-auto"><i class="fas fa-edit font-size-20 align-middle me-2"></i>Update</button>
+		</div>
+
+	</div>
+</div>
+
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+	<input type="hidden" id="hdnCompanyID" />
+
+	<script type="text/javascript">
+
+
+		var SaveUpdateDataUrl = '@Url.Page("/Inventory/Master/Company", "SaveUpdateData")';
+		var GetDataUrl = '@Url.Page("/Inventory/Master/Company", "Company")';
+
+
+			var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+	</script>
+
+	<script src="~/customjs/inventory/master/jcompany.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+	</script>
+}

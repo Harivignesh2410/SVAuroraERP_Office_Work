@@ -1,0 +1,223 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.Production.ProductionConfigurationModel
+@{
+	ViewData["Title"] = "Production Configuration";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Production Configuration</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item"><a href="#">Production </a></li>
+					<li class="breadcrumb-item active">Production Configuration</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="card">
+	<div class="card-body">
+		<!-- Nav tabs -->
+		<ul class="nav nav-pills nav-justified" role="tablist">
+			<li class="nav-item waves-effect waves-light" role="presentation">
+				<a class="nav-link active" data-bs-toggle="tab" href="#input" role="tab" aria-selected="true">
+					<span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+					<span class="d-none d-sm-block">Input Configuration</span>
+				</a>
+			</li>
+			<li class="nav-item waves-effect waves-light" role="presentation">
+				<a class="nav-link" data-bs-toggle="tab" href="#output" role="tab" aria-selected="false" tabindex="-1">
+					<span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+					<span class="d-none d-sm-block">Output Configuration</span>
+				</a>
+			</li>
+		</ul>
+
+		<!-- Tab panes -->
+		<div class="tab-content p-3 text-muted">
+			<div class="tab-pane active" id="input" role="tabpanel">
+				<div class="d-flex align-items-center mb-3">
+					<h5 class="mb-0 card-title flex-grow-1"></h5>
+					<div class="flex-shrink-0">
+						<button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#divAddEditModal" title="Click here to Add New">
+							<i class="fas fa-plus-square label-icon"></i>Add New
+						</button>
+						<button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+							<i class="mdi mdi-refresh label-icon"></i>Refresh
+						</button>
+					</div>
+				</div>
+				<table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+					<thead class="table-light">
+						<tr>
+							<th>S No.</th>
+							<th>Process Type</th>
+							<th>Component Type</th>
+							<th class="text-center">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="tab-pane" id="output" role="tabpanel">
+				<div class="d-flex align-items-center mb-3">
+					<h5 class="mb-0 card-title flex-grow-1"></h5>
+					<div class="flex-shrink-0">
+						<button id="btnRefreshProcessType" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+							<i class="mdi mdi-refresh label-icon"></i>Refresh
+						</button>
+					</div>
+				</div>
+				<div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+					<table id="tblrecordlist1" class="table align-middle dt-responsive nowrap w-100 table-check">
+						<thead class="table-light">
+							<tr>
+								<th>S No.</th>
+								<th>Process Type</th>
+								<th>Description</th>
+								<th>Output Component</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="divAddEditModal1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-info">
+				<h5 class="modal-title add-task-title text-white" style="display: block;"><i class="bx bxs-plus-square font-size-20 align-middle me-1"></i> Add New Task</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p class="card-title-desc mb-0">Please fill in all required fields&nbsp;<span class="text-danger">*</span></p>
+				<div class="row g-3">
+					<div class="col-lg-12">
+						<div class="form-group " id="divProcesstype">
+							<label for="txtProcesstype" class="col-form-label">Process Type&nbsp;<span class="text-danger me-1">*</span></label>
+							<input id="txtProcesstype" name="txtProcesstype" type="text" class="form-control MaxThreshold" maxlength="100" disabled>
+						</div>
+						<div class="form-group" id="divComponent">
+							<label class="col-form-label">Description</label>
+							<textarea class="form-control MaxThreshold" rows="2" placeholder="Please enter description" id="txtDescription" maxlength="100"></textarea>
+						</div>
+						<div class="form-group" id="divComponent">
+							<label class="col-form-label">Component Type<span class="text-danger me-1">*</span></label>
+							<select id="ddlComponentType1" class="form-control select2" data-placeholder="Componenet Type" asp-items="Model.ComponentList">
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row d-flex justify-content-between mt-2" id="divRecordLog2">
+					<div class="col-md-6">
+						<span class="fw-lighter fst-italic" id="spnLastUpdatedBy2"></span>
+					</div>
+					<div class="col-md-6">
+						<span class="fw-lighter fst-italic" id="spnLastUpdatedDate2"></span>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer d-flex justify-content-between">
+				<button type="button" class="btn btn-outline-danger waves-effect" data-bs-dismiss="modal"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+				<button id="btnUpdate1" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-edit font-size-20 align-middle me-2"></i>Update</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="divAddEditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-info">
+				<h5 class="modal-title add-task-title text-white" style="display: block;"><i class="bx bxs-plus-square font-size-20 align-middle me-1"></i> Add New Task</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p class="card-title-desc text-danger mb-0">Please fill in all required fields&nbsp;*</p>
+				<div class="row g-3">
+					<div class="col-lg-12">
+						<div class="form-group" id="divProcessType">
+							<label class="col-form-label">Process Type&nbsp;<span class="text-danger me-1">*</span></label>
+							<select id="ddlProcessType" class="form-control select2" asp-data-placeholder="Select Process Type" asp-items="Model.ProcessTypeList">
+							</select>
+						</div>
+						<div class="form-group" id="divComponent">
+							<label class="col-form-label">Component Type&nbsp;<span class="text-danger me-1">*</span></label>
+							<select id="ddlComponentType" class="form-control select2" data-placeholder="Componenet Type" asp-items="Model.ComponentList">
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row d-flex justify-content-between mt-2" id="divRecordLog1">
+					<div class="col-md-6">
+						<span class="fw-lighter fst-italic" id="spnLastUpdatedBy1"></span>
+					</div>
+					<div class="col-md-6">
+						<span class="fw-lighter fst-italic" id="spnLastUpdatedDate1"></span>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer d-flex justify-content-between">
+				<button id="btnClose" type="button" class="btn btn-outline-danger waves-effect" data-bs-dismiss="modal"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+				<button id="btnSave" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save</button>
+				<button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-edit font-size-20 align-middle me-2"></i>Update</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+
+@section Scripts {
+	<input type="hidden" id="hdnProductionConfigurationID" />
+	<input type="hidden" id="hdnProcessTypeID" />
+
+	<script type="text/javascript">
+		// Define the URL as a JavaScript variable
+
+		var SaveUpdateDataUrl = '@Url.Page("/Inventory/Production/ProductionConfiguration", "SaveUpdateDataInputConFig")';
+
+
+		var ConfigurationListDataUrl = '@Url.Page("/Inventory/Production/ProductionConfiguration", "ProductionConfigurationList")';
+		var ProcessTypeListDataUrl = '@Url.Page("/Inventory/Production/ProductionConfiguration", "ProcessTypeList")';
+
+		var GetDataByIDUrl = '@Url.Page("/Inventory/Production/ProductionConfiguration", "ProductionConfigurationByID")';
+		var DeleteDataUrl = '@Url.Page("/Inventory/Production/ProductionConfiguration", "DeleteData")';
+
+		var GetProcessTypeByIDUrl = '@Url.Page("/Inventory/Production/ProductionConfiguration", "ProcessTypeByID")';
+		var UpdateDataOutputConfigDataUrl = '@Url.Page("/Inventory/Production/ProductionConfiguration", "UpdateDataOutputConfig")';
+
+		var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+	</script>
+
+	<script src="~/customjs/inventory/production/jproductionconfiguration.js" type="text/javascript" asp-append-version="true"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+	</script>
+}

@@ -1,0 +1,105 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.Purchase.SearchPurchaseEntryModel
+@{
+	ViewData["Title"] = "Search Purchase Entry";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Search Purchase Entry</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/Index">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item"><a href="#">Purchase</a></li>
+					<li class="breadcrumb-item active">Search Purchase Entry</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="WebPageContent d-none">
+	<div id="divSearchPage">
+		<div class="row g-3 mb-3">
+			<div class="col-md-3">
+				<div class="form-group" id="divitem">
+					<label class="col-form-label">Supplier Name</label>
+					<select id="ddlSupplierType" class="form-control select2" data-placeholder="Supplier" asp-items="Model.SupplierList">
+					</select>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group" id="divDate">
+					<label class="col-form-label">Date Range</label>
+					<div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy" data-date-autoclose="true" data-provide="datepicker" data-date-container="#datepicker6">
+						<input type="text" class="form-control" name="start" readonly="true" placeholder="Start Date" id="txtStartDate">
+						<input type="text" class="form-control" name="end" readonly="true" placeholder="End Date" id="txtEndDate">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<label class="col-form-label">Search text</label>
+				<div class="input-group">
+					<span class="input-group-text">
+						<i class="fas fa-search"></i>
+					</span>
+					<input type="text" id="txtSearchbox" class="form-control Maxthreshold" placeholder="Search Text" maxlength="50">
+				</div>
+			</div>
+			<div class="col-md-1">
+				<label class="col-form-label"></label>
+				<button type="button" class="btn btn-outline-secondary btn-rounded waves-effect w-100" id="btnClearFilter">
+					<i class="bi bi-x-circle"></i>Clear
+				</button>
+			</div>
+			<div class="col-md-1">
+				<label class="col-form-label"></label>
+				<button class="btn btn-warning btn-rounded w-100 waves-effect" id="btnFilter">
+					<i class="bx bx-filter-alt font-size-16 align-middle me-2"></i>Filter
+				</button>
+			</div>
+		</div>
+		@* this div for displaying the number of count in the list in js file *@
+		<div class="card">
+			<div class="card-body">
+		<div id="divSearchResultSummary"></div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+
+@section Scripts {
+	<input type="hidden" id="hdnPurchaseTransID" />
+	<input type="hidden" id="hdnMaterialInwardInspectionID" />
+	<input type="hidden" id="hdnSNo" />
+
+	<script type="text/javascript">
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+
+		// Define the URL as a JavaScript variable
+		//var GetMaterialInwardDataUrl = '@Url.Page("/Inventory/MaterialManagement/PendingInspection", "MaterialList")';
+
+		var GetPurchaseEntryByFilterUrl = '@Url.Page("/Inventory/Purchase/SearchPurchaseEntry", "PurchaseEntryByFilter")';
+		var DeleteDataUrl = '@Url.Page("/Inventory/Purchase/PurchaseEntry", "DeleteData")';
+
+		var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+	</script>
+	<script src="~/customjs/inventory/purchase/jsearchpurchaseentry.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+
+		});
+	</script>
+}

@@ -1,0 +1,554 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.Purchase.PurchaseEntryModel
+@{
+	ViewData["Title"] = "Purchase Entry";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Purchase Entry</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item"><a href="#">Purchase</a></li>
+					<li class="breadcrumb-item active">Purchase Entry</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="WebPageContent d-none">
+	<div class="card" id="divRecords">
+		<div class="card-body border-bottom">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 card-title flex-grow-1"></h5>
+				<div class="flex-shrink-0">
+					<button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light" title="Click here to Add New">
+						<i class="fas fa-plus-square label-icon"></i>Add New
+					</button>
+					@* <button type="button" class="btn btn-soft-info right-bar-toggle waves-effect w-md" title="Click here to Filter"> *@
+					@* 	<i class="mdi mdi-filter-outline label-icon"></i>Filter *@
+					@* </button> *@
+					<button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light " title="Click here to refresh">
+						<i class="mdi mdi-refresh label-icon"></i>Refresh
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+				<table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+					<thead class="table-light">
+						<tr>
+							<th>S No.</th>
+							<th>Bill No</th>
+							<th>Date</th>
+							<th>Supplier</th>
+							<th>Total Nos</th>
+							<th>Total Qty</th>
+							<th>Total ItemTax</th>
+							<th>Gross Amount (Rs.)</th>
+							<th>Tax Amount (Rs.)</th>
+							<th>Bill Amount (Rs.)</th>
+							<th>Status</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="card" id="divAddEdit">
+		<div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+			<h5 class="card-title text-white" id="divCardTitle">
+				<i class="fas fa-plus-square align-middle me-1"></i>
+			</h5>
+			<button type="button" class="btn-close btn-close-white" id="btnCloseWindow"></button>
+		</div>
+		<div class="card-body">
+			<div id="divPurchaseOrderDetails">
+			</div>
+			<ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
+				<li class="nav-item" role="presentation">
+					<a class="nav-link active" data-bs-toggle="tab" href="#GeneralTab" role="tab" aria-selected="true">
+						<span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+						<span class="d-none d-sm-block">General</span>
+					</a>
+				</li>
+				<li class="nav-item" role="presentation" id="tabDocument">
+					<a class="nav-link disable" data-bs-toggle="tab" href="#divDocument" role="tab" aria-selected="false" tabindex="-1">
+						<span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+						<span class="d-none d-sm-block">Document</span>
+					</a>
+				</li>
+			</ul>
+			<div class="tab-content p-3 text-muted">
+				<div class="tab-pane active show" id="GeneralTab" role="tabpanel">
+					<p class="card-title-desc mb-2">Please fill in all required fields&nbsp;<span class="text-danger">*</span></p>
+					<div class="row g-3 mb-2">
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group" id="divBillNo">
+								<label>Bill No&nbsp;<span class="text-danger">*</span></label>
+								<input type="text" id="txtBillNo" class="form-control MaxThreshold" placeholder="Please enter Bill No" maxlength="50" />
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group" id="divBillDate">
+								<label>Date&nbsp;<span class="text-danger">*</span></label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+									<input type="text" id="txtBillDate" class="form-control" name="txtBillDate" title="Click to view Calendar" readonly="readonly" />
+									<div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group" id="divSupplier">
+								<label>Select Supplier&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlSupplierType" class="form-control select2 " data-placeholder="Supplier" asp-items="Model.SupplierList">
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 py-4">
+							<button id="btnAddNewItems" class="btn btn-success btn-sm btn-rounded waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#divAddUnitModal" title="Click here to Add New Item"><i class="fas fa-plus-square align-middle me-1"></i>Add New Item</button>
+						</div>
+					</div>
+					<div class="table-responsive">
+						<div id="divTableData">
+						</div>
+					</div>
+
+					<div class="alert alert-info" role="alert">
+						Summary
+					</div>
+					<div class="row g-3">
+						<div class="col-lg-2 col-md-6">
+							<div class="form-group" id="divRound1Summary">
+								<label class="col-form-label">Rounded Off(+)(Rs.)</label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+									<input type="text" id="txtRoundOff1" class="form-control text-end decimal" name="RoundOff1" placeholder="0.00" />
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-6">
+							<div class="form-group" id="divRound2Summary">
+								<label class="col-form-label">Rounded Off(-)(Rs.)</label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+									<input type="text" id="txtRoundOff2" class="form-control text-end decimal" name="RoundOff2" placeholder="0.00" />
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-6">
+							<div class="form-group" id="divTax1">
+								<label class="col-form-label">Other Charges</label>
+								<select id="ddlFinalOtherCharges" class="form-control select2" data-placeholder="Tax 1">
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-6">
+							<div class="form-group" id="divfinalOtherCharge">
+								<label class="col-form-label">Amount</label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+									<input type="text" id="txtfinalOthercharge" class="form-control text-end decimal" placeholder="0.00" />
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-6">
+							<div class="form-group" id="divGrossAmount">
+								<label class="col-form-label">GrossAmount</label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+									<input type="text" id="txtGrossAmount" class="form-control text-end" readonly="readonly" placeholder="0.00" />
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-6">
+							<div class="form-group" id="divTax3">
+								<label class="col-form-label">Select Tax</label>
+								<select id="ddlFinalTax1" class="form-control select2" data-placeholder="Tax 1">
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-6">
+							<div class="form-group" id="divTaxAmount">
+								<label class="col-form-label">Amount(Rs.)</label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+									<input type="text" id="txtFinalTaxAmount1" class="form-control text-end" placeholder="0.00" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-6">
+							<div class="form-group" id="divTax3">
+								<label class="col-form-label">Select Tax</label>
+								<select id="ddlFinalTax2" class="form-control select2" data-placeholder="Tax 1">
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-6">
+							<div class="form-group" id="divTaxAmount">
+								<label class="col-form-label">Amount(Rs.)</label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+									<input type="text" id="txtFinalTaxAmount2" class="form-control text-end" placeholder="0.00" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-6">
+							<div class="form-group" id="divTotalTaxAmount">
+								<label class="col-form-label">Total Tax(Rs.)</label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+									<input type="text" id="txtfinalTotalTax" class="form-control text-end" placeholder="0.00" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-6">
+							<div class="form-group" id="divNetBillAmount">
+								<label class="col-form-label">Net Bill Amount</label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+									<input type="text" id="txtNetBillAmount" class="form-control text-end" placeholder="0.00" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-6">
+							<label class="form-label">Narration</label>
+							<textarea required="" class="form-control" rows="3" placeholder="Narration" id="txtNarration"></textarea>
+						</div>
+					</div>
+					<div class="row d-flex justify-content-between mt-2" id="divRecordLog">
+						<div class="col-md-6">
+							<span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+						</div>
+						<div class="col-md-6">
+							<span class="fw-lighter fst-italic float-end" id="spnLastUpdatedDate"></span>
+						</div>
+					</div>
+
+					<div class="card-footer d-flex justify-content-between">
+						<button id="btnClose" type="button" class="btn btn-outline-danger waves-effect"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+						<button id="btnSave" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save</button>
+						<button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Update</button>
+					</div>
+				</div>
+				<div class="tab-pane" id="divDocument" role="tabpanel">
+					<div class="row g-3 mb-2">
+						<div class="col-lg-2 col-md-6">
+							<div class="form-group" id="divFileName">
+								<label>Document Type&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlDocumentType" class="form-control select2 " data-placeholder="Document Type" asp-items="Model.DocumentTypeList">
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-6">
+							<div class="form-group" id="divFileName">
+								<label>Document Group&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlDocumentGroup" class="form-control select2 " data-placeholder="Document Group" asp-items="Model.DocumentGroupList">
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6 ">
+							<label>Upload File<span class="text-danger">*</span></label>
+							<input class="form-control" type="file" id="fileUpload">
+						</div>
+						<div class="col-md-4 d-flex align-items-end">
+							<button class="btn btn-primary" id="btnUpload"><i class="fa fa-upload me-2 align-middle"></i> Upload</button>
+						</div>
+					</div>
+					<div class="table-responsive mt-2">
+						<div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+							<div id="divtableDocument"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal fade" id="divAddUnitModal" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog modal-xl ">
+					<div class="modal-content ">
+						<div class="modal-header bg-info">
+							<h5 class="modal-title add-task-title text-white" style="display: block;"><i class="bx bxs-plus-square font-size-20 align-middle me-1"></i></h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div class=" row g-3 mb-2">
+								<div class="col-lg-5 col-md-6">
+									<div class="form-group" id="divitem">
+										<label class="col-form-label">Select Item&nbsp;<span class="text-danger">*</span></label>
+										<select id="ddlitem" class="form-control select2">
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-2 col-md-6">
+									<div class="form-group" id="divQuantity">
+										<label class="col-form-label">Quantity&nbsp;<span class="text-danger">*</span></label>
+										<div class="input-group">
+											<div class="input-group-text"><i class="bx bx-fridge"></i></div>
+											<input type="text" id="txtQuantity" class="form-control text-end decimal" placeholder="0.00" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-2 col-md-6">
+									<div class="form-group" id="divNos">
+										<label class="col-form-label">NoS&nbsp;</label>
+										<div class="input-group">
+											<div class="input-group-text"><i class="bx bx-fridge"></i></div>
+											<input type="text" id="txtNos" class="form-control text-end decimal" placeholder="0.00" />
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-3 col-md-6">
+									<div class="form-group" id="divPrice">
+										<label class="col-form-label">Price&nbsp;<span class="text-danger">*</span></label>
+										<div class="input-group">
+											<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+											<input type="text" id="txtPrice" class="form-control decimal" placeholder="0.00" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="form-group" id="divMaterialValue">
+										<label class="col-form-label">Material Value(Rs.)</label>
+										<div class="input-group">
+											<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+											<input type="text" id="txtMaterialValue" class="form-control decimal" placeholder="0.00" disabled />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="form-group" id="divOtherDesp">
+										<label class="col-form-label">Other Charges 1</label>
+										<select id="ddlOtherCharges1" class="form-control select2">
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="form-group" id="divOtherCharge1">
+										<label class="col-form-label">Amount(Rs.)</label>
+										<div class="input-group">
+											<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+											<input type="text" id="txtOtherCharge1" class="form-control decimal" placeholder="0.00" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="form-group" id="divOtherDesp2">
+										<label class="col-form-label">Other Charges 2</label>
+										<select id="ddlOtherCharges2" class="form-control select2">
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="form-group" id="divOtherCharge2">
+										<label class="col-form-label">Amount(Rs.)</label>
+										<div class="input-group">
+											<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+											<input type="text" id="txtOtherCharge2" class="form-control text-end decimal" placeholder="0.00" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="form-group" id="divOtherDesp">
+										<label class="col-form-label">Other Charges 3</label>
+										<select id="ddlOtherCharges3" class="form-control select2">
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="form-group" id="divOtherCharge">
+										<label class="col-form-label">Amount(Rs.)</label>
+										<div class="input-group">
+											<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+											<input type="text" id="txtOtherCharge3" class="form-control text-end decimal" placeholder="0.00"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="form-group" id="divTaxableCharges">
+										<label class="col-form-label">Taxable Charges(Rs.)</label>
+										<div class="input-group">
+											<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+											<input type="text" id="txtTaxableCharges" class="form-control text-end" readonly="readonly" placeholder="0.00" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="form-group" id="divTax1">
+										<label class="col-form-label">Select Tax</label>
+										<select id="ddlTax1" class="form-control select2">
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="form-group" id="divTaxAmount">
+										<label class="col-form-label">Amount(Rs.)</label>
+										<div class="input-group">
+											<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+											<input type="text" id="txtTax1Amount" class="form-control text-end" readonly="readonly" placeholder="0.00" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="form-group" id="divTax2">
+										<label class="col-form-label">Select Tax</label>
+										<select id="ddlTax2" class="form-control select2">
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="form-group" id="divTaxAmount">
+										<label class="col-form-label">Amount(Rs.)</label>
+										<div class="input-group">
+											<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+											<input type="text" id="txtTax2Amount" class="form-control text-end" readonly="readonly" placeholder="0.00" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="form-group" id="divTotalTaxAmount">
+										<label class="col-form-label">Total Tax(Rs.)</label>
+										<div class="input-group">
+											<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+											<input type="text" id="txtTotalTax" class="form-control text-end" readonly="readonly" placeholder="0.00" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="form-group" id="divSubAmount">
+										<label class="col-form-label">Sub Amount(Rs.)</label>
+										<div class="input-group">
+											<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+											<input type="text" id="txtSubAmount" class="form-control text-end" readonly="readonly" placeholder="0.00" />
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="modal-footer d-flex justify-content-between">
+							<button type="button" class="btn btn-outline-danger waves-effect" data-bs-dismiss="modal"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+							<button id="btnSaveItem" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save Item</button>
+							<button id="btnUpdateItem" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Update Item</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div>
+		</div>
+	</div>
+	@* <div class="right-bar" id="divsidebar"> *@
+	@* 	<div data-simplebar="init" class="h-100 simplebar-scrollable-y"> *@
+	@* 		<div class="simplebar-wrapper" style="margin: 0px;"> *@
+	@* 			<div class="simplebar-height-auto-observer-wrapper"> *@
+	@* 				<div class="simplebar-height-auto-observer"></div> *@
+	@* 			</div> *@
+	@* 			<div class="simplebar-mask"> *@
+	@* 				<div class="simplebar-offset" style="right: 0px; bottom: 0px;"> *@
+	@* 					<div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: 100%; overflow: hidden scroll;"> *@
+	@* 						<div class="simplebar-content" style="padding: 0px;"> *@
+	@* 							<div class="rightbar-title d-flex align-items-center px-3 py-4 border-bottom"> *@
+	@* 								<h5 class="m-0 me-2 text-center">Filter Section</h5> *@
+	@* 								<a href="javascript:void(0);" class="right-bar-toggle ms-auto"> *@
+	@* 									<i class="mdi mdi-close noti-icon"></i> *@
+	@* 								</a> *@
+	@* 							</div> *@
+	@* 							<div class="p-3"> *@
+	@* 								<div class="row g-3"> *@
+	@* 									<div class="col-md-12"> *@
+	@* 										<div class="form-group" id="divitem"> *@
+	@* 											<label class="col-form-label">Supplier Name</label> *@
+	@* 											<select id="ddlSuppliersType" class="form-control select2" data-placeholder="Supplier" asp-items="Model.SupplierList"> *@
+	@* 											</select> *@
+	@* 										</div> *@
+	@* 									</div> *@
+	@* 									<div class="col-md-12"> *@
+	@* 										<div class="form-group" id="divDate"> *@
+	@* 											<label class="col-form-label">Date Range</label> *@
+	@* 											<div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy" data-date-autoclose="true" data-provide="datepicker" data-date-container="#datepicker6"> *@
+	@* 												<input type="text" class="form-control" name="start" readonly="true" placeholder="Start Date" id="txtStartDate"> *@
+	@* 												<input type="text" class="form-control" name="end" readonly="true" placeholder="End Date" id="txtEndDate"> *@
+	@* 											</div> *@
+	@* 										</div> *@
+	@* 									</div> *@
+	@* 									<div class="col-md-12"> *@
+	@* 										<label class="col-form-label">Search</label> *@
+	@* 										<div class="input-group"> *@
+	@* 											<span class="input-group-text"> *@
+	@* 												<i class="fas fa-search"></i> *@
+	@* 											</span> *@
+	@* 											<input type="text" id="txtSearchbox" class="form-control Maxthreshold" placeholder="Enter text..." maxlength="50"> *@
+	@* 										</div> *@
+	@* 									</div> *@
+	@* 									<div class="col-md-6 text-center mt-4"> *@
+	@* 										<button type="button" class="btn btn-outline-danger waves-effect w-100" id="btnClearFilter"> *@
+	@* 											<i class="bi bi-x-circle"></i>Clear *@
+	@* 										</button> *@
+	@* 									</div> *@
+	@* 									<div class="col-md-6 text-center mt-4"> *@
+	@* 										<button class="btn btn-primary w-100" id="btnFilter"> *@
+	@* 											Apply Filters *@
+	@* 										</button> *@
+	@* 									</div> *@
+	@* 								</div> *@
+	@* 							</div> *@
+
+	@* 						</div> *@
+	@* 					</div> *@
+	@* 				</div> *@
+	@* 			</div> *@
+	@* 			<div class="simplebar-placeholder" style="width: 280px; height: 1065px;"></div> *@
+	@* 		</div> *@
+	@* 	</div> *@
+	@* </div> *@
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+	<input type="hidden" id="hdnPurchaseEntryID" />
+	<input type="hidden" id="hdnPurchaseTransID" />
+	<input type="hidden" id="hdnSNo" />
+	<input type="hidden" id="hdnPurchaseOrderID" />
+
+	<script type="text/javascript">
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+
+		// Define the URL as a JavaScript variable
+		var ListDataUrl = '@Url.Page("/Inventory/Purchase/PurchaseEntry", "PurchaseList")';
+		var SaveUpdateDataUrl = '@Url.Page("/Inventory/Purchase/PurchaseEntry", "SaveUpdateData")';
+		var GetDataByIDUrl = '@Url.Page("/Inventory/Purchase/PurchaseEntry", "PurchaseEntryByID")';
+		var DeleteDataUrl = '@Url.Page("/Inventory/Purchase/PurchaseEntry", "DeleteData")';
+		var GetPurchaseOrderDetailsByIDUrl = '@Url.Page("/Inventory/Purchase/PurchaseEntry", "PurchaseOrderByID")';
+
+		// var GetPurchaseEntryByFilterUrl = '@Url.Page("/Inventory/Purchase/PurchaseEntry", "GetPurchaseEntryByFilter")';
+
+		var OtherChargesListUrl = '@Url.Page("/Inventory/Purchase/PurchaseEntry", "OtherChargesList")';
+		var ItemListUrl = '@Url.Page("/Inventory/Purchase/PurchaseEntry", "ItemList")';
+		var TaxListUrl = '@Url.Page("/Inventory/Purchase/PurchaseEntry", "TaxList")';
+
+
+		// Pass permissions to JavaScript
+		var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+	</script>
+
+	<script src="~/customjs/inventory/purchase/jpurchaseentry.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+	</script>
+}

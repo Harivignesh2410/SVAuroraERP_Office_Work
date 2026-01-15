@@ -1,0 +1,197 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Orders.Invoice.ExportInvoiceModel
+@{
+	ViewData["Title"] = "Export Invoice";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Export Invoice</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Orders</a></li>
+					<li class="breadcrumb-item active">Invoice</li>
+					<li class="breadcrumb-item active">Export Invoice</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="WebPageContent d-none">
+	<div id="divAdvancedFilter" class="no-bg mb-3">
+		<div class="accordion custom-accordionwithicon custom-accordion-border accordion-border-box accordion-secondary">
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="accHeader">
+					<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#divAdvancedFilterBody" aria-expanded="true" aria-controls="divAdvancedFilterBody">
+						<i class="bx bx-filter-alt me-2"></i> Advanced Filter
+					</button>
+				</h2>
+				<div id="divAdvancedFilterBody"
+					 class="accordion-collapse collapse show"
+					 aria-labelledby="accHeader"
+					 data-bs-parent="#divAdvancedFilter">
+
+					<div class="accordion-body">
+						<div class="row g-3 align-items-end">
+
+							<!-- Date -->
+							<div class="col-lg-3 col-md-6 col-sm-12">
+								<label class="col-form-label">Date</label>
+								<div class="input-daterange input-group"
+									 id="datepicker6"
+									 data-date-format="dd M, yyyy"
+									 data-date-autoclose="true"
+									 data-provide="datepicker"
+									 data-date-container="#datepicker6">
+									<input type="text"
+										   class="form-control"
+										   readonly
+										   placeholder="From Date"
+										   id="txtStartDate">
+									<input type="text"
+										   class="form-control"
+										   readonly
+										   placeholder="To Date"
+										   id="txtEndDate">
+								</div>
+							</div>
+
+							<!-- OEM -->
+							<div class="col-lg-3 col-md-6">
+								<label class="col-form-label">OEM</label>
+								<select id="ddlOEMFilter"
+										class="form-select select2"
+										data-placeholder="--Select OEM--">
+								</select>
+							</div>
+
+							<!-- Dealer -->
+							<div class="col-lg-3 col-md-6">
+								<label class="col-form-label">Dealer</label>
+								<select id="ddlDealerFilter"
+										class="form-select select2"
+										data-placeholder="--Select Dealer--">
+								</select>
+							</div>
+							<div class="col-lg-3 col-md-6 d-flex justify-content-end ms-auto">
+
+								<button id="btnFilter" type="button" class="btn btn-warning w-50 me-1">
+									<i class="ri-equalizer-fill me-1 align-bottom"></i> Filters
+								</button>
+
+								<div class="dropdown w-50">
+									<!-- wrapper added -->
+									<button id="btnGroupDrop"
+											type="button"
+											class="btn btn-primary dropdown-toggle w-100"
+											data-bs-toggle="dropdown"
+											aria-expanded="false">
+										More
+									</button>
+
+									<ul class="dropdown-menu p-2 w-100">
+										<li class="mb-2">
+											<button type="button"
+													class="btn btn-sm btn-success w-100"
+													id="btnExportNormal">
+												<i class="mdi mdi-microsoft-excel me-2"></i>
+												Export Excel
+											</button>
+										</li>
+										<li class="mb-2">
+											<button type="button"
+													class="btn btn-sm btn-primary w-100"
+													id="btnExportHSRP">
+												<i class="mdi mdi-microsoft-excel me-2"></i>
+												Export HSRP Excel
+											</button>
+										</li>
+										<li>
+											<button type="button" class="btn btn-sm btn-outline-secondary btn-rounded w-100" id="btnClearFilter">
+												<i class="bi bi-x-circle"></i> Clear
+											</button>
+										</li>
+									</ul>
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body border-bottom">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 card-title flex-grow-1"></h5>
+				<div class="flex-shrink-0">
+					<button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+						<i class="mdi mdi-refresh label-icon"></i>Refresh
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table id="tblrecordlist" class="table align-middle nowrap w-100 table-check">
+					<thead class="table-light">
+						<tr>
+							<th>S No.</th>
+							<th>Invoice No.</th>
+							<th>Invoice Date</th>
+							<th>OEM</th>
+							<th>Dealer </th>
+							<th>P.O. No.</th>
+							<th>Part No.</th>
+							<th>Qty</th>
+							<th>Reg No</th>
+							<th>Front Laser No</th>
+							<th>Rear Laser No</th>
+							<th>Part Color</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+	<input type="hidden" id="hdnHSRPOrderID" />
+
+	<script type="text/javascript">
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+		var OEMListUrl = '@Url.Page("/GlobalFunctions", "OEMList")';
+		var DealerListUrl = '@Url.Page("/GlobalFunctions", "DealerList")';
+		var ListDataUrl = '@Url.Page("/Orders/Invoice/ExportInvoice", "ExportInvoice")';
+		var ExportNormalExcelUrl = '@Url.Page("/Orders/Invoice/ExportInvoice", "ExportNormalExcel")';
+		var ExportHSRPExcelUrl = '@Url.Page("/Orders/Invoice/ExportInvoice", "ExportHSRPExcel")';
+
+		 var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+
+	</script>
+	<script src="~/customjs/orders/invoice/jexportinvoice.js" type="text/javascript" asp-append-version="true"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+	</script>
+}

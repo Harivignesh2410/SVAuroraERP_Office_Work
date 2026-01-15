@@ -1,0 +1,421 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.HR.EmployeeModel
+@{
+	ViewData["Title"] = "Employee";
+}
+
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Employee</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">HR</a></li>
+					<li class="breadcrumb-item active">Employee</li>		
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="WebPageContent d-none">
+	<div class="card" id="divRecords">
+		<div class="card-body border-bottom">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 card-title flex-grow-1"></h5>
+				<div class="flex-shrink-0">
+					<button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light" title="Click here to Add New">
+						<i class="fas fa-plus-square label-icon"></i>Add New
+					</button>
+					<button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+						<i class="mdi mdi-refresh label-icon"></i>Refresh
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="card-body p4">
+			<div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+				<table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+					<thead class="table-light">
+						<tr>
+							<th>S No.</th>
+							<th>Code</th>
+							<th></th>
+							<th>First Name</th>
+							<th>City</th>
+							<th>Designation</th>
+							<th>Mobile</th>
+							<th>Status</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="card" id="divAddEdit">
+		<div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+			<h5 class="card-title text-white" id="divCardTitle">
+				<i class="fas fa-plus-square align-middle me-1"></i>Add New Employee
+			</h5>
+			<button type="button" class="btn-close btn-close-white" id="btnCloseWindow"></button>
+		</div>
+		<div class="card-body">
+			<!-- Tab panes -->
+			<div class="tab-content  text-muted">
+				<div class="tab-pane active show" id="GeneralTab" role="tabpanel">
+					<p class="card-title-desc mb-2">Please fill in all required fields&nbsp;<span class="text-danger">*</span></p>
+					<div class="row g-3 mb-2">
+						<div class="col-lg-4 col-md-6">
+							<div class="form-group" id="divEmployeeID">
+								<label>Employee ID&nbsp;<span class="text-danger">*</span></label>
+								<input type="text" id="txtEmployeeID" class="form-control MaxThreshold" placeholder="Please enter Employee ID" maxlength="20" />
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6">
+							<div class="form-group" id="divEmployeeType">
+								<label>Employee Type&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlEmployeeType" class="form-select select2" data-placeholder="Employee Type">
+									<option value="0" selected="selected">--Select--</option>
+									<option value="1">Permanent</option>
+									<option value="2">Contract</option>
+									<option value="3">Others</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<div class="form-group" id="divGender">
+								<label>Gender&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlGender" class="form-select select2">
+									<option value="0" selected="selected">--Select--</option>
+									<option value="1">Male</option>
+									<option value="2">Female</option>
+									<option value="3">Others</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group col-lg-1 mt-4">
+							<div class="checkbox checkbox-success">
+								<input id="chkStatus" type="checkbox" checked="checked" />
+								<label for="chkStatus">Active</label>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6">
+							<div class="form-group" id="divFirstName">
+								<label>First Name&nbsp;<span class="text-danger">*</span></label>
+								<input type="text" id="txtFirstName" class="form-control MaxThreshold" placeholder="Please enter First Name" maxlength="100" />
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6">
+							<div class="form-group" id="divMiddleName">
+								<label>Middle Name</label>
+								<input type="text" id="txtMiddleName" class="form-control MaxThreshold" placeholder="Please enter Middle Name" maxlength="100" />
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6">
+							<div class="form-group" id="divSurName">
+								<label>Sur Name&nbsp;<span class="text-danger">*</span></label>
+								<input type="text" id="txtSurName" class="form-control MaxThreshold" placeholder="Please enter Sur Name" maxlength="100" />
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group">
+								<label>Designation&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlDesignationList" class="form-select select2" asp-items="Model.DesignationList" asp-data-placeholder="Select Designation">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="alert alert-info" role="alert">
+						Communication Details
+					</div>
+					<div class="row g-3 mb-2">
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group" id="divTelNo1">
+								<label>Tel No (1)</label>
+								<input type="text" id="txtTelNo1" class="form-control MaxThreshold" placeholder="Please enter Tel No (1)" maxlength="20" />
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group" id="divTelNo2">
+								<label>Tel No (2)</label>
+								<input type="text" id="txtTelNo2" class="form-control MaxThreshold" placeholder="Please enter Tel No (2)" maxlength="20" />
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group" id="divMobileNo">
+								<label>Mobile No&nbsp;<span class="text-danger">*</span></label>
+								<input type="text" id="txtMobileNo" class="form-control MaxThreshold" placeholder="Please enter Mobile No without (91+)" maxlength="10" />
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group" id="divEmail">
+								<label>Email&nbsp;<span class="text-danger"></span></label>
+								<input type="text" id="txtEmail" class="form-control MaxThreshold" placeholder="Please enter Email" maxlength="150" />
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group" id="divAddressLine1">
+								<label>Address Line 1&nbsp;<span class="text-danger">*</span></label>
+								<input type="text" id="txtAddressLine1" class="form-control MaxThreshold" placeholder="Please enter Address Line 1" maxlength="150" />
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group">
+								<label>Address Line 2</label>
+								<input type="text" id="txtAddressLine2" class="form-control MaxThreshold" placeholder="Please enter Address Line 2" maxlength="150" />
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group">
+								<label>City</label>
+								<input type="text" id="txtCity" class="form-control MaxThreshold" placeholder="Please enter City" maxlength="100" />
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group">
+								<label>State</label>
+								<input type="text" id="txtState" class="form-control MaxThreshold" placeholder="Please enter State" maxlength="100" />
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group">
+								<label>Country</label>
+								<input type="text" id="txtCountry" class="form-control MaxThreshold" placeholder="Please enter Country" maxlength="100" />
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group">
+								<label>Pincode</label>
+								<input type="text" id="txtPincode" class="form-control MaxThreshold" placeholder="Please enter Pincode" maxlength="6" />
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group">
+								<label>Place of Birth</label>
+								<input type="text" id="txtPlaceofBirth" class="form-control MaxThreshold" placeholder="Please enter Place of Birth" maxlength="100" />
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label>Relationship of Emergency Contact</label>
+								<select id="ddlERelationShip" class="form-select select2">
+									<option value="0" selected="selected">--Select--</option>
+									<option value="1">Father</option>
+									<option value="2">Mother</option>
+									<option value="3">Spouse</option>
+									<option value="4">Son</option>
+									<option value="5">Daughter</option>
+									<option value="6">Guardian</option>
+									<option value="7">Others (Specify in Name)</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group">
+								<label>Name of Contact Person</label>
+								<input type="text" id="txtEContactPerson" class="form-control MaxThreshold" placeholder="Please enter Emergency Contact Person" maxlength="100" />
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group">
+								<label>Mobile/Phone No</label>
+								<input type="text" id="txtEPhoneNo" class="form-control MaxThreshold" placeholder="Please enter Emergency Contact No. without(91+)" maxlength="10" />
+							</div>
+						</div>
+					</div>
+
+					<div class="alert alert-info" role="alert">
+						Personal Details
+					</div>
+					<div class="row g-3">
+						<div class="col-lg-3">
+							<div class="form-group" id="divDateofBirth">
+								<label>Date of Birth&nbsp;<span class="text-danger">*</span></label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+									<input type="text" id="txtDoBDate" class="form-control" name="StartDate" readonly="true" title="Click to view Calendar" />
+									<div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group">
+								<label>Father Name</label>
+								<input type="text" id="txtFatherName" class="form-control MaxThreshold" placeholder="Please enter Father Name" maxlength="100" />
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label>Father DOB</label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+									<input type="text" id="txtFatherDate" class="form-control" name="StartDate" readonly="true" title="Click to view Calendar" />
+									<div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group">
+								<label>Mother Name</label>
+								<input type="text" id="txtMotherName" class="form-control MaxThreshold" placeholder="Please enter Mother Name" maxlength="100" />
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label>Mother DOB</label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+									<input type="text" id="txtMothertDate" class="form-control" name="StartDate" readonly="true" title="Click to view Calendar" />
+									<div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label>Martial Status</label>
+								<select id="ddlMartialStatus" class="form-control select2">
+									<option value="0" selected="selected">--Select--</option>
+									<option value="1">Single</option>
+									<option value="2">Married</option>
+									<option value="3">Divorced</option>
+									<option value="4">Widow</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group">
+								<label>Spouse Name</label>
+								<input type="text" id="txtSpouseName" class="form-control MaxThreshold" placeholder="Please enter Spouse Name" maxlength="100" />
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label>Spouse DOB</label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+									<input type="text" id="txtSpouseDate" class="form-control" name="StartDate" readonly="true" title="Click to view Calendar" />
+									<div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label>Anniversary Date</label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+									<input type="text" id="txtAnnuDate" class="form-control" name="StartDate" readonly="true" title="Click to view Calendar" />
+									<div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group">
+								<label>Child One Name</label>
+								<input type="text" id="txtChildOneName" class="form-control MaxThreshold" placeholder="Please enter Child One Name" maxlength="100" />
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label>Child One D.O.B</label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+									<input type="text" id="txtChild1Date" class="form-control" name="StartDate" readonly="true" title="Click to view Calendar" />
+									<div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="form-group">
+								<label>Child Tow Name</label>
+								<input type="text" id="txtChildTwoName" class="form-control MaxThreshold" placeholder="Please enter Child Two Name" maxlength="100" />
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label>Child Two D.O.B</label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+									<input type="text" id="txtChild2Date" class="form-control" name="StartDate" readonly="true" title="Click to view Calendar" />
+									<div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label>Blood Group</label>
+								<select id="ddlBloodGroupList" class="form-select select2" asp-items="Model.BloodGroupList">
+								</select>
+							</div>
+						</div>
+						<div class="row d-flex justify-content-between mt-2" id="divRecordLog">
+							<div class="col-md-6">
+								<span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+							</div>
+							<div class="col-md-6">
+								<span class="fw-lighter fst-italic float-end" id="spnLastUpdatedDate"></span>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer d-flex justify-content-between mt-2">
+						<!-- Close Button on the left -->
+						<button id="btnClose" type="button" class="btn btn-outline-danger waves-effect">
+							<i class="fas fa-window-close font-size-16 me-2"></i>Close
+						</button>
+
+						<!-- Buttons on the right -->
+						<div class="d-flex ms-auto">
+							<button id="btnSave" type="button" class="btn btn-success waves-effect waves-light me-2">
+								<i class="bx bxs-save font-size-20 align-middle me-2"></i>Save
+							</button>
+							<button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light">
+								<i class="bx bxs-save font-size-20 align-middle me-2"></i>Update
+							</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+	<input type="hidden" id="hdnEmployeeID" />
+
+    <script type="text/javascript">
+				var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+
+				// Define the URL as a JavaScript variable
+		var ListDataUrl = '@Url.Page("/HR/Employee", "EmployeeList")';
+		var SaveUpdateDataUrl = '@Url.Page("/HR/Employee", "SaveUpdateData")';
+		var GetDataByIDUrl = '@Url.Page("/HR/Employee", "EmployeeByID")';
+		var DeleteDataUrl = '@Url.Page("/HR/Employee", "DeleteData")';
+        var EmployeeDataTableUrl = '@Url.Page("/HR/Employee", "EmployeeDataTable")';
+		  // Pass permissions to JavaScript
+	var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+	var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+	var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+	var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+	var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;	
+	</script>
+
+	<script src="~/customjs/hr/jemployee.js" type="text/javascript" asp-append-version="true"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+            var PageAuditData = new Object();
+            PageAuditData.PageControlID = currentPageControlID;
+            PageAuditData.URL = window.location.href;
+            InsertPageAccessAuditLog(_TOKEN, PageAuditData);
+		});
+	</script>
+}

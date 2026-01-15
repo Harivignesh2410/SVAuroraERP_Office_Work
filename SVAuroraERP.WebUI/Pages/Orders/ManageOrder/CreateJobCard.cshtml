@@ -1,0 +1,312 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Orders.ManageOrder.CreateJobCardModel
+@{
+    ViewData["Title"] = "Create Job Card";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Create Job Card</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Orders</a></li>
+                    <li class="breadcrumb-item active">ManageOrder</li>
+                    <li class="breadcrumb-item active">Create Job Card</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="WebPageContent d-none">
+    <div id="divAdvancedFilter" class="no-bg mb-3">
+        <div class="accordion custom-accordionwithicon custom-accordion-border accordion-border-box accordion-secondary">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="accHeader">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#divAdvancedFilterBody" aria-expanded="true" aria-controls="divAdvancedFilterBody">
+                        <i class="bx bx-filter-alt me-2"></i> Advanced Filter
+                    </button>
+                </h2>
+                <div id="divAdvancedFilterBody" class="accordion-collapse collapse show" aria-labelledby="accHeader" data-bs-parent="#divAdvancedFilter">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-12">
+                                <div class="form-group">
+                                    <label class="col-form-label">Date</label>
+                                    <div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy" data-date-autoclose="true" data-provide="datepicker" data-date-container="#datepicker6">
+                                        <input type="text" class="form-control" name="start" readonly="true" placeholder="From Date" id="txtStartDate">
+                                        <input type="text" class="form-control" name="end" readonly="true" placeholder="To Date" id="txtEndDate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="ddlOrderType" class="col-form-label">Order Type</label>
+                                    <select id="ddlOrderType" class="form-select select2" data-placeholder="--Select Order Type--">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="ddlOEMFilter" class="col-form-label">OEM</label>
+                                    <select id="ddlOEMFilter" class="form-select select2" placeholder="Select OEM">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="ddlDealerFilter" class="col-form-label">Dealer</label>
+                                    <select id="ddlDealerFilter" class="form-select select2" data-placeholder="--Select Dealer--">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label class="col-form-label">Embossing Station</label>
+                                    <select id="ddlEmbossingStationFilter" class="form-select select2" placeholder="Embossing Station">
+                                    </select>
+                                </div>
+                            </div>
+                            @*<div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="ddlVendorFilter" class="col-form-label">Vendor</label>
+                                        <select id="ddlVendorFilter" class="form-select select2" data-placeholder="--Select Vendor--">
+                                        </select>
+                                    </div>
+                                </div>*@
+                            <div class="col-md-3">
+                                <label class="col-form-label">Search</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bx bx-search"></i>
+                                    </span>
+                                    <input type="text" id="txtSearchbox" class="form-control Maxthreshold" placeholder="Search Text" maxlength="50">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="col-form-label d-block">&nbsp;</label>
+                                        <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect w-100" id="btnClearFilter">
+                                            <i class="bi bi-x-circle"></i> Clear
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="col-form-label d-block">&nbsp;</label>
+                                        <button class="btn btn-warning btn-rounded w-100 waves-effect" id="btnFilter">
+                                            <i class="bx bx-filter-alt font-size-16 align-middle me-2"></i> Filter
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divSummary" class="no-bg mb-3">
+        <div class="accordion custom-accordionwithicon custom-accordion-border accordion-border-box accordion-secondary">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="accHeader">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#divSummaryrBody" aria-expanded="true" aria-controls="divSummaryrBody">
+                        <i class="fas fa-file-invoice me-2"></i> Summary
+                    </button>
+                </h2>
+                <div id="divSummaryrBody" class="accordion-collapse collapse show" aria-labelledby="accHeader" data-bs-parent="#divSummary">
+                    <div class="accordion-body">
+                        <div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+                            <table id="tblSummarylist" class="table table-sm align-middle dt-responsive nowrap w-100 table-check">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>S No.</th>
+                                        <th>Dealer Name</th>
+                                        <th>Dealer Code</th>
+                                        <th>City</th>
+                                        <th>Order Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body border-bottom">
+            <div class="d-flex align-items-center">
+                <h5 class="mb-0 card-title flex-grow-1"></h5>
+                <div class="flex-shrink-0">
+                    <button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light" title="Click here to Add New">
+                        <i class="fas fa-bolt label-icon"></i>Create Job Card
+                    </button>
+                    <button id="btnAddNewBydealer" type="button" class="btn btn-info waves-effect btn-label waves-light" title="Click here to Add New">
+                        <i class="fas fa-bolt label-icon"></i>Create Job Card  By Dealer
+                    </button>
+                    <button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+                        <i class="mdi mdi-refresh label-icon"></i>Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="tblrecordlist" class="table  align-middle nowrap w-100 table-check">
+                    <thead class="table-light">
+                        <tr>
+                        <tr>
+                            <th><input type="checkbox" id="selectAllCheckbox" title="Select All" /></th>
+                            <th>S No.</th>
+                            <th class="text-center">Action</th>
+                            <th>Order No / Date</th>
+                            <th class="text-dark">Status</th>
+                            <th>Process Date</th>
+                            <th>Reg No / Date</th>
+                            <th>Front / Size</th>
+                            <th>Rear / Size</th>
+                            <th>Dealer / OEM</th>
+                            <th>Engine / Chassis No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>                                <!-- Child Row Template -->
+                <div id="childRowTemplate" class="d-none">
+                    <div class="d-flex flex-row">
+                        <!-- Left Column -->
+                        <div class="flex-grow-1 pe-3" style="flex: 0 0 75%;">
+                            <!-- Order Info -->
+                            <div class="bg-white border-bottom p-2">
+                                <h4 class="text-primary mb-3">
+                                    <span class="text-pink">
+                                        <i class="mdi mdi-file-document me-2"></i>
+                                    </span>
+                                    Order Details
+                                </h4>
+                                <div class="row g-3">
+                                    <div class="col-6"><strong>Order No:</strong> <span data-field="OrderNo">-</span></div>
+                                    <div class="col-6"><strong>Order Date:</strong> <span data-field="ssOrderDate">-</span></div>
+                                    <div class="col-6"><strong>Order By: </strong><span data-field="OEM">-</span>(OEM) <strong>For </strong><span data-field="Dealer">-</span>(Dealer)</div>
+                                    <div class="col-6"><strong>PO No:</strong> <span data-field="DealerPONo">-</span></div>
+                                    <div class="col-6"><strong>SO No:</strong> <span data-field="DealerSONo">-</span></div>
+                                    <div class="col-6"><strong>Part No:</strong> <span data-field="PartNo">-</span></div>
+                                    <div class="col-6"><strong>Front Plate Size:</strong> <span data-field="FrontPlateSize">-</span></div>
+                                    <div class="col-6"><strong>Front Laser No:</strong> <span data-field="FrontLaserSerialNo">-</span></div>
+                                    <div class="col-6"><strong>Rear Plate Size:</strong> <span data-field="RearPlateSize">-</span></div>
+                                    <div class="col-6"><strong>Rear Laser No:</strong> <span data-field="RearLaserSerialNo">-</span></div>
+                                    <div class="col-6"><strong>OEM:</strong> <span data-field="OEM">-</span></div>
+                                    <div class="col-6"><strong>Embossing Station:</strong> <span data-field="EmbossingStation">-</span></div>
+                                </div>
+                            </div>
+
+                            <!-- Vehicle Details -->
+                            <div class="bg-white border-bottom p-2">
+                                <h4 class="text-primary mb-3">
+                                    <span class="text-pink"><i class="mdi mdi-car me-2"></i></span>
+                                    Vehicle Details
+                                </h4>
+                                <div class="row g-3">
+                                    <div class="col-6"><strong>Vehicle No:</strong> <span data-field="RegNo">-</span></div>
+                                    <div class="col-6"><strong>Reg Date:</strong> <span data-field="ssRegDate">-</span></div>
+                                    <div class="col-6"><strong>Chassis No:</strong> <span data-field="ChasisNo">-</span></div>
+                                    <div class="col-6"><strong>Engine No:</strong> <span data-field="EngineNo">-</span></div>
+                                    @*<div class="col-6"><strong>Model:</strong> <span data-field="Model">-</span></div>
+                                        <div class="col-6"><strong>Variant:</strong> <span data-field="Variant">-</span></div>*@
+                                    <div class="col-6"><strong>Plate Color:</strong> <span data-field="PlateColor">-</span></div>
+                                    @*<div class="col-6"><strong>Front Frame No:</strong> <span data-field="FrontFrameNo">-</span></div>
+                                        <div class="col-6"><strong>Rear Frame No:</strong> <span data-field="RearFrameNo">-</span></div>*@
+                                </div>
+                            </div>
+                            <!-- Dealer Details -->
+                            <div class="bg-white border-bottom p-2">
+                                <h4 class="text-primary mb-3">
+                                    <span class="text-pink"><i class="mdi mdi-store me-2"></i></span>
+                                    Dealer Details
+                                </h4>
+                                <div class="row g-3">
+                                    <div class="col-6"><strong>Dealer:</strong> <span data-field="Dealer">-</span></div>
+                                    <div class="col-6"><strong>Dealer Code:</strong> <span data-field="DealerCode">-</span></div>
+                                    <div class="col-6"><strong>Dealer City:</strong> <span data-field="DealerCity">-</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="ps-3" style="flex: 0 0 25%;">
+                            <h4 class="text-primary mb-3">
+                                <i class="mdi mdi-timeline me-2"></i> Order Status Log
+                            </h4>
+                            <ul class="status-timeline verti-timeline list-unstyled mb-4"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="divAddEditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-ms">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mySmallModalLabel">Small modal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        <i class="fas fa-window-close font-size-16 me-2"></i>Close
+                    </button>
+                    @*<button id="btnProceedbyDealer" class="btn btn-success">
+                            <i class="bx bx-check-circle me-1"></i> Proceed
+                        </button>*@
+                    <button id="btnProceed" class="btn btn-success">
+                        <i class="bx bx-check-circle me-1"></i> Proceed
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div>
+    </div>
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+    <input type="hidden" id="hdnHSRPOrderID" />
+    <input type="hidden" id="hdnUserID" value="@Model.LoggedUserID" />
+
+    <script type="text/javascript">
+        var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+        var ListDataUrl = '@Url.Page("/Orders/ManageOrder/CreateJobCard", "CreateJobCardsListData")';
+        var EmbossingStationByUserUrl = '@Url.Page("/GlobalFunctions", "EmbossingStationByUser")';
+        var OEMListByEmbossingStationUrl = '@Url.Page("/GlobalFunctions", "OEMListByEmbossingStation")';
+        var DealerListUrl = '@Url.Page("/GlobalFunctions", "DealerList")';
+        var OrderTypeListUrl = '@Url.Page("/GlobalFunctions", "HsrpOrderTypeList")';
+        var SaveUpdateDataUrl = '@Url.Page("/Orders/ManageOrder/CreateJobCard", "SaveUpdateData")';
+        var SummaryListDataUrl = '@Url.Page("/Orders/ManageOrder/CreateJobCard", "SummaryForLaserNoAllocation")';
+        var OrderReportPDFExportUrl = '@Url.Page("/GlobalReports", "OrderReport")';
+        var TLPStickerPDFExportUrl = '@Url.Page("/GlobalReports", "TLPSticker")';
+        var JobCardPDFExportUrl = '@Url.Page("/GlobalReports", "JobcardReport")';
+        var DealerListByOEMIDUrl = '@Url.Page("/GlobalFunctions", "DealerListByOEMID")';
+        var TimeLineListDataUrl = '@Url.Page("/GlobalFunctions", "OrderStatusTimeline")';
+                   var InvoiceDetailsUrl = '@Url.Page("/GlobalFunctions", "OrderInvoiceDetails")';
+
+         var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+        var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+        var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+        var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+        var _CMPermissions  = @Json.Serialize(Model.Permissions);
+        var currentPageControlID = @Model.CurrentPageControlID;
+    </script>
+    <script src="~/customjs/orders/manageorder/jcreatejobcards.js" type="text/javascript" asp-append-version="true"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var PageAuditData = new Object();
+            PageAuditData.PageControlID = currentPageControlID;
+            PageAuditData.URL = window.location.href;
+            InsertPageAccessAuditLog(_TOKEN, PageAuditData);
+        });
+    </script>
+}

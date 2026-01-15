@@ -1,0 +1,176 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Orders.JobCard.ManageJobCardModel
+@{
+    ViewData["Title"] = "Manage Job Card";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Manage Job Card </h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Orders</a></li>
+                    <li class="breadcrumb-item active">JobCard</li>
+                    <li class="breadcrumb-item active">Manage Job Card </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="WebPageContent d-none">
+    <div class="accordion custom-accordionwithicon custom-accordion-border accordion-border-box accordion-secondary" id="divAdvancedFilter">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="accHeader">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#divAdvancedFilterBody" aria-expanded="true" aria-controls="divAdvancedFilterBody">
+                    <i class="bx bx-filter-alt me-2"></i> Advanced Filter
+                </button>
+            </h2>
+            <div id="divAdvancedFilterBody" class="accordion-collapse collapse show" aria-labelledby="accHeader" data-bs-parent="#divAdvancedFilter">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Date</label>
+                                <div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy" data-date-autoclose="true" data-provide="datepicker" data-date-container="#datepicker6">
+                                    <input type="text" class="form-control" name="start" readonly="true" placeholder="From Date" id="txtStartDate">
+                                    <input type="text" class="form-control" name="end" readonly="true" placeholder="To Date" id="txtEndDate">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label class="col-form-label">Embossing Station</label>
+                                <select id="ddlEmbossingStationFilter" class="form-select select2" data-placeholder="Embossing Station">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="ddlDealerFilter" class="col-form-label">Dealer</label>
+                                <select id="ddlDealerFilter" class="form-select select2" data-placeholder="--Select Dealer--">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <label class="col-form-label">
+                                Search text
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bx bx-search"></i></span>
+                                <input type="text" id="txtSearchbox" class="form-control Maxthreshold" placeholder="Search Text" maxlength="50">
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end align-items-center flex-wrap gap-3 mt-2">
+                            <!-- Right: Buttons -->
+                            <div class="d-flex gap-2">
+                                <button id="btnFilter" type="button" class="btn btn-warning w-auto">
+                                    <i class="ri-equalizer-fill me-1 align-bottom"></i> Filters
+                                </button>
+
+                                <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect" id="btnClearFilter">
+                                    <i class="bi bi-x-circle"></i> Clear
+                                </button>
+                            </div>
+                        </div>
+                        <!--end col-->
+                    </div>
+                    <!--end row-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-2" id="divRecords">
+        <div class="card-body border-bottom">
+            <div class="d-flex align-items-center">
+                <h5 class="mb-0 card-title flex-grow-1"></h5>
+                <div class="flex-shrink-0">
+                    <button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+                        <i class="mdi mdi-refresh label-icon"></i>Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+                <table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+                    <thead class="table-light">
+                        <tr>
+                            <th>S No.</th>
+                            <th>JobCard No</th>
+                            <th>Date</th>
+                            <th>Embossing Name</th>
+                            <th>Embossing City</th>
+                            <th>Order Count</th>                           
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card" id="divAddEdit">
+    <div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+        <h5 class="card-title text-white" id="divCardTitle">
+            <i class="fas fa-plus-square align-middle me-1"></i>
+        </h5>
+        <button type="button" class="btn-close btn-close-white" id="btnCloseWindow"></button>
+    </div>
+    <div id="divJobCardDetails" class="card mb-3 d-none">
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-md-3"><strong>Job Card No:</strong> <span id="spnJobCardNo"></span></div>
+                <div class="col-md-3"><strong>Date:</strong> <span id="spnJobCardDate"></span></div>
+                <div class="col-md-3"><strong>Embossing Station:</strong> <span id="spnEmbossingStation"></span></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div id="divTableData" class="table-responsive"></div>
+
+        <div class="card-footer d-flex justify-content-between">
+            <button id="btnClose" type="button" class="btn btn-outline-danger waves-effect"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+        </div>
+    </div>
+  
+</div>
+
+
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+    <input type="hidden" id="hdnManageJobCardID" />
+
+
+    <script type="text/javascript">
+        var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+         var EmbossingStationListUrl = '@Url.Page("/GlobalFunctions", "EmbossingStationList")';
+        var DealerListUrl = '@Url.Page("/GlobalFunctions", "DealerList")';
+        // Define the URL as a JavaScript variable
+        var ListDataUrl = '@Url.Page("/Orders/JobCard/ManageJobCard", "HSRPJobCardListData")';
+        var JobCardPDFExportUrl = '@Url.Page("/GlobalReports", "JobcardReport")';
+        var GetDataByIDUrl = '@Url.Page("/Orders/JobCard/ManageJobCard", "JobCardByID")';
+                    var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+        var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+        var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+        var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+        var _CMPermissions  = @Json.Serialize(Model.Permissions);
+        var currentPageControlID = @Model.CurrentPageControlID;
+
+    </script>
+
+    <script src="~/customjs/orders/jobcard/jmanagejobcard.js" type="text/javascript" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+             var PageAuditData= new Object();
+            PageAuditData.PageControlID = currentPageControlID;
+            PageAuditData.URL = window.location.href;
+            InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+        });
+    </script>
+}

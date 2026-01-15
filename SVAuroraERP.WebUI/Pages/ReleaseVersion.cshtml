@@ -1,0 +1,1377 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.ReleaseVersionModel
+@{
+	ViewData["Title"] = "Release Updates";
+}
+
+<div class="row" id="home">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Release Updates</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/Index">Home</a></li>
+					<li class="breadcrumb-item active">Release Updates</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+<h1 class="mb-4 text-primary">SV Aurora ERP - Release Notes</h1>
+<div class="row">
+	<div class="col-lg-9">
+		<div class="row" id="v1.0.0.2318DEC2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14">
+										<i class="mdi mdi-information-variant"></i>
+										Release Version
+									</h5>
+									<p class="text-muted mb-0">v1.0.0.23</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14">
+										<i class="bx bx-calendar-check me-1 text-primary"></i>
+										Release Date
+									</h5>
+									<p class="text-muted mb-0">18th Dec, 2025</p>
+								</div>
+							</div>
+						</div>
+
+						<hr>
+
+						<div>
+							<h5>Key Features Added: Enabled New Pages</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<b class="mb-2">Dispatched</b>
+									<p class="text-muted">1) <strong>Dispatched</strong> – Added New Page Under the Manage orders "Dispatched" its View all orders that have been dispatched from the station.</p>
+								</div>
+							</div>
+							<div class="ms-2">
+								<div class="mt-0">
+									<b class="mb-2">Delivery Acknowledgement</b>
+									<p class="text-muted">1) <strong>Delivery Acknowledgement</strong> – Added New Page Under the Manage orders "Delivery Acknowledgement" Its Capture and track confirmation of order delivery.</p>
+								</div>
+							</div>
+							<div class="ms-2">
+								<div class="mt-0">
+									<b class="mb-2">Fitted Orders</b>
+									<p class="text-muted">1) <strong>Fitted Orders</strong> – Added New Page Under the Manage orders "Fitted Orders" its List of orders where plates have been successfully fitted.</p>
+								</div>
+							</div>
+							<div class="ms-2">
+								<div class="mt-0">
+									<b class="mb-2">Fixation Image Reupload</b>
+									<p class="text-muted">1) <strong>Fixation Image Reupload</strong> – Added New Page Under the Manage orders "Fixation Image Reupload" its Allows re-uploading of fixation images for verification.</p>
+								</div>
+							</div>
+							<div class="ms-2">
+								<div class="mt-0">
+									<b class="mb-2">Fixation Reuploaded</b>
+									<p class="text-muted">1) <strong>Fixation Reuploaded</strong> – Added New Page Under the Manage orders "Fixation Reuploaded" its Track orders for which fixation images have been re-uploaded.</p>
+								</div>
+							</div>
+							<div class="ms-2">
+								<div class="mt-0">
+									<b class="mb-2">Export Invoice</b>
+									<p class="text-muted">1) <strong>Export Invoice</strong> – Added New Page Under the Manage orders "Export Invoice" its Export invoice data filtered by OEM, Dealer, and Date Range.</p>
+								</div>
+							</div>
+							<div class="ms-2">
+								<div class="mt-0">
+									<b class="mb-2">API Submitted Orders</b>
+									<p class="text-muted">1) <strong>API Submitted Orders</strong> – Added New Page Under the Manage orders "API Submitted Orders" its View orders successfully submitted to Vahan APIs.</p>
+								</div>
+							</div>
+							<div class="ms-2">
+								<div class="mt-0">
+									<b class="mb-2">Total Cancelled Orders</b>
+									<p class="text-muted">1) <strong>Total Cancelled Orders</strong> – Added New Page Under the Manage orders "Total Cancelled Orders" its Summary of all orders that have been cancelled.</p>
+								</div>
+							</div>
+							<div class="ms-2">
+								<div class="mt-0">
+									<b class="mb-2">Cancelled or Damaged Plate Orders</b>
+									<p class="text-muted">1) <strong>Cancelled or Damaged Plate Orders</strong> – Added New Page Under the Manage orders "Cancelled or Damaged Plate Orders" its List of orders cancelled or affected due to damaged plates.</p>
+								</div>
+							</div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+							
+								<div class="mt-0">
+									<b class="mb-2">Import OEM Data</b>									
+									<p class="text-muted">1) <strong>OEM Data</strong> – After importing OEM data, a status-based summary with categorized “Removed Count” is displayed.</p>
+								</div>										
+								<div class="mt-0">
+									<b class="mb-2">Laser No Allocation</b>
+									<p class="text-muted">1) <strong>Laser No Allocation</strong> – Fixed issues in the Laser Allocation Summary And Added a new column "Front/Rear Size/Color".</p>
+									<p class="text-muted">2) <strong>Laser No Allocation</strong> – Added allocation validation with a confirmation dialog and separate pre-check procedure when orders exceed available laser numbers.</p>
+								</div>							
+								<div class="mt-0">
+									<b class="mb-2">Create Job Card</b>
+									<p class="text-muted">1) <strong>Create Job Card</strong> – Embossing Station dropdown will now load only the stations mapped to the logged-in user.</p>
+								</div>							
+								<div class="mt-0">
+									<b class="mb-2">Cancel Order</b>
+									<p class="text-muted">1) <strong>Cancel Order</strong> – Cancelling an order sets both the order and associated laser number statuses to Cancelled to keep data in sync.</p>
+									<p class="text-muted">2) <strong>Order Rectification – Front Plate Damaged</strong> – Selecting Front Plate Damaged allows changing only the front laser number, with the old laser marked as Rejected/Cancelled.</p>
+									<p class="text-muted">3) <strong>Restricted Editable Fields</strong> – Only HSRP Admin users can edit registration date, chassis number, and engine number; others have read-only access.</p>
+
+								</div>								
+								<div class="mt-0">
+									<b class="mb-2">Quality Processing</b>
+									<p class="text-muted">1) <strong>Image Preview</strong> – Displays a preview of front/rear plate images before completing quality check for visual verification And Restricted to choose only image files.</p>
+								</div>							
+								<div class="mt-0">
+									<b class="mb-2">Create Invoice</b>
+									<p class="text-muted">1) <strong>Create Invoice</strong> – Orders will be auto-selected by default while creating invoices.</p>
+								</div>							
+								<div class="mt-0">
+									<b class="mb-2">Invoice List</b>
+									<p class="text-muted">1) <strong>Invoice List</strong> – Added advanced OEM, Dealer, and Date Range filters, enabled invoice printing from the Action button and side menu name changed <strong>"List Invioce"</strong> To <strong>"Invoice List"</strong></p>
+								</div>								
+								<div class="mt-0">
+									<b class="mb-2">Export Invoice</b>
+									<p class="text-muted">1) <strong>Export Invoice</strong> – Export Invoice supports OEM, Dealer, and Date Range filters with preset options like Today and Yesterday, and exports Excel files in the standard HSRP report format for audit and reporting compatibility.</p>
+								</div>						
+								<div class="mt-0">
+									<b class="mb-2">Generate Delivery / Courier Data</b>
+									<p class="text-muted">1) <strong>Generate Delivery / Courier Data</strong> – Updated Generate Delivery/Courier Data to group only by Dealer ID.</p>
+								</div>							
+								<div class="mt-0">
+									<b class="mb-2">List Delivery</b>
+									<p class="text-muted">1) <strong>List Delivery</strong> – Added New Page To List Delivery Details.</p>
+								</div>							
+								<div class="mt-0">
+									<b class="mb-2">Acknowledge Dispatched Orders</b>
+									<p class="text-muted">1) <strong>Acknowledge Dispatched Orders</strong> – Added Delivery Info in Details.</p>
+								</div>							
+								<div class="mt-0">
+									<b class="mb-2">Vahaan API Submission</b>
+									<p class="text-muted">1) <strong>Vahaan API Submission</strong> – Added Vehicle Category radio buttons.</p>
+								</div>					
+
+								<!-- Jump Link -->
+								<p class="text-end">
+									<a href="#sidemenu" id="sidemenulink">Jump to top</a>
+								</p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.2222NOV2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14">
+										<i class="mdi mdi-information-variant"></i>
+										Release Version
+									</h5>
+									<p class="text-muted mb-0">v1.0.0.22</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14">
+										<i class="bx bx-calendar-check me-1 text-primary"></i>
+										Release Date
+									</h5>
+									<p class="text-muted mb-0">22nd Nov, 2025</p>
+								</div>
+							</div>
+						</div>
+
+						<hr>
+
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+
+								<!-- REPORTS -->
+								<div class="mt-0">
+									<b class="mb-2">Reports Module Enhancements</b>
+									<p class="text-muted">
+										Three new report pages have been enabled under the <strong>Reports</strong> menu:
+									</p>
+									<p class="text-muted ms-3">1) <strong>Raw Material Report</strong> – Provides complete inward, consumption, and stock summary for raw materials.</p>
+									<p class="text-muted ms-3">2) <strong>Number Plate Report</strong> – Displays size-wise, colour-wise inward, consumption, and probable production quantity.</p>
+									<p class="text-muted ms-3">3) <strong>Scrap Stock Report</strong> – New scrap analysis report showing total scrap, sold quantity, and available scrap.</p>
+								</div>
+
+								<br>
+
+								<!-- PRODUCTION -->
+								<div class="mt-0">
+									<b class="mb-2">Production Module Updates</b>
+
+									<p class="text-muted">
+										1) <strong>Laser No Marking</strong> – Partial dispatch has been enabled.
+										Users can now dispatch partial produced plates and move remaining quantities to the next production step.
+									</p>
+
+									<p class="text-muted">
+										2) <strong>Laser No Marking – New Rejected Plate Handling</strong>
+										A new checkbox has been added.
+										When checked, the remaining balance plates will be automatically moved to <strong>Rejected Plates</strong>.
+									</p>
+
+									<p class="text-muted">
+										3) <strong>Hologram Punching</strong> – Partial dispatch functionality has been activated, allowing users to dispatch only the completed quantity and continue the remaining process separately.
+									</p>
+								</div>
+
+								<!-- Jump Link -->
+								<p class="text-end">
+									<a href="#sidemenu" id="sidemenulink">Jump to top</a>
+								</p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.2103thNOV2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14">
+										<i class="mdi mdi-information-variant"></i>
+										Release Version
+									</h5>
+									<p class="text-muted mb-0">v1.0.0.21</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">03rd Nov, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<b class="mb-2">Scrap Management</b>
+									<p class="text-muted">1) <strong>Scrap Entry</strong> - Added new Scrap Entry page to record entry details, sold quantities, and component size information.</p>
+									<b class="mb-2">Orders Delivery</b>
+									<p class="text-muted">1) <strong>Generate Delivery Data</strong> - Added new page to create and manage delivery details including dealer, transport, courier, and consignment information.</p>
+									<p class="text-muted">2) <strong>List Delivery Order</strong> -Added new page to view and manage all delivery orders, showing dealer, transport, courier, consignment, and delivery details along with order summaries</p>
+									<p class="text-muted">3) <strong>Acknowledge Dispatched Orders</strong> - Added new Acknowledge Dispatched Orders Page with fields for dealer, transport, courier, consignment, delivery dates, and order details.</p>
+									<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.2029thOCT2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14">
+										<i class="mdi mdi-information-variant"></i>
+										Release Version
+									</h5>
+									<p class="text-muted mb-0">v1.0.0.20</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">29th OCT, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<b class="mb-2">Master</b>
+									<p class="text-muted">1) <strong>OEM Pricing</strong> - Added a new Master page to manage OEM pricing with part, plate size, accessory, rate, and tracking details.</p>
+									<b class="mb-2">OEM Vendor Mapping</b>
+									<p class="text-muted">1) <strong>OEM Vendor Code Mapping</strong> - Added a new setup to manage vendor codes by OEM and district, with status and tracking details.</p>
+									<p class="text-muted">2) <strong>OEM Vendor Dealer Mapping</strong> - Added a new page to link dealers with OEM vendor codes and embossing stations, including status and tracking details</p>
+									<b class="mb-2">Import</b>
+									<p class="text-muted">1) <strong>Import OEM Data</strong> - Added a new page to Added advanced filtering and display of OEM file count.</p>
+									<b class="mb-2">Manage Order</b>
+									<p class="text-muted">1) <strong>Assigned Laser No</strong> - Added a new page to define the Assigned Laser No.</p>
+									<p class="text-muted">2) <strong>All Orders</strong> - Added a new page to Added advanced filtering and ensured all orders display correctly with Print,Update,Track Status.</p>
+									<p class="text-muted">3) <strong>Laser No Allocation</strong> - Added a new page to Added advanced filtering and ensured Laser No Allocation display correctly with Print Order,Update.</p>
+									<p class="text-muted">4) <strong>Create Job Card</strong> - Added a new page to advanced filtering and ensured Create Job card display correctly with Print,Update.</p>
+									<p class="text-muted">5) <strong>Quality Processing</strong> - Added a new page to advanced filtering and ensured Quality Processingdisplay correctly with Print,Update.</p>
+									<p class="text-muted">6) <strong>QC Completed</strong> - Added a new page to advanced filtering and ensured Quality Processingdisplay correctly with Print,Update,Track Status.</p>
+									<b class="mb-2">Job Card</b>
+									<p class="text-muted">1) <strong>Manage Job Card</strong> - Added a new page to define the Manage Job Card With Advanced filter.</p>
+									<b class="mb-2">Invoice</b>
+									<p class="text-muted">1) <strong>Create Invoice</strong> - Added a new page to define the Create Invoice.</p>
+									<p class="text-muted">2) <strong>List Invoice</strong> - Added a new page to define the List Invoice.</p>
+									<b class="mb-2">Dispatch</b>
+									<p class="text-muted">1) <strong>Map Plate Color</strong> - Added a new page to define the Map Plate Color.</p>
+									<p class="text-muted">2) <strong>Map Plate Size</strong> - Added a new page to define the Map Plate Size.</p>
+									<p class="text-muted">3) <strong>Number Plate Dispatch</strong> - Added a new module to manage dispatch details, including transport mode, courier info, docket details, and status tracking.</p>
+									<p class="text-muted">4) <strong>Delivery Acknowledgement</strong> - Added a new page to define the "Delivery Acknowledgement" To acknowledge the delivery properly.</p>
+									<b class="mb-2">Settings</b>
+									<p class="text-muted">1) <strong>HSRP Config</strong> - Added a new feature to manage role assignments for Super Admin, Admin, OEM, Dealer, and Embossing users with tracking details.</p>
+									<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.1814thJun2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14">
+										<i class="mdi mdi-information-variant"></i>
+										Release Version
+									</h5>
+									<p class="text-muted mb-0">v1.0.0.18</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">14th Jun, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p class="text-muted">1) <strong>Packing</strong> - Added a new page to define the Packing.</p>
+									<p class="text-muted">2) <strong>LaserNo Marking</strong> - Added a new page to define the LaserNo Marking.</p>
+									<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.1710thJun2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14">
+										<i class="mdi mdi-information-variant"></i>
+										Release Version
+									</h5>
+									<p class="text-muted mb-0">v1.0.0.17</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">10th Jun, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p class="text-muted">1) <strong>Hologram Punching</strong> - Added a new page to define the Hologram Punching.</p>
+									
+									<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.1607thJun2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14">
+										<i class="mdi mdi-information-variant"></i>
+										Release Version
+									</h5>
+									<p class="text-muted mb-0">v1.0.0.16</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">7th Jun, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p class="text-muted">1) <strong> Production Calculation </strong> - Added a new page to define the production output quantity.</p>
+									<p class="text-muted">2) <strong> Stock Request </strong> - Modified the workflow as per the discussion. Users can easily visible the In-Production and Available stock.</p>
+									<p class="text-muted">3) <strong> Hydraulic Pressure </strong> - Added a new page specifically for the process and user can enter the production data time to time. Once the Production is completed they can click on "Completed".</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="row" id="v1.0.0.1522ndMay2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14">
+										<i class="mdi mdi-information-variant"></i>
+										Release Version
+									</h5>
+									<p class="text-muted mb-0">v1.0.0.15</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">22nd May, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p class="text-muted">1) <strong> Packing </strong> - Added a new dropdown Alloted To (Embossing Stations).</p>
+									<p class="text-muted">2) <strong> Dispatch </strong> - Mapped Dispatched To dropdown with Embossing Station Names.</p>
+									<p class="text-muted">3) <strong> Production Inward </strong> - Added a new dropdown Operator Name.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="row" id="v1.0.0.1417thMay2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14">
+										<i class="mdi mdi-information-variant"></i>
+										Release Version
+									</h5>
+									<p class="text-muted mb-0">v1.0.0.14</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">17th May, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<b class="mb-2">Master Menu Enabled</b>
+									<p class="text-muted">1) <strong> Vehicle Class</strong> - Added a new page under Master Menu. Define different vehicle classifications(e.g., LMV, MCWG, HMV).</p>
+									<p class="text-muted">2) <strong> Vehicle Plate Color</strong> - Added a new page under Master Menu. Manage and assign plate colors based on vehicle categories.</p>
+									<p class="text-muted">3) <strong> Vehicle Plate Size</strong> - Added a new page under Master Menu. Define and manage various standard plate sizes for different vehicle categories.</p>
+									<p class="text-muted">4) <strong> Vehicle Plate Size Mapping</strong> - Added a new page under Master Menu. Map predefined plate sizes to corresponding vehicle classes.</p>
+									<p class="text-muted">5) <strong> Vehicle Plate Image</strong> - Added a new page under Master Menu. Upload and manage sample images for each plate type.</p>
+									<p class="text-muted">6) <strong> State</strong> - Added a new page under Master Menu. Define all states for vehicle registration and operations.</p>
+									<p class="text-muted">7) <strong> District</strong> - Added a new page under Master Menu. Define districts under each state for regional mapping.</p>
+									<p class="text-muted">8) <strong> Home Fitment Pincode</strong> - Added a new page under Master Menu. Manage serviceable pincodes for home fitment operations.</p>
+									<p class="text-muted">9) <strong> Online Plate Price</strong> - Added a new page under Master Menu. Configure and manage online pricing for plates.</p>
+									<p class="text-muted">10) <strong> HSRP Plate Dimension</strong> - Added a new page under Master Menu. Define standard dimensions for High Security Registration Plates.</p>
+
+									<b class="mb-2">User Enabled</b>
+									<p class="text-muted">11) <strong> Admin</strong> - Added a section for managing admin users and core application configurations.</p>
+									<p class="text-muted">12) <strong> Embossing Station</strong> - Added a new page under Master Menu. Manage details of embossing stations involved in HSRP processing.</p>
+									<p class="text-muted">13) <strong> OEM</strong> - Added a new page under Master Menu. Define and manage Original Equipment Manufacturers.</p>
+									<p class="text-muted">14) <strong> Dealer</strong> - Added a new page under Master Menu. Manage vehicle dealers linked with OEMs.</p>
+
+									<b class="mb-2">Sub Users Menu Enabled</b>
+									<p class="text-muted">15) <strong> OEM Sub Users</strong> - Added a new page under Master Menu. Create and manage sub-users under OEMs.</p>
+									<p class="text-muted">16) <strong> Dealer Sub Users</strong> - Added a new page under Master Menu. Create and manage sub-users under Dealers.</p>
+									<p class="text-muted">17) <strong> Embossing Sub Users</strong> - Added a new page under Master Menu. Create and manage sub-users under Embossing Stations.</p>
+									<p class="text-muted">18) <strong> HSRP Part Number</strong> - Added a new page under Master Menu. Manage HSRP part numbers for inventory and identification.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.1302ndMay2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14">
+										<i class="mdi mdi-information-variant"></i>
+										Release Version
+									</h5>
+									<p class="text-muted mb-0">v1.0.0.13</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">02nd May, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p class="text-muted">1) <strong> Number Plate Dispatch </strong> - Added a new page under Dispatch Menu. Introduced Number Plate Dispatch Module to streamline and manage Dispatch operations efficiently.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.1225thApr2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14">
+										<i class="mdi mdi-information-variant"></i>
+										Release Version
+									</h5>
+									<p class="text-muted mb-0">v1.0.0.12</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">26th Apr, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p class="text-muted">1) <strong> Box </strong> - Added a new page under Master Menu. Define your Box.</p>
+									<p class="text-muted">2) <strong> Courier </strong> - Added a new page under Master Menu. Manage your Courier.</p>
+
+									<p class="text-muted">3) <strong> Packing </strong> - Added a new page under Dispatch Menu. Introduced Packing Module to streamline and manage packing operations efficiently.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.1129thMar2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14">
+										<i class="mdi mdi-information-variant"></i>
+										Release Version
+									</h5>
+									<p class="text-muted mb-0">v1.0.0.11</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">29th Mar, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p class="text-muted">1) <strong> Laser No. Marking </strong> - Added a new page under Production Menu. Assign Laser No to each plates when Hologram is fixed.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.1025thMar2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14">
+										<i class="mdi mdi-information-variant"></i>
+										Release Version
+									</h5>
+									<p class="text-muted mb-0">v1.0.0.10</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">25th Mar, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div>
+							<h5>Key Features Added:Enabled New Menu "Machines"</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p class="text-muted">1) <strong> Machines </strong> - Added a new page "Machines" under Master menu. Helps to track the available machines for Hologram/Laser No.</p>
+									<p class="text-muted">2)  Added a new page "Production Completed" in Production Process.</p>
+									<p class="text-muted">3) <strong> Hologram Punching </strong> - Added a new page under Production Menu. History can be maintained for Hologram Punching details like Machine, Operator and Rejected Plates and Production Quantity.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.917thMar2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="dripicons-italic me-1 text-primary"></i>Release Version</h5>
+									<p class="text-muted mb-0">v1.0.0.9</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">17th Mar, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p class="text-muted">1) <strong>Rack Location</strong> - Added and optimized the Warehouse Master screen for efficient management of warehouse details.</p></p>
+									<p class="text-muted">2) Completed Inspection - Added an action button "Delete". If anything went wrong, you can delete the Inward.</p>
+									<p class="text-muted">3) Batch Stock - Replaced by Stock Report.</p>
+
+									<b>Production Menu Enabled</b>
+
+									<p class="text-muted mt-2">1) <strong>Production Configuration</strong> - User can configure the Production Process Input/Output Component by own.</p>
+									<p class="text-muted">2) <strong>Stock Request</strong> - Machine Operator can place their required stock request by selecting Production Process.</p>
+									<p class="text-muted">3) <strong>Pending for Approval</strong> - Stock Request will be listed out for approval. Approver review and approve the stock request. Stock will be deducted from the warehouse.</p>
+
+									Dated: 19th Mar 2025 (Enhancements)
+									<p class="text-muted">4) <strong>Production Inward</strong> - Approved requests are ready for input of Production Inward details.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.804thMar2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="dripicons-italic me-1 text-primary"></i>Release Version</h5>
+									<p class="text-muted mb-0">v1.0.0.8</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">4th Mar, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p class="text-muted">1) <strong>Warehouse</strong> - Added and optimized the Warehouse Master screen for efficient management of warehouse details.</p>
+									<p class="text-muted">2) <strong>Rack Location</strong> - Introduced the Rack Location screen to streamline the management and organization of storage locations.</p>
+									<p class="text-muted">3) Pending Inspection - Added Pending, Excess and Less Quantity. Status optimization done. Removed Save/Updated button, whenever add/update batch entry it will be affected directly in DB.</p>
+
+									Dated: 12th Mar 2025 (Enhancements)
+									<p class="text-muted">1) <strong>Rack Location</strong> - Added Component Type and Enabled a new tab to enter Rack Capacity, Size wise.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.726thFeb2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="dripicons-italic me-1 text-primary"></i>Release Version</h5>
+									<p class="text-muted mb-0">v1.0.0.7</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">26th Feb, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p class="text-muted">1) Updated User Profile Page with Tab View for easy access.</p>
+									<p class="text-muted">2) Purchase Entry - Limited by 250 recent records to reduce the loading time.</p>
+									<p class="text-muted">3) <strong>Search Purchase Entry</strong> - Added a new page, where user can search all Purchase Entry Data with filter placed.</p>
+									<p class="text-muted">4) Pending Inspection - Fixed issue in Batch No allocation and Batch Quantity Update.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.623rdFeb2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="dripicons-italic me-1 text-primary"></i>Release Version</h5>
+									<p class="text-muted mb-0">v1.0.0.6</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">23rd Feb, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p class="text-muted">1) Added a new page "User Profile", where user can Change password, Update Profile Info & Picture. Also setup their Apps to access quickly into App Launcher (Drag & Drop).</p>
+									<p class="text-muted">2) App Launcher - Enables users to quickly access their frequently used pages with ease.</p>
+
+									<p><b>Dt: 24th Feb 2025</b></p>
+									<p class="text-muted">1) Pending Inspection - Fixed issue in updating the status based on Quantity.</p>
+
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.519thFeb2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="dripicons-italic me-1 text-primary"></i>Release Version</h5>
+									<p class="text-muted mb-0">v1.0.0.5</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">19th Feb, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p class="text-muted">1) Added Completed Inspection page under Material Inspection.</p>
+									<p class="text-muted">2) Fixed Order by in Component Type and Employee page. Removed "Save & New" button in Employee Page</p>
+
+									<p><b>Enabled Settings Menu</b></p>
+									<p class="text-muted">1) Roles - Added Roles Page for defining role names </p>
+									<p class="text-muted">2) Role Configuration -Implemented Role Configuration Page to manage permissions module-wise, menu-wise, and page-wise. </p>
+									<p class="text-muted">3) Users - Enhanced User Page with role assignment functionality </p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.418thFeb2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="dripicons-italic me-1 text-primary"></i>Release Version</h5>
+									<p class="text-muted mb-0">v1.0.0.4</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">18th Feb, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p class="text-muted">1) Pending Inspection - Fixed issues in showing Save/Update button and added Status and Component Name is list view. It will show Pending/In-Progress Inspection.</p>
+									<p class="text-muted">2) Added a new page Stock Report, this will display the completed Inspection details</p>
+									<p class="text-muted">3) In Purchase Entry, Added Status in list view</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.314thFeb2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="dripicons-italic me-1 text-primary"></i>Release Version</h5>
+									<p class="text-muted mb-0">v1.0.0.3</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">14th Feb, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p><b>Purchase Order</b></p>
+									<p class="text-muted">1) Enabled a new icon to create Purchase Entry.</p>
+									<p class="text-muted">2) PO status will be "Pending" initially. When Purchase Entry is added for the PO then the status will be changed "Completed".</p>
+
+									<p><b>Purchase Entry</b></p>
+									<p class="text-muted">1) Removed "Add New" button and linked with PO.</p>
+									<p class="text-muted">2) Disabled Supplier Selection.</p>
+									<p class="text-muted">3) Added PO details when adding new Purchase Entry.</p>
+									<p class="text-muted">4) In Item table view, removed individual tax details. "Tax Total" renamed "Total Tax" before Sub Total.</p>
+
+									<p><b>Pending Inspection</b></p>
+									<p class="text-muted">1) In Item List View added a column "Component Type" after click on Proceed button.</p>
+									<p class="text-muted">2) Automation of Batch Inspection for other components, Except Aluminium Coil. It will prompt for a confirmation and Batch No will be assigned.</p>
+									<p class="text-muted">3) Enabled advance filter.</p>
+									<p class="text-muted">4) When Item & Batch quantity are matched then the status will be changed to "Completed", you can not add further batch for the item. When the Batch data is deleted, it will go back to the original state.</p>
+
+									<p><b>Dt: 15th Feb 2025</b></p>
+									<p class="text-muted">1) Purchase Entry - Fixed seeing Error Dialog box.</p>
+									<p class="text-muted">2) Master - Fixed list view order by code in Unit, Tax, Size, Color, Category, Component Type, Item, Document Group and Document Type.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.203rdFeb2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="dripicons-italic me-1 text-primary"></i>Release Version</h5>
+									<p class="text-muted mb-0">v1.0.0.2</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">03rd Feb, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p><b>Master</b></p>
+									<p class="text-muted">1) <b>Component Type</b>: For Streamlined classification and management.</p>
+									<p class="text-muted">2) <b>Document Group</b>: For efficient document categorization and management.</p>
+									<p class="text-muted">3) <b>Document Type</b>: For structured document classification and management.</p>
+									<p class="text-muted">4) <b>Category</b>: For Item classification and organization.</p>
+									<p class="text-muted">5) <b>Item</b>: Modified Item, Include Category and Component Type dropdowns. List sorted by Item Code</p>
+
+									<p><b>Purchase</b></p>
+									<p class="text-muted">1) <b>Supplier</b>: List sorted by Supplier Code. Added validation for duplicate check before hitting the Save/Update button.</p>
+									<p class="text-muted">2) <b>Purchase Order</b>: For streamlined procurement and management.</p>
+									<p class="text-muted">3) <b>Purchase Entry</b>: Removed Nos mandatory and it will accept 0 as well.</p>
+
+									<p><b>Material Management</b></p>
+									<p class="text-muted">1) <b>Material Management</b>: Renamed Material Inspection into Material Management.</p>
+									<p class="text-muted">2) <b>Pending Inspection</b>: Renamed Material Inward Inspection into Pending Inpsection.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.127thJan2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="dripicons-italic me-1 text-primary"></i>Release Version</h5>
+									<p class="text-muted mb-0">v1.0.0.1</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i>Release Date</h5>
+									<p class="text-muted mb-0">27th Jan, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<div>
+							<h5>Key Features Added: Enabled Material Inspection Menu</h5>
+							<div class="ms-2">
+								<div class="mt-0">
+									<p class="text-muted">1) <b>Material Inward Inspection</b>: Implemented Material Inward Inspection feature for streamlined tracking and quality checks.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.013thJan2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto">
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="dripicons-italic me-1 text-primary"></i>Release Version</h5>
+									<p class="text-muted mb-0">v1.0.0.0</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i> Release Date </h5>
+									<p class="text-muted mb-0">13th Jan, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-3">
+									<p><b>Purchase</b></p>
+									<p class="text-muted">1) <b>Purchase Entry</b>: Implemented functionality for recording and managing product purchases in the Purchase Entry screen.</p>
+
+									<p class="text-muted"><b>Note :</b> Updated the all dropdown to Searchable dropdown.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.06thJan2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto ">
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="dripicons-italic me-1 text-primary"></i>Release Version</h5>
+									<p class="text-muted mb-0">v1.0.0.0</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i> Release Date </h5>
+									<p class="text-muted mb-0">06th Jan, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<div>
+							<h5>Key Features Added: Enabled Purchase Menu</h5>
+							<div class="ms-2">
+								<div class="mt-3">
+									<p class="text-muted">1) <b>Supplier</b>: Manage supplier details and contact information..</p>
+									<p class="text-muted">2) <b>Purchase Entry</b>: Screen Designed</p>
+									<p class="text-muted"><b>Master Menu</b></p>
+									<p class="text-muted">3) <b>Other Charges</b>: Define and manage additional charges applicable to transactions.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.05thJan2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto ">
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="dripicons-italic me-1 text-primary"></i>Release Version</h5>
+									<p class="text-muted mb-0">v1.0.0.0</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i> Release Date </h5>
+									<p class="text-muted mb-0">05th Jan, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<div>
+							<h5>Key Features Added</h5>
+							<div class="ms-2">
+								<div class="mt-3">
+									<p class="text-muted">1) <b>Item</b>: Added Category, Color and Size dropdown in Item Page.</p>
+									<p class="text-muted"><b>Enabled HR Menu</b></p>
+									<p class="text-muted">2) <b>Designation</b>: Manage job roles and designations within the organization.</p>
+									<p class="text-muted">3) <b>Employee</b>: Add, update, and manage employee information and records.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="v1.0.0.04thJan2025">
+			<div class="card">
+				<div class="card-body">
+					<div class="container my-2">
+						<div class="d-flex flex-wrap task-dates mb-4">
+							<div class="me-auto ">
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="dripicons-italic me-1 text-primary"></i>Release Version</h5>
+									<p class="text-muted mb-0">v1.0.0.0</p>
+								</div>
+							</div>
+							<div>
+								<div class="mt-0">
+									<h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i> Release Date </h5>
+									<p class="text-muted mb-0">04th Jan, 2025</p>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<div>
+							<h5>Key Features Added: Enabled New Menu "Master"</h5>
+							<div class="ms-2">
+								<div class="mt-3">
+									<p class="text-muted">1) <b>Company</b>: Manage company details including name, address, and contact information.</p>
+									<p class="text-muted">2) <b>Unit</b>: Define and maintain measurement units for item management.</p>
+									<p class="text-muted">3) <b>Tax</b>: Set up and configure tax rates applicable to transactions.</p>
+									<p class="text-muted">4) <b>Size</b>: Maintain available size options for products or inventory.</p>
+									<p class="text-muted">5) <b>Color</b>: Manage color categories for product classification.</p>
+									<p class="text-muted">6) <b>Item</b>: Add and manage product details including descriptions, prices, and stock.</p>
+								</div>
+								<p class="text-end"><a href="#sidemenu" id="sidemenulink">Jump to top</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3" id="sidemenu">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title mb-4">Version Details</h4>
+				<div class="table-responsive">
+					<table class="table align-middle table-nowrap table-sm">
+						<tbody>
+							<tr>
+								<td><a class="text-dark">18th Dec, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.2318DEC2025" id="v1.0.0.2318DEC2025">Version 1.0.0.23</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">22rd Nov, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.2222NOV2025" id="v1.0.0.2222ndNOV2025">Version 1.0.0.22</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">03rd Nov, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.2103thNOV2025" id="v1.0.0.2103thNOV2025">Version 1.0.0.21</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">29th Oct, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.2029thOCT2025" id="v1.0.0.2029thOCT2025">Version 1.0.0.20</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">14th Jun, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.1814thJun2025" id="v1.0.0.1814thJun2025">Version 1.0.0.18</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">10th Jun, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.1710thJun2025" id="v1.0.0.1710thJun2025">Version 1.0.0.17</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">07th Jun, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.1607thJun2025" id="v1.0.0.1607thJun2025">Version 1.0.0.16</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">22nd May, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.1522ndMay2025" id="v1.0.0.1522ndMay2025">Version 1.0.0.15</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">17th May, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.1417thMay2025" id="v1.0.0.1417thMay2025">Version 1.0.0.14</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">02nd May, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.1302ndMay2025" id="v1.0.0.1302ndMay2025">Version 1.0.0.13</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">26th Apr, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.1225thApr2025" id="v1.0.0.1225thApr2025">Version 1.0.0.12</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">29th Mar, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.1129thMar2025" id="v1.0.0.1129thMar2025">Version 1.0.0.11</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">25th Mar, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.1025thMar2025" id="v1.0.0.1025thMar2025">Version 1.0.0.10</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">17th Mar, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.917thMar2025" id="v1.0.0.917thMar2025">Version 1.0.0.9</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">4th Mar, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.804thMar2025" id="v1.0.0.804thMar2025">Version 1.0.0.8</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">26th Feb, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.726thFeb2025" id="v1.0.0.726thFeb2025">Version 1.0.0.7</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">23rd Feb, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.623rdFeb2025" id="v1.0.0.623rdFeb2025">Version 1.0.0.6</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">19th Feb, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.519thFeb2025" id="v1.0.0.419thFeb2025">Version 1.0.0.5</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">18th Feb, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.418thFeb2025" id="v1.0.0.418thFeb2025">Version 1.0.0.4</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">14th Feb, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.314thFeb2025" id="v1.0.0.314thFeb2025">Version 1.0.0.3</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">03rd Feb, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.203rdFeb2025" id="v1.0.0.203rdFeb2025">Version 1.0.0.2</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">27th Jan, 2025</a></td>
+								<td>
+									<a href="#v1.0.0.127thJan2025" id="v1.0.0.127thJan2025">Version 1.0.0.1</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">13th Jan, 2025 </a></td>
+								<td>
+									<a href="#v1.0.0.013thJan2025" id="v1.0.0.013thJan2025">Version 1.0.0.0</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">06th Jan, 2025 </a></td>
+								<td>
+									<a href="#v1.0.0.06thJan2025" id="v1.0.0.06thJan2025">Version 1.0.0.0</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">05th Jan 2025 </a></td>
+								<td>
+									<a href="#v1.0.0.05thJan2025" id="v1.0.0.05thJan2025">Version 1.0.0.0</a>
+								</td>
+							</tr>
+							<tr>
+								<td><a class="text-dark">04th Jan 2025 </a></td>
+								<td>
+									<a href="#v1.0.0.04thJan2025" id="v1.0.0.04thJan2025">Version 1.0.0.0</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<script>
+	$(document).ready(function(){
+		$('#sidemenulink').on('click', function(event) {
+			event.preventDefault();
+			$('html, body').animate({
+				scrollTop: $('#home').offset().top
+			- $('nav').outerHeight()
+			}, 1000);
+		});
+	});
+</script>

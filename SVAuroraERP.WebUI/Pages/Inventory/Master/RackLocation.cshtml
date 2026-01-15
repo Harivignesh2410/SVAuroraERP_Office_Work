@@ -1,0 +1,178 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.Master.RackLocationModel
+@{
+	ViewData["Title"] = "RackLocation";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">RackLocation</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item"><a href="#">Master</a></li>
+					<li class="breadcrumb-item active">Rack Location</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="WebPageContent d-none">
+	<div class="card">
+		<div class="card-body border-bottom">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 card-title flex-grow-1"></h5>
+				<div class="flex-shrink-0">
+					<button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#divAddEditModal" title="Click here to Add New">
+						<i class="fas fa-plus-square label-icon"></i>Add New
+					</button>
+					<button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+						<i class="mdi mdi-refresh label-icon"></i>Refresh
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+				<thead class="table-light">
+					<tr>
+						<th>S No.</th>
+						<th>Code</th>
+						<th>Name</th>
+						<th>WareHouse</th>
+						<th>ComponentType</th>
+						<th class="text-center">Status</th>
+						<th class="text-center">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="modal fade" id="divAddEditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-info">
+					<h5 class="modal-title add-task-title text-white" style="display: block;"><i class="bx bxs-plus-square font-size-20 align-middle me-1"></i> </h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
+						<li class="nav-item" role="presentation">
+							<a class="nav-link active" data-bs-toggle="tab" href="#divRackLocation" role="tab" aria-selected="true">
+								<span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+								<span class="d-none d-sm-block">Rack Location</span>
+							</a>
+						</li>
+						<li class="nav-item" role="presentation" id="tabRackCapacity">
+							<a class="nav-link disable" data-bs-toggle="tab" href="#divRackCapacity" role="tab" aria-selected="false" tabindex="-1">
+								<span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+								<span class="d-none d-sm-block">Rack Capacity</span>
+							</a>
+						</li>
+					</ul>
+					<div class="tab-content p-3 text-muted">
+						<div class="tab-pane fade show active" id="divRackLocation" role="tabpanel">
+							<p class="card-title-desc mb-0">Please fill in all required fields&nbsp;<span class="text-danger">*</span></p>
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="form-group">
+										<label class="col-form-label">WareHouse&nbsp;<span class="text-danger">*</span></label>
+										<select id="ddlWareHouse" class="form-select select2" asp-items="Model.WareHouseList" asp-data-placeholder="Select WareHouse">
+										</select>
+									</div>
+									<div class="form-group" id="divRackLocationCode">
+										<label for="txtRackLocationCode" class="col-form-label">RackLocation Code&nbsp;<span class="text-danger me-1">*</span></label>
+										<input id="txtRackLocationCode" name="txtRackLocationCode" type="text" class="form-control MaxThreshold" placeholder="Please enter RackLocation Code..." maxlength="50">
+									</div>
+									<div class="form-group" id="divRackLocationName">
+										<label for="txtRackLocationName" class="col-form-label">RackLocation Name&nbsp;<span class="text-danger me-1">*</span></label>
+										<input id="txtRackLocationName" name="txtRackLocationName" type="text" class="form-control MaxThreshold" placeholder="Please enter RackLocation Name..." maxlength="250">
+									</div>
+									<div class="form-group">
+										<label class="col-form-label">Component Type&nbsp;<span class="text-danger">*</span></label>
+										<select id="ddlComponentType" class="form-select select2" asp-items="Model.ComponentTypeList" asp-data-placeholder="Select ComponentType">
+										</select>
+									</div>
+									<div class="form-check mt-2">
+										<div class="form-check-inline form-check-success">
+											<input type="checkbox" class="form-check-input" id="chkActive" checked="checked">
+											<label class="custom-control-label" for="chkActive">Active</label>
+										</div>
+									</div>
+
+									<div class="row d-flex justify-content-between mt-2" id="divRecordLog">
+										<div class="col-md-6">
+											<span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+										</div>
+										<div class="col-md-6">
+											<span class="fw-lighter fst-italic" id="spnLastUpdatedDate"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer d-flex justify-content-between">
+								<button id="btnClose" type="button" class="btn btn-outline-danger waves-effect" data-bs-dismiss="modal"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+								<button id="btnSave" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save</button>
+								<button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-edit font-size-20 align-middle me-2"></i>Update</button>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="divRackCapacity" role="tabpanel">
+							<div id="divListSize"></div>
+							<div class="modal-footer d-flex justify-content-between">
+								<button id="btnCloseCapacity" type="button" class="btn btn-outline-danger waves-effect" data-bs-dismiss="modal"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+								<button id="btnSaveCapacity" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save Capacity</button>
+								<button id="btnUpdateCapacity" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-edit font-size-20 align-middle me-2"></i>Update Capacity</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+
+@section Scripts {
+	<input type="hidden" id="hdnRackLocationID" />
+	<input type="hidden" id="hdnRackLocationSizeCapacityID" />
+	<input type="hidden" id="hdnSNo" />
+
+    <script type="text/javascript">
+		// Define the URL as a JavaScript variable
+
+		var SaveUpdateDataUrl = '@Url.Page("/Inventory/Master/RackLocation", "SaveUpdateData")';
+		var ListDataUrl = '@Url.Page("/Inventory/Master/RackLocation", "RackLocationList")';
+		var GetDataByIDUrl = '@Url.Page("/Inventory/Master/RackLocation", "RackLocationByID")';
+		var DeleteDataUrl = '@Url.Page("/Inventory/Master/RackLocation", "DeleteData")';
+		var GetSizeListUrl = '@Url.Page("/Inventory/Master/RackLocation", "SizeList")';
+		var SaveandUpdateRackCapacityUrl = '@Url.Page("/Inventory/Master/RackLocation", "SaveandUpdateRackCapacity")';
+		var UpdateRackCapacityUrl = '@Url.Page("/Inventory/Master/RackLocation", "UpdateRackCapacity")';
+        var RackLocationDataTableaUrl = '@Url.Page("/Inventory/Master/RackLocation", "RackLocationDataTable")';
+
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+		// Pass permissions to JavaScript
+		var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+    </script>
+
+	<script src="~/customjs/inventory/master/jracklocation.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+            var PageAuditData = new Object();
+            PageAuditData.PageControlID = currentPageControlID;
+            PageAuditData.URL = window.location.href;
+            InsertPageAccessAuditLog(_TOKEN, PageAuditData);
+		});
+	</script>
+}

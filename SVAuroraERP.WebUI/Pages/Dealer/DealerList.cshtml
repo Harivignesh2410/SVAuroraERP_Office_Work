@@ -1,0 +1,77 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Dealer.DealerListModel
+@{
+    ViewData["Title"] = "Dealer List";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Dealer List</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Dealer</a></li>
+                    <li class="breadcrumb-item active">Dealer List</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="WebPageContent d-none1">
+    <div class="card">
+        <div class="card-body border-bottom">
+            <div class="d-flex align-items-center">
+                <h5 class="mb-0 card-title flex-grow-1"></h5>
+                <div class="flex-shrink-0">
+                    <button id="btnRefresh" type="button" class="btn btn-info waves-effect btn-label waves-light" title="Click here to Add New">
+                        <i class="mdi mdi-refresh label-icon"></i>Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+                <table id="tblrecordlist"
+                       class="table align-middle dt-responsive nowrap w-100 table-check">
+                    <thead class="table-light">
+                        <tr>
+                            <th>S No.</th>
+                            <th>Code</th>
+                            <th>Dealer Name</th>
+                            <th>Contact Person</th>
+                            <th>Address</th>
+                            <th>Delivery Address</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>                                <!-- Child Row Template -->
+            </div>
+        </div>
+    </div>
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+    <input type="hidden" id="hdnHSRPOrderID" />
+
+    <script type="text/javascript">
+        var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+        var ListDataUrl = '@Url.Page("/Dealer/DealerList", "DealerListByOEM")';
+                    var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+        var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+        var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+        var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+        var _CMPermissions  = @Json.Serialize(Model.Permissions);
+        var currentPageControlID = @Model.CurrentPageControlID;
+    </script>
+    <script src="~/customjs/dealer/jdealerlist.js" type="text/javascript" asp-append-version="true"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var PageAuditData= new Object();
+            PageAuditData.PageControlID = currentPageControlID;
+            PageAuditData.URL = window.location.href;
+            InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+        });
+    </script>
+}

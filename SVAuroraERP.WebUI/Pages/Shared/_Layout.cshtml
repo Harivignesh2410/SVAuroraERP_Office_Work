@@ -1,0 +1,459 @@
+﻿@inject AppVersionService AppVersionService
+@inject SVAuroraERP.Application.MenuService MenuService
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+	<meta content="SV Aurora ERP" name="description" />
+	<meta content="SV Aurora ERP" name="author" />
+
+	<!-- App favicon -->
+	<link rel="shortcut icon" href="~/assets/images/favicon.ico">
+
+	<title>@ViewData["Title"] | SV Aurora ERP</title>
+	<link href="~/assets/libs/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+	<!-- Sweet Alert-->
+	<link href="~/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+
+	<!-- Select2 -->
+	<link href="~/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+	<link href="~/assets/libs/select2/css/select2-bootstrap4.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+
+	<!-- DateTimePicker css -->
+	<link href="~/assets/libs/bootstrapdatepicker/bootstrap-datetimepicker.min.v3.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+
+	<!-- DataTables -->
+	<link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+	<!-- Responsive datatable examples -->
+	<link href="~/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+
+	<!-- jgrowl -->
+	<link href="~/assets/libs/jgrowl/jquery.jgrowl.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+
+	<!-- Bootstrap Css -->
+	<link href="~/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+	<!-- Icons Css -->
+	<link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+	<!-- App Css-->
+	<link href="~/assets/css/app.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+
+	<link href="~/assets/libs/datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+
+	<!-- Dragula-->
+	<link href="~/assets/libs/dragula/css/responsive-dragula.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+	<link href="~/assets/libs/tui-calendar/tui-calendar.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+	<link href="~/assets/libs/tui-date-picker/tui-date-picker.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+	<link href="~/assets/libs/tui-time-picker/tui-time-picker.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+
+	@RenderSection("Styles", required: false)
+</head>
+
+<body data-sidebar="dark">
+	<script src="~/assets/libs/jquery/jquery.min.js" type="text/javascript" asp-append-version="true"></script>
+
+	<!-- Begin page -->
+	<div id="layout-wrapper">
+		<header id="page-topbar">
+			<div class="navbar-header">
+				<div class="d-flex">
+					<!-- LOGO -->
+					<div class="navbar-brand-box">
+						<a asp-area="" asp-page="/AppLauncher" class="logo logo-dark">
+							<span class="logo-sm">
+								<img src="~/assets/images/logo.svg" alt="" height="22">
+							</span>
+							<span class="logo-lg">
+								<img src="~/assets/images/logo-dark.png" alt="" height="17">
+							</span>
+						</a>
+
+						<a asp-area="" asp-page="/AppLauncher" class="logo logo-light">
+							<span class="logo-sm">
+								<img src="~/assets/images/favicon.ico" alt="" height="22">
+							</span>
+							<span class="logo-lg">
+								<img src="~/assets/images/logo-light.png" alt="" height="50">
+							</span>
+						</a>
+					</div>
+
+					<button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
+						<i class="fa fa-fw fa-bars"></i>
+					</button>
+
+					<!-- App Search-->
+					<form class="app-search d-none d-lg-block">
+						<div class="position-relative">
+							<input type="text" class="form-control" placeholder="Search...">
+							<span class="bx bx-search-alt"></span>
+						</div>
+					</form>
+				</div>
+
+				<div class="d-flex">
+					<div class="dropdown d-inline-block d-none">
+						<button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
+								data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="bx bx-bell bx-tada"></i>
+							<span class="badge bg-danger rounded-pill">3</span>
+						</button>
+						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+							 aria-labelledby="page-header-notifications-dropdown">
+							<div class="p-3">
+								<div class="row align-items-center">
+									<div class="col">
+										<h6 class="m-0" key="t-notifications"> Notifications </h6>
+									</div>
+									<div class="col-auto">
+										<a href="#!" class="small" key="t-view-all">View All</a>
+									</div>
+								</div>
+							</div>
+							<div data-simplebar style="max-height: 230px;">
+								<a href="javascript: void(0);" class="text-reset notification-item">
+									<div class="d-flex">
+										<div class="avatar-xs me-3">
+											<span class="avatar-title bg-primary rounded-circle font-size-16">
+												<i class="bx bx-cart"></i>
+											</span>
+										</div>
+										<div class="flex-grow-1">
+											<h6 class="mb-1" key="t-your-order">Your order is placed</h6>
+											<div class="font-size-12 text-muted">
+												<p class="mb-1" key="t-grammer">If several languages coalesce the grammar</p>
+												<p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span key="t-min-ago">3 min ago</span></p>
+											</div>
+										</div>
+									</div>
+								</a>
+								<a href="javascript: void(0);" class="text-reset notification-item">
+									<div class="d-flex">
+										<img src="~/images/users/avatar-3.jpg"
+											 class="me-3 rounded-circle avatar-xs" alt="user-pic">
+										<div class="flex-grow-1">
+											<h6 class="mb-1">James Lemire</h6>
+											<div class="font-size-12 text-muted">
+												<p class="mb-1" key="t-simplified">It will seem like simplified English.</p>
+												<p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span key="t-hours-ago">1 hours ago</span></p>
+											</div>
+										</div>
+									</div>
+								</a>
+								<a href="javascript: void(0);" class="text-reset notification-item">
+									<div class="d-flex">
+										<div class="avatar-xs me-3">
+											<span class="avatar-title bg-success rounded-circle font-size-16">
+												<i class="bx bx-badge-check"></i>
+											</span>
+										</div>
+										<div class="flex-grow-1">
+											<h6 class="mb-1" key="t-shipped">Your item is shipped</h6>
+											<div class="font-size-12 text-muted">
+												<p class="mb-1" key="t-grammer">If several languages coalesce the grammar</p>
+												<p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span key="t-min-ago">3 min ago</span></p>
+											</div>
+										</div>
+									</div>
+								</a>
+
+								<a href="javascript: void(0);" class="text-reset notification-item">
+									<div class="d-flex">
+										<img src="~/assets/images/users/avatar-4.jpg"
+											 class="me-3 rounded-circle avatar-xs" alt="user-pic">
+										<div class="flex-grow-1">
+											<h6 class="mb-1">Salena Layfield</h6>
+											<div class="font-size-12 text-muted">
+												<p class="mb-1" key="t-occidental">As a skeptical Cambridge friend of mine occidental.</p>
+												<p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span key="t-hours-ago">1 hours ago</span></p>
+											</div>
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="p-2 border-top d-grid">
+								<a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
+									<i class="mdi mdi-arrow-right-circle me-1"></i> <span key="t-view-more">View More..</span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="dropdown d-inline-block">
+						<button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+								data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<img class="rounded-circle header-profile-user" src="~/assets/images/users/avatar-1.jpg"
+								 alt="Header Avatar">
+							@if (User.Identity.IsAuthenticated)
+							{
+								<span class="d-none d-xl-inline-block ms-1" key="t-henry">@User.Identity.Name.ToUpper()</span>
+							}
+							<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+						</button>
+						<div class="dropdown-menu dropdown-menu-end">
+							<!-- item-->
+							@* <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Profile</span></a> *@
+							<a class="dropdown-item" aria-expanded="false" asp-page="/UserProfile">
+								<i class="bx bx-user font-size-16 align-middle me-1"></i>
+								<span key="t-chat">User Profile</span>
+							</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item text-danger" asp-page="/SignOut"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">SignOut</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- ========== Left Sidebar Start ========== -->
+		<div class="vertical-menu">
+			<div data-simplebar class="h-100">
+				<!--- Sidemenu -->
+				<div id="sidebar-menu">
+					@{
+						var userRoleId = Convert.ToInt32(HttpContextAccessor.HttpContext.User.FindFirst("RoleId")?.Value);
+						var menus = MenuService.DrawMenuLayoutByRoleID(userRoleId);
+					}
+
+					<!-- Left Menu Start -->
+					<ul class="metismenu list-unstyled" id="side-menu">
+						@foreach (var group in menus)
+						{
+							<li class="menu-title" key="t-menu">@group.MenuGroupName</li>
+
+							@foreach (var menu in group.MenuControlList)
+							{
+								<li class="">
+									<a href="javascript: void(0);" class="has-arrow waves-effect" aria-expanded="false">
+										<i class="@menu.MenuIcon"></i>
+										<span key="t-{@menu.MenuName}">	@menu.MenuDisplayName</span>
+									</a>
+									<ul class="sub-menu mm-collapse" aria-expanded="false">
+										@foreach (var currentpage in menu.PageControlList)
+										{
+											<li><a asp-area="" asp-page="@currentpage.PageURL">@currentpage.PageName</a></li>
+										}
+									</ul>
+								</li>
+							}
+						}
+
+
+						@if (User.Identity.IsAuthenticated)
+						{
+							<li>
+								<a class="waves-effect" aria-expanded="false" asp-page="/ReleaseVersion">
+									<i class="dripicons-italic"></i>
+									<span key="t-chat">Release Updates</span>
+								</a>
+							</li>
+							<li>
+								<a class="waves-effect" aria-expanded="false" asp-page="/SignOut">
+									<i class="bx bx-power-off"></i>
+									<span key="t-chat">Signout</span>
+								</a>
+							</li>
+						}
+					</ul>
+				</div>
+				<!-- Sidebar -->
+			</div>
+		</div>
+		<!-- Left Sidebar End -->
+		<!-- ============================================================== -->
+		<!-- Start right Content here -->
+		<!-- ============================================================== -->
+		<div class="main-content">
+			<div class="page-content">
+				<div class="container-fluid">
+					<main role="main" class="pb-3">
+						@RenderBody()
+					</main>
+					<footer class="footer text-sm-left">
+						<div id="divFooter">
+						</div>
+					</footer>
+				</div> <!-- container-fluid -->
+			</div>
+			<!-- End Page-content -->
+
+		</div>
+		<!-- end main content-->
+
+	</div>
+	<!-- END layout-wrapper -->
+	<!-- Right bar overlay-->
+	<div class="rightbar-overlay"></div>
+
+	<!-- JAVASCRIPT -->
+	<script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript" asp-append-version="true"></script>
+	<script src="~/assets/libs/metismenu/metisMenu.min.js" type="text/javascript" asp-append-version="true"></script>
+	<script src="~/assets/libs/simplebar/simplebar.min.js" type="text/javascript" asp-append-version="true"></script>
+	<script src="~/assets/libs/node-waves/waves.min.js" type="text/javascript" asp-append-version="true"></script>
+	<script src="~/assets/libs/moment/min/moment.min.js" type="text/javascript" asp-append-version="true"></script>
+	<script src="~/customjs/jglobalconfig.js" type="text/javascript" asp-append-version="true"></script>
+
+	<script src="~/assets/libs/magnific-popup/jquery.magnific-popup.min.js" asp-append-version="true"></script>
+	<script src="~/assets/js/lightbox.init.js" asp-append-version="true"></script>
+	<!-- app -->
+	<script src="~/assets/js/app.js" type="text/javascript" asp-append-version="true"></script>
+
+	<!-- Select 2 -->
+	<script src="~/assets/libs/select2/js/select2.min.js" type="text/javascript" asp-append-version="true"></script>
+
+	<!-- Bootstrap Max Length -->
+	<script src="~/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js" type="text/javascript" asp-append-version="true"></script>
+
+	<!-- Required datatable js -->
+	<script src="~/assets/libs/datatables.net/js/jquery.dataTables.min.js" type="text/javascript" asp-append-version="true"></script>
+	<script src="~/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js" type="text/javascript" asp-append-version="true"></script>
+
+	<!-- Responsive examples -->
+	<script src="~/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js" type="text/javascript" asp-append-version="true"></script>
+	<script src="~/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js" type="text/javascript" asp-append-version="true"></script>
+
+	<!-- BootstrapDateTimepicker -->
+	<script src="~/assets/libs/bootstrapdatepicker/bootstrap-datetimepicker.min.v3.js" type="text/javascript" asp-append-version="true"></script>
+
+	<!-- jquery step -->
+	<script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js" type="text/javascript" asp-append-version="true"></script>
+
+	<!-- apex chart -->
+	<script src="~/assets/libs/apexcharts/apexcharts.min.js" type="text/javascript" asp-append-version="true"></script>
+
+	<!-- jgrowl -->
+	<script src="~/assets/libs/jgrowl/jquery.jgrowl.js" type="text/javascript" asp-append-version="true"></script>
+
+	<!-- sweetalert2 -->
+	<script src="~/assets/libs/sweetalert2/sweetalert2.min.js" type="text/javascript" asp-append-version="true"></script>
+	<script src="~/assets/libs/input-mask/jquery.inputmask.js" type="text/javascript" asp-append-version="true"></script>
+	<script src="~/assets/libs/input-mask/jquery.inputmask.numeric.extensions.js" type="text/javascript" asp-append-version="true"></script>
+
+	<script src="~/assets/libs/datepicker/js/bootstrap-datepicker.min.js" type="text/javascript" asp-append-version="true"></script>
+
+	<!-- Cookie -->
+	<script src="~/assets/libs/cookie/jquery.enhanced.cookie.js" type="text/javascript" asp-append-version="true"></script>
+	<!-- Eva Icons -->
+
+	<script src="~/assets/libs/eva-icons/js/eva-icons/eva.min.js" type="text/javascript" asp-append-version="true"></script>
+	<!-- Dragula -->
+	<script src="/assets/libs/dragula/js/jquery-dragula.js" type="text/javascript" asp-append-version="true"></script>
+	<script src="~/assets/libs/dragula/js/kanban.js" type="text/javascript" asp-append-version="true"></script>
+
+	<script src="~/assets/libs/signalr/signalr.js" type="text/javascript" asp-append-version="true"></script>
+	<script src="~/assets/libs/signalr/signalr.min.js" type="text/javascript" asp-append-version="true"></script>
+
+	<!-- Light Box -->
+	<script src="~/assets/libs/lightbox/lightbox.init.js" type="text/javascript" asp-append-version="true"></script>
+
+	<script src="~/assets/libs/tui-code-snippet/tui-code-snippet.min.js" type="text/javascript" asp-append-version="true"></script>
+	<script src="~/assets/libs/tui-date-picker/tui-date-picker.min.js" type="text/javascript" asp-append-version="true"></script>
+	<script src="~/assets/libs/tui-time-picker/tui-time-picker.min.js" type="text/javascript" asp-append-version="true"></script>
+	<script src="~/assets/libs/tui-calendar/tui-calendar.min.js" type="text/javascript" asp-append-version="true"></script>
+
+	@await RenderSectionAsync("Scripts", required: false)
+
+	@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+	@{
+		var userData = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<UserLoginData>("UserLoggedData");
+		var lastLoginDate = userData?.LastLoginDate?.ToString("dd-MMM-yyyy hh:mm tt");
+	}
+
+	<input type="hidden" name="name" id="hdnLastLoginDate" value="@lastLoginDate" />
+	<input type="hidden" name="name" id="hdnVersion" value="@AppVersionService.GetAppVersion()" />
+	<input type="hidden" name="name" id="hdnBuildDate" value="@AppVersionService.GetBuildDate()" />
+	<input type="hidden" name="name" id="hdnAppEdition" value="@AppVersionService.GetAppEdition()" />
+
+	<script type="text/javascript">
+		var AppVersion = "";
+		$(document).ready(function () {
+			$(".select2").select2();
+			// s(".select2-limiting").select2({ maximumSelectionLength: 2 });
+
+			// $('.select2').select2({
+			//  theme: 'bootstrap-5'  // Use Bootstrap 5 the
+			// });
+
+			//NotificationCenter();
+
+			$(".MaxThreshold").maxlength({
+				warningClass: "badge bg-warning bg-gradient",
+				limitReachedClass: "badge bg-danger bg-gradient",
+				placement: "bottom-right"
+			})
+			$(".decimal").inputmask("decimal", { digits: 2, radixPoint: "." });
+			$(".decimal4digit").inputmask("decimal", { digits: 4, radixPoint: "." });
+
+			$(".integer").inputmask("integer");
+			console.log($("#hdnLastLoginDate").val());
+			DisplayFooterTime();
+			//Calls every 1 sec
+			setInterval(function () { DisplayFooterTime(); }, 1000);
+
+		});
+
+		function DisplayFooterTime() {
+			//console.log($("#hdnLastLoginDate").val());
+			//BETA VERSION
+			var FooterRightContent = "";
+			FooterRightContent += "<div class='container-fluid'><div class='row'><div class='col-sm-6'>"
+			FooterRightContent += "&copy; " + moment(new Date()).format('YYYY') + "  SV Aurora ERP";
+			FooterRightContent += "&nbsp;&nbsp;|&nbsp;&nbsp;Released on : <span class='text-warning'>" + $("#hdnBuildDate").val() + "</span>";
+			FooterRightContent += "</div>";
+			//FooterRightContent += "<span class='text-end'>";
+			FooterRightContent += "<div class='col-sm-6 text-end d-none d-sm-block'>";
+			FooterRightContent += "Last Logged on " + $("#hdnLastLoginDate").val();
+			FooterRightContent += "&nbsp;&nbsp;|&nbsp;&nbsp;Ver&nbsp;" +$("#hdnAppEdition").val() + "&nbsp<strong class='text-warning'>" + $("#hdnVersion").val() + "</strong>"; //Version
+			//FooterRightContent += "&nbsp;&nbsp;|&nbsp;&nbsp;Ver&nbsp;<strong class='text-warning'>" + @ViewBag.AppVersion + "</strong>"; //Version
+			FooterRightContent += "&nbsp;&nbsp;|&nbsp;&nbsp;<i class='fas fa-calendar-alt font-size-16'></i>&nbsp;" + moment(new Date()).format('DD-MMM-YYYY'); //Date
+			FooterRightContent += "&nbsp;&nbsp;|&nbsp;&nbsp;<i class='far fa-clock font-size-16'></i>&nbsp;" + moment(new Date()).format('hh:mm:ss A'); //Time
+			FooterRightContent += "</div></div></div>";
+
+			$("#divFooter").html(FooterRightContent);
+			var width = $(window).width();
+			var height = $(window).height();
+		}
+
+		function NotificationCenter()
+		{
+			var connection = new signalR.HubConnectionBuilder()
+			.withUrl("/notificationHub")
+			.build();
+
+			connection.start().catch(err => console.error(err.toString()));
+
+			connection.on("ReceiveNotification", function (message) {
+				//showToast(message);
+				$.jGrowl(message, { sticky: false, theme: 'warning', life: jGrowlLife });
+			});
+		}
+
+		function sendNotification(message) {
+			connection.invoke("SendNotification", message)
+				.catch(err => console.error(err.toString()));
+		}
+
+		// document.addEventListener("DOMContentLoaded", function () {
+		// 	var connection = new signalR.HubConnectionBuilder()
+		// 		.withUrl("/notificationHub")  // Ensure this matches your SignalR hub route
+		// 		.build();
+
+		// 	connection.start()
+		// 		.then(() => console.log("SignalR connected"))
+		// 		.catch(err => console.error("SignalR connection error:", err));
+
+		// 	// Receive notifications from the server
+		// 	connection.on("ReceiveNotification", function (message) {
+		// 		alert("Notification: " + message);
+		// 	});
+		// });
+	</script>
+
+
+</body>
+</html>

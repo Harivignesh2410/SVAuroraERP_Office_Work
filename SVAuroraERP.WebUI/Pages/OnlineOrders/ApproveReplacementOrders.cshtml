@@ -1,0 +1,309 @@
+@page
+@model SVAuroraERP.WebUI.Pages.OnlineOrders.ApproveReplacementOrdersModel
+@{
+    ViewData["Title"] = "Approve Replacement Orders";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Approve Replacement Orders</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Online Orders</a></li>
+                    <li class="breadcrumb-item"><a href="#">Approve Replacement Orders</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="WebPageContent d-none">
+    <div id="divAdvancedFilter" class="no-bg mb-3">
+        <div class="accordion custom-accordionwithicon custom-accordion-border accordion-border-box accordion-secondary">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="accHeader">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#divAdvancedFilterBody" aria-expanded="true" aria-controls="divAdvancedFilterBody">
+                        <i class="bx bx-filter-alt me-2"></i> Advanced Filter
+                    </button>
+                </h2>
+                <div id="divAdvancedFilterBody" class="accordion-collapse collapse show" aria-labelledby="accHeader" data-bs-parent="#divAdvancedFilter">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-12">
+                                <div class="form-group">
+                                    <label class="col-form-label">Date</label>
+                                    <div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy" data-date-autoclose="true" data-provide="datepicker" data-date-container="#datepicker6">
+                                        <input type="text" class="form-control" name="start" readonly="true" placeholder="From Date" id="txtStartDate">
+                                        <input type="text" class="form-control" name="end" readonly="true" placeholder="To Date" id="txtEndDate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="ddlOEMFilter" class="col-form-label">OEM</label>
+                                    <select id="ddlOEMFilter" class="form-select select2" placeholder="Select OEM">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="ddlDealerFilter" class="col-form-label">Dealer</label>
+                                    <select id="ddlDealerFilter" class="form-select select2" data-placeholder="--Select Dealer--">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="col-form-label d-block">&nbsp;</label>
+                                        <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect w-100" id="btnClearFilter">
+                                            <i class="bi bi-x-circle"></i> Clear
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="col-form-label d-block">&nbsp;</label>
+                                        <button class="btn btn-warning btn-rounded w-100 waves-effect" id="btnFilter">
+                                            <i class="bx bx-filter-alt font-size-16 align-middle me-2"></i> Filter
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card" id="divRecords">
+        <div class="card-body">
+            <div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+                <table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+                    <thead class="table-light">
+                        <tr>
+                            <th>S No.</th>
+                            <th>Order No / Date</th>
+                            <th>OEM</th>
+                            <th>Vehicle No / Class Name</th>
+                            <th>Vehicle Plate Type</th>
+                            <th>Vehicle Plate Size / Color</th>
+                            <th>Replacement Reason</th>
+                            <th>Dealer</th>
+                            <th>Customer</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="viewOrderModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-primary text-white">
+                    <div>
+                        <h5 class="modal-title mb-0">
+                            <i class="bx bx-receipt me-2"></i> Replacement Order Details
+                        </h5>
+                        <small class="opacity-75">Complete replacement order information</small>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body bg-light">
+
+                    <!-- Summary Bar -->
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <div class="p-3 bg-white rounded shadow-sm text-center">
+                                <small class="text-muted">Order No</small>
+                                <h6 class="fw-bold mb-0" id="lblOrderNo"></h6>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 bg-white rounded shadow-sm text-center">
+                                <small class="text-muted">Order Date</small>
+                                <h6 class="fw-bold mb-0" id="lblOrderDate"></h6>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 bg-white rounded shadow-sm text-center">
+                                <small class="text-muted">Replacement Reason</small>
+                                <h6 class="fw-bold mb-0" id="lblReplacementReason"></h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details Section -->
+                    <div class="row g-3">
+
+                        <!-- Left -->
+                        <div class="col-md-6">
+                            <div class="bg-white rounded shadow-sm p-3 h-100">
+                                <h6 class="fw-semibold text-primary mb-3">
+                                    <i class="bx bx-car me-1"></i> Vehicle & Plate
+                                </h6>
+
+                                <div class="row mb-2">
+                                    <div class="col-5 text-muted">Vehicle No</div>
+                                    <div class="col-7 fw-semibold" id="lblVehicleNo"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-5 text-muted">Class</div>
+                                    <div class="col-7 fw-semibold" id="lblVehicleClass"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-5 text-muted">Chassis No</div>
+                                    <div class="col-7 fw-semibold" id="lblChasisNo"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-5 text-muted">Engine No</div>
+                                    <div class="col-7 fw-semibold" id="lblEngineNo"></div>
+                                </div>
+
+                                <hr>
+
+                                <div class="row mb-2">
+                                    <div class="col-5 text-muted">Plate Type</div>
+                                    <div class="col-7 fw-semibold" id="lblPlateType"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-5 text-muted">Size</div>
+                                    <div class="col-7 fw-semibold" id="lblPlateSize"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-5 text-muted">Color</div>
+                                    <div class="col-7 fw-semibold" id="lblPlateColor"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-5 text-muted">Front Plate</div>
+                                    <div class="col-7 fw-semibold" id="lblIsFrontPlate"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5 text-muted">Rear Plate</div>
+                                    <div class="col-7 fw-semibold" id="lblIsRearPlate"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right -->
+                        <div class="col-md-6">
+                            <div class="bg-white rounded shadow-sm p-3 h-100">
+                                <h6 class="fw-semibold text-success mb-3">
+                                    <i class="bx bx-building me-1"></i> OEM & Dealer
+                                </h6>
+
+                                <div class="row mb-3">
+                                    <div class="col-4 text-muted">OEM</div>
+                                    <div class="col-8 fw-semibold" id="lblOEM"></div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-4 text-muted">Dealer</div>
+                                    <div class="col-8 fw-semibold" id="lblDealer"></div>
+                                </div>
+
+                                <div class="row mb-3" id="divembossingstation">
+                                    <div class="col-4 text-muted">Embossing station</div>
+                                    <div class="col-8">
+                                        <select id="ddlEmbossingStation" class="form-select select2" data-placeholder="Select Embossing Station">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <h6 class="fw-semibold text-info mb-3">
+                                    <i class="bx bx-user me-1"></i> Customer Details
+                                </h6>
+
+                                <div class="row mb-2">
+                                    <div class="col-4 text-muted">Name</div>
+                                    <div class="col-8 fw-semibold" id="lblCustomerName"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4 text-muted">Phone</div>
+                                    <div class="col-8 fw-semibold" id="lblCustomerPhone"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4 text-muted">Email</div>
+                                    <div class="col-8 fw-semibold" id="lblCustomerEmail"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 text-muted">Address</div>
+                                    <div class="col-8 fw-semibold" id="lblCustomerAddress"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer d-flex justify-content-between">
+
+                    <!-- LEFT -->
+                    <button id="btnClose"
+                            type="button"
+                            class="btn btn-outline-danger waves-effect"
+                            data-bs-dismiss="modal">
+                        <i class="fas fa-window-close font-size-16 me-2"></i> Close
+                    </button>
+
+                    <!-- RIGHT -->
+                    <div class="d-flex gap-2">
+                        <button id="btnReject"
+                                type="button"
+                                class="btn btn-outline-danger waves-effect">
+                            <i class="bx bx-x-circle font-size-16 me-2"></i> Reject
+                        </button>
+
+                        <button id="btnApprove"
+                                type="button"
+                                class="btn btn-success waves-effect waves-light">
+                            <i class="bx bx-check-circle font-size-20 align-middle me-2"></i> Approve
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+    <input type="hidden" id="hdnApproveReplacementOrderID" />
+
+    <script type="text/javascript">
+        var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+
+        var ListDataUrl = '@Url.Page("/OnlineOrders/ApproveReplacementOrders", "ReplacementOrderListData")';
+        var OEMListUrl = '@Url.Page("/GlobalFunctions", "OEMList")';
+        var DealerListByOEMIDUrl = '@Url.Page("/GlobalFunctions", "DealerListByOEMID")';
+        var ViewOrderUrl = '@Url.Page("/OnlineOrders/ApproveReplacementOrders", "ViewReplacementOrderById")';
+        var EmbossingStationByHSRPOnlineOrderIDUrl = '@Url.Page("/GlobalFunctions", "EmbossingStationByHSRPOnlineOrderID")';
+        var ApproveOrderUrl = '@Url.Page("/OnlineOrders/ApproveReplacementOrders", "ApproveReplacementOrder")';
+
+        var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+        var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+        var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+        var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+        var _CMPermissions = @Json.Serialize(Model.Permissions);
+        var currentPageControlID = @Model.CurrentPageControlID;
+
+    </script>
+    <script src="~/customjs/onlineorders/japprovereplacementorders.js" type="text/javascript" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var PageAuditData = new Object();
+            PageAuditData.PageControlID = currentPageControlID;
+            PageAuditData.URL = window.location.href;
+            InsertPageAccessAuditLog(_TOKEN, PageAuditData);
+        });
+    </script>
+}
+

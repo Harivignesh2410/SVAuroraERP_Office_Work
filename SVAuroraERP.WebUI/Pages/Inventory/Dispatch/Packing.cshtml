@@ -1,0 +1,177 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.Dispatch.PackingModel
+@{
+	ViewData["Title"] = "Packing";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Packing</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item active">Disptach</li>
+					<li class="breadcrumb-item active">Packing</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="WebPageContent d-none">
+	<div class="card" id="divRecords">
+		<div class="card-body border-bottom">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 card-title flex-grow-1"></h5>
+				<div class="flex-shrink-0">
+					<button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light" title="Click here to Add New">
+						<i class="fas fa-plus-square label-icon"></i>Add New
+					</button>
+					<button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+						<i class="mdi mdi-refresh label-icon"></i>Refresh
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="card-body table-responsive">
+			<table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100">
+				<thead class="table-light">
+					<tr>
+						<th>S No.</th>
+						<th>Packing No</th>
+						<th>Date</th>
+						<th>Box</th>
+						<th>Size</th>
+						<th>Color</th>
+						<th>Total No of InnerBoxCount</th>
+						<th>Total Quantity</th>
+						<th>PcsPerBox</th>
+						<th>Alloted To</th>
+						<th>Status</th>
+						<th class="text-center">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="card" id="divAddEdit">
+		<div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+			<h5 class="card-title text-white" id="divCardTitle">
+			</h5>
+			<button type="button" class="btn btn-sm btn-danger text-white" id="btnCloseWindow" title="Click here to Close Window"><i class="fas fa-window-close align-middle"></i></button>
+		</div>
+		<div class="card-body">
+			<p class="card-title-desc text-danger mb-0">Please fill in all required fields&nbsp;*</p>
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divPackingNo">
+						<label class="col-form-label">Packing No</label>
+						<input type="text" id="txtPackingNo" class="form-control" placeholder="Request No. [Auto Filled]" maxlength="50" readonly />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divPackingDate">
+						<label class="col-form-label">Packing Date&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+							<input type="text" id="txtPackingDate" class="form-control" name="StartDate" readonly="true" title="Click to view Calendar">
+							<div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6" id="divAllotedTo">
+					<div class="form-group">
+						<label class="col-form-label">Alloted To&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlEmbossingsataion" class="form-select select2" asp-data-placeholder="Select Color" asp-items="Model.AllotedToList">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="alert alert-info mt-3" role="alert" id="divalertNumberPlate">
+				Number Plate Filter Section
+			</div>
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group">
+						<label class="col-form-label">Box&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlBox" class="form-select select2" asp-data-placeholder="Select Box">
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group">
+						<label class="col-form-label">Color&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlColor" class="form-select select2" asp-data-placeholder="Select Color" asp-items="Model.ColorList">
+						</select>
+					</div>
+				</div>
+				
+			</div>
+
+			<div class="row">
+				<div id="divBatchStock"></div>
+			</div>
+			<div class="row">
+				<div id="divBox"></div>
+			</div>
+
+			<div class="row">
+				<div id="divSelectedItem"></div>
+			</div>
+			<div class="row">
+				<div id="divInnerBoxes"></div>
+			</div>
+
+			<div class="row d-flex justify-content-between mt-2" id="divRecordLog">
+				<div class="col-md-6">
+					<span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+				</div>
+				<div class="col-md-6">
+					<span class="fw-lighter fst-italic float-end" id="spnLastUpdatedDate"></span>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer d-flex justify-content-between mt-2">
+			<button id="btnClose" type="button" class="btn btn-outline-danger waves-effect"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+			<button id="btnSave" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save</button>
+			<button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Update</button>
+		</div>
+	</div>
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+	<input type="hidden" id="hdnPackingID" />
+	<input type="hidden" id="hdnStatusID" />
+
+    <script type="text/javascript">
+		var BoxListUrl = '@Url.Page("/Inventory/Dispatch/Packing", "BoxList")';
+		var GetPackingStockByFilterUrl = '@Url.Page("/Inventory/Dispatch/Packing", "PackingStockByFilter")';
+		var GetBoxdatabyIDUrl = '@Url.Page("/Inventory/Master/Box", "BoxByID")';
+		var SaveUpdateDataUrl = '@Url.Page("/Inventory/Dispatch/Packing", "SaveUpdateData")';
+		var ListDataUrl = '@Url.Page("/Inventory/Dispatch/Packing", "ListData")';
+		var GetDataByIDUrl = '@Url.Page("/Inventory/Dispatch/Packing", "PackingByID")';
+		var DeleteDataUrl = '@Url.Page("/Inventory/Dispatch/Packing", "DeleteData")';
+
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+		var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+    </script>
+
+	<script src="~/customjs/inventory/dispatch/jpacking.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+            var PageAuditData = new Object();
+            PageAuditData.PageControlID = currentPageControlID;
+            PageAuditData.URL = window.location.href;
+            InsertPageAccessAuditLog(_TOKEN, PageAuditData);
+		});
+	</script>
+}

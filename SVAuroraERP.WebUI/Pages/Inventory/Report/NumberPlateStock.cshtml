@@ -1,0 +1,178 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.Report.NumberPlateStockModel
+@{
+	ViewData["Title"] = "Number Plate Stock";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Number Plate Stock</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item"><a href="#">Report</a></li>
+					<li class="breadcrumb-item active">Number Plate Stockt</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="WebPageContent d-none">
+	<div class="accordion custom-accordionwithicon custom-accordion-border accordion-border-box accordion-secondary" id="divAdvancedFilter">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="accHeader">
+				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#divAdvancedFilterBody" aria-expanded="true" aria-controls="divAdvancedFilterBody">
+					<i class="bx bx-filter-alt me-2"></i> Advanced Filter
+				</button>
+			</h2>
+			<div id="divAdvancedFilterBody" class="accordion-collapse collapse show" aria-labelledby="accHeader" data-bs-parent="#divAdvancedFilter">
+				<div class="accordion-body">
+					<div class="row" id="divRecords">
+						<div class="col-lg-12">
+							<div class="card" id="orderList">
+								<div class="card-body border border-dashed border-end-0 border-start-0">
+									<div class="row g-3 align-items-end">
+
+										<div class="col-lg-3 col-md-6">
+											<label class="form-label">Size</label>
+											<select id="ddlSize" class="form-control select2" data-placeholder="Size" asp-items="Model.SizeList">
+											</select>
+										</div>
+
+										<div class="col-lg-3 col-md-6">
+											<div class="form-group">
+												<label class="form-label">Color</label>
+												<select id="ddlColor" class="form-control select2" data-placeholder="Color" asp-items="Model.ColorList">
+												</select>
+											</div>
+										</div>
+
+										<div class="col-6 mt-3">
+											<label class="form-label">Columns</label>
+											<div id="columnSelectors" class="d-flex flex-wrap gap-3">
+
+												<label class="fw-bold me-4">
+													<input type="checkbox" id="chkSelectAll" checked class="me-1"> Select All
+												</label>
+
+												<label><input type="checkbox" class="col-select" value="Size" checked> SIZE</label>
+												<label><input type="checkbox" class="col-select" value="Colour" checked> COLOUR</label>
+												<label><input type="checkbox" class="col-select" value="BlankPlate" checked> BLANK PLATE</label>
+												<label><input type="checkbox" class="col-select" value="HologramPlate" checked> HOLOGRAM PLATE</label>
+												<label><input type="checkbox" class="col-select" value="LaserMarkingPlate" checked> LASERMARKING PLATE</label>
+												<label><input type="checkbox" class="col-select" value="Packing" checked> PACKING</label>
+
+											</div>
+										</div>
+
+										<div class="col-lg-3 col-md-6 d-flex justify-content-end ms-auto">
+
+											<button id="btnFilter" type="button" class="btn btn-warning w-50 me-1">
+												<i class="ri-equalizer-fill me-1 align-bottom"></i> Filters
+											</button>
+
+											<div class="dropdown w-50">
+												<!-- wrapper added -->
+												<button id="btnGroupDrop"
+														type="button"
+														class="btn btn-primary dropdown-toggle w-100"
+														data-bs-toggle="dropdown"
+														aria-expanded="false">
+													More
+												</button>
+
+												<ul class="dropdown-menu p-2 w-100">
+													<li class="mb-2">
+														<button type="button" class="btn btn-sm btn-success btn-rounded w-100" id="btnExport">
+															<i class="mdi mdi-microsoft-excel me-2"></i> Export to Excel
+														</button>
+													</li>
+													<li>
+														<button type="button" class="btn btn-sm btn-outline-secondary btn-rounded w-100" id="btnClearFilter">
+															<i class="bi bi-x-circle"></i> Clear
+														</button>
+													</li>
+												</ul>
+											</div>
+
+										</div><div class="col-lg-3 col-md-6 d-flex justify-content-end ms-auto">
+
+											<button id="btnFilter" type="button" class="btn btn-warning w-50 me-1">
+												<i class="ri-equalizer-fill me-1 align-bottom"></i> Filters
+											</button>
+
+											<div class="dropdown w-50">
+												<!-- wrapper added -->
+												<button id="btnGroupDrop"
+														type="button"
+														class="btn btn-primary dropdown-toggle w-100"
+														data-bs-toggle="dropdown"
+														aria-expanded="false">
+													More
+												</button>
+
+												<ul class="dropdown-menu p-2 w-100">
+													<li class="mb-2">
+														<button type="button" class="btn btn-sm btn-success btn-rounded w-100" id="btnExport">
+															<i class="mdi mdi-microsoft-excel me-2"></i> Export to Excel
+														</button>
+													</li>
+													<li>
+														<button type="button" class="btn btn-sm btn-outline-secondary btn-rounded w-100" id="btnClearFilter">
+															<i class="bi bi-x-circle"></i> Clear
+														</button>
+													</li>
+												</ul>
+											</div>
+
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card mt-2">
+		<div class="card-body mt-2">
+			<div id="divSearchResultSummary"></div>
+		</div>
+	</div>
+</div>
+
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+
+
+	<script type="text/javascript">
+		   var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+
+		var GetBatchStockByFilterUrl = '@Url.Page("/Inventory/Report/NumberPlateStock", "BatchStockByFilter")';
+		var ExportDataUrl = '@Url.Page("/Inventory/Report/NumberPlateStock", "ExportData")';
+
+		var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+	</script>
+
+	<script src="~/customjs/inventory/report/jnumberplatestock.js" type="text/javascript" asp-append-version="true"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+
+		});
+	</script>
+}

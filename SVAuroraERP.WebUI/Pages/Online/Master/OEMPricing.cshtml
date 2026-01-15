@@ -1,0 +1,170 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Online.Master.OEMPricingModel
+@{
+	ViewData["Title"] = "OEM Pricing";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">OEM Pricing</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Online</a></li>
+					<li class="breadcrumb-item"><a href="#">Master</a></li>
+					<li class="breadcrumb-item active">OEM Pricing</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="WebPageContent d-none">
+    <div class="card">
+        <div class="card-body border-bottom">
+            <div class="d-flex align-items-center">
+                <h5 class="mb-0 card-title flex-grow-1"></h5>
+                <div class="flex-shrink-0">
+                    <button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#divAddEditModal" title="Click here to Add New">
+                        <i class="fas fa-plus-square label-icon"></i>Add New
+                    </button>
+                    <button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+                        <i class="mdi mdi-refresh label-icon"></i>Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+                <table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+                    <thead class="table-light">
+                        <tr>
+                            <th>S No.</th>
+                            <th>OEM Name</th>
+                            <th>Part Number</th>
+                            <th>Vehicle Plate Size Front</th>
+                            <th>Vehicle Plate Size Rear</th>
+                            <th>Rate</th>
+                            <th>CourierCharges</th>
+                            <th>TotalAmount</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="divAddEditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title add-task-title text-white" style="display: block;"><i class="bx bxs-plus-square font-size-20 align-middle me-1"></i> </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="card-title-desc mb-0">Please fill in all required fields&nbsp;<span class="text-danger">*</span></p>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group" id="divOEM">
+                                <label>Select OEM&nbsp;<span class="text-danger">*</span></label>
+                                <select id="ddlOEMList" class="form-select select2">
+                                    <option value="0">-- Select OEM --</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Part Number&nbsp;<span class="text-danger">*</span></label>
+                                <select id="ddlPartnumberList" class="form-select select2">
+                                    <option value="0">-- Select Part Number --</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Vehicle Plate Size Front&nbsp;<span class="text-danger">*</span></label>
+                                <select id="ddlVehiclePlazeSizeFrontList" class="form-select select2" asp-items="Model.VehiclePlateSizeList" asp-data-placeholder="Select Vehicle Size front">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Vehicle Plate Size Rear&nbsp;<span class="text-danger">*</span></label>
+                                <select id="ddlVehiclePlazeSizeRearList" class="form-select select2" asp-items="Model.VehiclePlateSizeList" asp-data-placeholder="Select Vehicle Size Rear">
+                                </select>
+                            </div>
+                            <div class="form-group" id="divSnapLock">
+                                <label for="txtSnaplock" class="col-form-label">Snap Lock&nbsp;<span class="text-danger me-1">*</span></label>
+                                <input id="txtSnaplock" name="txtSnaplock" type="text" class="form-control MaxThreshold" placeholder="Please enter Snap Lock..." maxlength="1">
+                            </div>
+                            <div class="form-group" id="divRivets">
+                                <label for="txtRivets" class="col-form-label">Rivets&nbsp;<span class="text-danger me-1">*</span></label>
+                                <input id="txtRivets" name="txtRivets" type="text" class="form-control MaxThreshold" placeholder="Please enter Rivets..." maxlength="1">
+                            </div>
+                            <div class="form-group" id="divRate">
+                                <label for="txRate" class="col-form-label">Rate&nbsp;<span class="text-danger me-1">*</span></label>
+                                <input id="txRate" name="txRate" type="text" class="form-control MaxThreshold decimal" placeholder="Please enter Rate..." maxlength="9">
+                            </div>
+                            <div class="form-group" id="divCourierCharges">
+                                <label for="txtCourierCharges" class="col-form-label">Courier Charges&nbsp;<span class="text-danger me-1">*</span></label>
+                                <input id="txtCourierCharges" name="txtCourierCharges" type="text" class="form-control MaxThreshold decimal" placeholder="Please enter Courier Charges..." maxlength="9">
+                            </div>
+                            <div class="form-group" id="divTotal">
+                                <label for="txtTotal" class="col-form-label">Total&nbsp;<span class="text-danger me-1">*</span></label>
+                                <input id="txtTotal" name="txtTotal" type="text" class="form-control MaxThreshold decimal" maxlength="9" readonly>
+                            </div>
+                            <div class="row d-flex justify-content-between mt-2" id="divRecordLog">
+                                <div class="col-md-6">
+                                    <span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="fw-lighter fst-italic" id="spnLastUpdatedDate"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button id="btnClose" type="button" class="btn btn-outline-danger waves-effect" data-bs-dismiss="modal"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+                    <button id="btnSave" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save</button>
+                    <button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-edit font-size-20 align-middle me-2"></i>Update</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+
+@section Scripts {
+    <input type="hidden" id="hdnOEMPricingID" />
+
+    <script type="text/javascript">
+        // Define the URL as a JavaScript variable
+
+        var SaveUpdateDataUrl = '@Url.Page("/Online/Master/OEMPricing", "SaveUpdateData")';
+        var ListDataUrl = '@Url.Page("/Online/Master/OEMPricing", "OEMPricingList")';
+        var GetDataByIDUrl = '@Url.Page("/Online/Master/OEMPricing", "OEMPricingByID")';
+        var DeleteDataUrl = '@Url.Page("/Online/Master/OEMPricing", "DeleteData")';
+
+        var OEMListUrl ='@Url.Page("/GlobalFunctions", "OEMList")';
+        var PartNumberByOEMUrl ='@Url.Page("/GlobalFunctions", "PartNumberByOEM")';
+        
+
+        var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+                          var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+        var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+        var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+        var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+        var _CMPermissions  = @Json.Serialize(Model.Permissions);
+        var currentPageControlID = @Model.CurrentPageControlID;
+    </script>
+
+    <script src="~/customjs/online/master/joempricing.js" type="text/javascript" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var PageAuditData= new Object();
+            PageAuditData.PageControlID = currentPageControlID;
+            PageAuditData.URL = window.location.href;
+            InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+        });
+    </script>
+}

@@ -1,0 +1,233 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Orders.ManageOrder.UpdateOrderDataModel
+@{
+    ViewData["Title"] = "Update Order Data";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Update Order Data</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Orders</a></li>
+                    <li class="breadcrumb-item active">Manage Orders</li>
+                    <li class="breadcrumb-item active">Update Order Data</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="WebPageContent d-none">
+    <div class="card" id="divAddEdit">
+        <div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+            <h5 class="card-title text-white" id="divCardTitle"><i class="bx bxs-edit align-middle fs-5 me-2"></i>Update Orders</h5>
+            <button type="button" class="btn btn-sm btn-danger text-white" id="btnCloseWindow" title="Click here to Close Window"><i class="fas fa-window-close align-middle"></i></button>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="card col-lg-6 col-md-12 col-sm-12">
+                    <div class="card-body">
+                        <p class="card-title-desc mb-0 fs-16 fw-bold text-primary text-center">Order Details</p>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12" id="divOrderNumber">
+                                <div class="form-group">
+                                    <label for="txtOrderNumber" class="col-form-label">Order Number&nbsp;<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" id="txtOrderNumber" class="form-control MaxThreshold">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                <div class="form-group" id="divOrderDate">
+                                    <label class="col-form-label">Order Date&nbsp;<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                        <input type="text" id="txtOrderDate" class="form-control" readonly="true" title="Click to view Calendar" />
+                                        <div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12" id="divPONumber">
+                                <div class="form-group">
+                                    <label for="txtPONumber" class="col-form-label">P.O.Number&nbsp;<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" id="txtPONumber" class="form-control MaxThreshold">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12" id="divSONumber">
+                                <div class="form-group">
+                                    <label for="txtSONumber" class="col-form-label">S.O.Number&nbsp;<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" id="txtSONumber" class="form-control MaxThreshold">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12" id="divRegistrationNumber">
+                                <div class="form-group">
+                                    <label for="txtRegistrationNumber" class="col-form-label">Registration Number&nbsp;<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" id="txtRegistrationNumber" class="form-control MaxThreshold">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                <div class="form-group" id="divRegistrationDate">
+                                    <label class="col-form-label">Registration Date&nbsp;<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                        <input type="text" id="txtRegistrationDate" class="form-control" name="txtRegistrationDate" title="Click to view Calendar" readonly="readonly" />
+                                        <div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12" id="divChassisNumber">
+                                <div class="form-group">
+                                    <label for="txtChassisNumber" class="col-form-label">Chassis Number&nbsp;<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" id="txtChassisNumber" class="form-control MaxThreshold">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12" id="divEngineNumber">
+                                <div class="form-group">
+                                    <label for="txtEngineNumber" class="col-form-label">EngineNumber&nbsp;<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" id="txtEngineNumber" class="form-control MaxThreshold">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-between mt-2" id="divRecordLog">
+                                <div class="col-lg-9 col-md-9 col-sm-12">
+                                    <span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12">
+                                    <span class="fw-lighter fst-italic float-end" id="spnLastUpdatedDate"></span>
+                                </div>
+                            </div>
+                        </div>                       
+                    </div>
+                </div>
+                <div class="card col-lg-6 col-md-12 col-sm-12">
+                    <div class="card-body">
+                        <p class="card-title-desc mb-0 fs-16 fw-bold text-primary text-center">Plate Details</p>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                <label class="form-check-label">Unique Serial No.(Front)</label>
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input bg-success" type="checkbox" id="chkFront">
+                                    <label class="form-check-label" for="chkFront">Check For Manual Assigning</label>
+                                </div>
+                                <div id="divtxtfront">
+                                    <input type="text" id="txtFrontNo" class="form-control MaxThreshold">
+                                </div>
+                                <div id="divddlfront">
+                                    <select id="ddlFront" class="form-select select2" data-placeholder="Select">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 mt-2">
+                                <label class="form-check-label">Unique Serial No.(Rear)</label>
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input bg-success" type="checkbox" id="chkRear">
+                                    <label class="form-check-label" for="chkRear">Check For Manual Assigning</label>
+                                </div>
+                                <div id="divtxtRear">
+                                    <input type="text" id="txtRearNo" class="form-control MaxThreshold">
+                                </div>
+                                <div id="divddlRear">
+                                    <select id="ddlRear" class="form-select select2" data-placeholder="Select">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12" id="divPartNumber">
+                                <div class="form-group">
+                                    <label for="txtPartNumber" class="col-form-label">Part Number&nbsp;<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" id="txtPartNumber" class="form-control MaxThreshold">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12" id="divPlateColor">
+                                <div class="form-group">
+                                    <label for="txtPlateColor" class="col-form-label">Plate Color&nbsp;<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" id="txtPlateColor" class="form-control MaxThreshold">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12" id="divFront">
+                                <div class="form-group">
+                                    <label for="txtFront" class="col-form-label">Front: (Dimension)&nbsp;<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" id="txtFront" class="form-control MaxThreshold">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12" id="divRear">
+                                <div class="form-group">
+                                    <label for="txtFront" class="col-form-label">Rear: (Dimension)&nbsp;<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" id="txtRear" class="form-control MaxThreshold">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input bg-success" type="checkbox" id="chkRectify">
+                                    <label class="form-check-label" for="chkRectify">Check For Order Rectification</label>
+                                </div>
+                                <select id="ddlRectification" class="form-select select2" data-placeholder="Select">
+                                </select>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12" id="divRemarks">
+                                <div class="form-group">
+                                    <label for="txtRemarks" class="col-form-label">Remarks</label>
+                                    <textarea type="text" id="txtRemarks" class="form-control MaxThreshold" placeholder="Please enter Remarks" rows="2"></textarea>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end mt-2">
+                                <button id="btnRectifyOrder" type="button" class="btn btn-danger waves-effect waves-light"><i class="bx bx-copy-alt font-size-20 align-middle me-2"></i>Rectify Order</button>
+                                <button id="btnUpdateOrder" type="button" class="btn btn-primary waves-effect waves-light"><i class="bx bxs-edit font-size-20 align-middle me-2"></i>Update Order</button>
+                            </div>                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>            
+    </div>
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+    <input type="hidden" id="hdnHSRPOrderID" />
+
+    <script type="text/javascript">    
+        var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+        var GetLaserNoByPartNoURL = '@Url.Page("/Orders/ManageOrder/UpdateOrderData", "LaserNoByPartNo")';
+        var GetOrderDetailsByIdUrl = '@Url.Page("/Orders/ManageOrder/UpdateOrderData", "OrderDetailsById")';
+        var SaveLaserNoForOrderUrl = '@Url.Page("/Orders/ManageOrder/UpdateOrderData", "SaveUpdateData")';
+        var GetRectificaionReasonUrl  = '@Url.Page("/GlobalFunctions", "RectificaionReason")';
+
+        var SaveandUpdateRectifyOrderUrl = '@Url.Page("/Orders/ManageOrder/UpdateOrderData", "SaveandUpdateRectifyOrder")';
+
+
+        var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+        var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+        var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+        var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+        var _CMPermissions  = @Json.Serialize(Model.Permissions);
+        var currentPageControlID = @Model.CurrentPageControlID;
+      
+    </script>
+    <script src="~/customjs/orders/manageorder/jupdateorderdata.js" type="text/javascript" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+             var PageAuditData= new Object();
+            PageAuditData.PageControlID = currentPageControlID;
+            PageAuditData.URL = window.location.href;
+            InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+        });
+    </script>
+}

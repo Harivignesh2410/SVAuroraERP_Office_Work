@@ -1,0 +1,101 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Orders.OrdersDelivery.ListDeliveryOrdersModel
+@{
+    ViewData["Title"] = "List Delivery Order";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">List Delivery Order</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Orders</a></li>
+                    <li class="breadcrumb-item active">Orders Delivery</li>
+                    <li class="breadcrumb-item active">List Delivery Order</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="WebPageContent d-none">
+    <div class="card mt-2" id="divRecords">
+        <div class="card-body border-bottom">
+            <div class="d-flex align-items-center">
+                <h5 class="mb-0 card-title flex-grow-1"></h5>
+                <div class="flex-shrink-0">
+                    <button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+                        <i class="mdi mdi-refresh label-icon"></i>Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+                <table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+                    <thead class="table-light">
+                        <tr>
+                            <th>S No.</th>
+                            <th>Sender</th>
+                            <th>Receiver</th>
+                            <th>Mode of Transport</th>
+                            <th>Date</th>
+                            <th>OrderCount(s)</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card" id="divAddEdit">
+        <div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+            
+            <h5 class="card-title text-white">
+                <i class="fas fa-plus-square align-middle me-1"></i>     Delivery Details
+            </h5>
+            <button type="button" class="btn-close btn-close-white" id="btnCloseWindow"></button>
+        </div>
+        <div class="card-body">
+            <div id="divGenerateDispatchData">
+            </div>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <button id="btnClose" type="button" class="btn btn-outline-danger waves-effect"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+        </div>
+    </div>
+
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+    <input type="hidden" id="hdnGenerateDeliveryDataID" />
+
+
+    <script type="text/javascript">
+        var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+        // Define the URL as a JavaScript variable
+        var ListDataUrl = '@Url.Page("/Orders/OrdersDelivery/ListDeliveryOrders", "ListDeliveryData")';
+        var ListOrderDeliveryDataUrl = '@Url.Page("/Orders/OrdersDelivery/ListDeliveryOrders", "ListDeliveryDataTrans")';
+
+        var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+        var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+        var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+        var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+        var _CMPermissions  = @Json.Serialize(Model.Permissions);
+        var currentPageControlID = @Model.CurrentPageControlID;
+
+
+    </script>
+    <script src="~/customjs/orders/ordersdelivery/jlistdeliveryorder.js" type="text/javascript" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var PageAuditData= new Object();
+            PageAuditData.PageControlID = currentPageControlID;
+            PageAuditData.URL = window.location.href;
+            InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+        });
+    </script>
+}

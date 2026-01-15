@@ -1,0 +1,270 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.Production.LaserNoMarkingModel
+@{
+	ViewData["Title"] = "LaserNo Marking";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">LaserNo Marking</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item active">Production</li>
+					<li class="breadcrumb-item active">LaserNo Marking</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="WebPageContent d-none">
+	<div id="divSearchPage">
+		@* @* this div for displaying the number of count in the list in js file *@ 
+		<div class="card">
+			<div class="card-body">
+				<ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link active" data-bs-toggle="tab" href="#lsmProducion" role="tab" aria-selected="true">
+							<span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+							<span class="d-none d-sm-block">LaserNo Marking Production</span>
+						</a>
+					</li>
+					<li class="nav-item" role="presentation" id="tabDocument">
+						<a class="nav-link disable" data-bs-toggle="tab" href="#lsmCompleted" role="tab" aria-selected="false" tabindex="-1">
+							<span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+							<span class="d-none d-sm-block">LaserNo Marking Completed</span>
+						</a>
+					</li>
+				</ul>
+				<div class="tab-content p-3 text-muted">
+					<div class="tab-pane active show" id="lsmProducion" role="tabpanel">
+						<div id="divListingWarehouse"></div>
+					</div>
+					<div class="tab-pane" id="lsmCompleted" role="tabpanel">
+						<div id="divCompletedList"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card" id="divLaserNoMarking">
+		<div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+			<h5 class="card-title text-white " id="divCardTitle">
+				<i class='bx bxs-edit font-size-20 align-middle me-1'></i>&nbsp; Update LaserNo Marking
+			</h5>
+			<button type="button" class="btn btn-sm btn-danger text-white" id="btnCloseWindow" title="Click here to Close Window">
+				<i class="fas fa-window-close align-middle"></i>
+			</button>
+		</div>
+		<div class="card-body">
+			<div id="divPendingStockRequestTrans"></div>
+			<div class="row g-3 mb-3 mt-3">
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divComponentType">
+						<label for="ddlComponentType" class="form-label">Component Type&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlComponentType" class="form-select select2" disabled asp-data-placeholder="Select Component Type" asp-items="Model.ComponentTypeList">
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divSize">
+						<label for="ddlSize" class="form-label">Size&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlSize" class="form-select select2" disabled asp-data-placeholder="Select Size" asp-items="Model.SizeList">
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divColor">
+						<label for="ddlColor" class="form-label">Color&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlColor" class="form-select select2" disabled asp-data-placeholder="Select Color" asp-items="Model.ColorList">
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-6 text-end">
+					<button id="btnAddNew" class="btn btn-warning btn-lg btn-rounded waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#divAddEditModal" title="Click here to Add New Item">
+						<i class="bx bx-archive-out align-middle me-1"></i> Laser No Marking
+					</button>
+				</div>
+				<div id="divLaserNoMarkingTrans"></div>
+			</div>
+		</div>
+		<div class="card-footer d-flex justify-content-between">
+			<button id="btnClose" type="button" class="btn btn-outline-danger waves-effect">
+				<i class="fas fa-window-close font-size-16 me-2"></i>Close
+			</button>
+			<div class="ms-auto">
+				<button id="btnPunching" type="button" class="btn btn-success waves-effect waves-light d-none">
+					<i class="bx bxs-badge-check font-size-20 align-middle me-2"></i>Marking Completed
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="divAddEditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-info">
+					<h5 class="modal-title add-task-title text-white" style="display: block;"><i class="bx bxs-plus-square font-size-20 align-middle me-1"></i> </h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p class="card-title-desc mb-0">Please fill in all required fields&nbsp;<span class="text-danger">*</span></p>
+					<div id="divProbableProduction" class="table-responsive"></div>
+					<div class="form-check mt-2 justify-content-end">
+						<div class="form-check-inline form-check-success">
+							<input type="checkbox" class="form-check-input" id="chkFullyReject" >
+							<label class="custom-control-label" for="chkFullyReject">Is Fully Rejected</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group" id="divItem">
+								<label for="ddlItem" class="col-form-label">Item&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlItem" class="form-select select2" disabled asp-data-placeholder="Select Item">
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group" id="divMachineType">
+								<label for="ddlMachineType" class="col-form-label">Machine Type&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlMachineType" class="form-select select2" asp-data-placeholder="Select Machine Type" asp-items="Model.MachineTypeList">
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group" id="divEmployee">
+								<label for="ddlEmployee" class="col-form-label">Operator&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlEmployeee" class="form-select select2" asp-data-placeholder="Select Employee" asp-items="Model.EmployeeList">
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group" id="divRackLocation">
+								<label for="ddlRackLocation" class="col-form-label">Rack Location&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlRackLocation" class="form-select select2" asp-data-placeholder="Select RackLocation">
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group" id="divstartTime">
+								<label for="txtstartTime" class="col-form-label">Start Time&nbsp;<span class="text-danger">*</span></label>
+								<input type="time" id="txtstartTime" class="form-control" asp-data-placeholder="Select Start Time">
+							</div>
+						</div>
+
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group" id="divendTime">
+								<label for="txtendTime" class="col-form-label">End Time&nbsp;<span class="text-danger">*</span></label>
+								<input type="time" id="txtendTime" class="form-control" asp-data-placeholder="Select End Time">
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group" id="divTotalTime">
+								<label for="txtTotalTime" class="col-form-label">Total Time Taken&nbsp;<span class="text-danger">*</span></label>
+								<input type="text" id="txtTotalTime" class="form-control" disabled readonly>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group" id="divProductionDate">
+								<label class="col-form-label">Production Date&nbsp;<span class="text-danger">*</span></label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+									<input type="text" id="txtProductionDate" class="form-control" name="StartDate" readonly="true" title="Click to view Calendar">
+									<div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group" id="">
+								<label for="txtStartingNo" class="col-form-label">Starting No &nbsp;<span class="text-danger">*</span></label>
+								<input type="text" id="txtStartingNo" class="form-control MaxThreshold integer" placeholder="0" maxlength="10" />
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group" id="">
+								<label for="txtEndingNo" class="col-form-label">Ending No&nbsp;<span class="text-danger">*</span></label>
+								<input type="text" id="txtEndingNo" class="form-control MaxThreshold integer" placeholder="0" maxlength="10" />
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group" id="">
+								<label for="txtNoOfPlate" class="col-form-label">No of Plate &nbsp;</label>
+								<input type="text" id="txtNoOfPlate" class="form-control MaxThreshold" readonly placeholder="0" maxlength="50" />
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group" id="">
+								<label for="txtRejectedPlate" class="col-form-label">Rejected Plate &nbsp;</label>
+								<input type="text" id="txtRejectedPlate" class="form-control MaxThreshold"  placeholder="0" maxlength="50" />
+							</div>
+						</div>
+						
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group" id="">
+								<label for="txtStartingLaserNo" class="col-form-label">Starting Laser No &nbsp;<span class="text-danger">*</span></label>
+								<input type="text" id="txtStartingLaserNo" class="form-control MaxThreshold " disabled readonly placeholder="0" maxlength="10" />
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="form-group" id="">
+								<label for="txtEndingLaserNo" class="col-form-label">Ending Laser No&nbsp;<span class="text-danger">*</span></label>
+								<input type="text" id="txtEndingLaserNo" class="form-control MaxThreshold " disabled readonly placeholder="0" maxlength="10" />
+							</div>
+						</div>
+
+						@* <div id="divConsumed"></div> *@
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<button id="btnCloseProduction" type="button" class="btn btn-outline-danger waves-effect" data-bs-dismiss="modal"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+					<button id="btnSaveProduction" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save</button>
+					<button id="btnUpdateProduction" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Update</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div>
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+	<input type="hidden" id="hdnLaserNoMarkingID" />
+	<input type="hidden" id="hdnBatchStockID" />
+
+	<script type="text/javascript">
+		 var GetLaserNoMarkingListUrl= '@Url.Page("/Inventory/Production/LaserNoMarking", "LaserNoMarkingList")';
+		 var GetStockRequestDetailsByIDUrl = '@Url.Page("/Inventory/Production/StockRequest", "StockRequestByID")';
+		  var SaveLaserNoMarkingUrl= '@Url.Page("/Inventory/Production/LaserNoMarking", "SaveLaserNoMarking")';
+		  var GetWarehouseTabListUrl= '@Url.Page("/Inventory/Production/LaserNoMarking", "WarehouseTabList")';
+		  var GetHologramPunchingByWarehouseIDUrl = '@Url.Page("/Inventory/Production/LaserNoMarking", "HologramPunchingByWarehouseID")';
+		  var GetHologramPuchingDetailsByBatchIDUrl = '@Url.Page("/Inventory/Production/LaserNoMarking", "HologramPuchingDetailsByBatchID")';
+		   var GetItemDropdownByFilterUrl = '@Url.Page("/Inventory/Production/HologramPunching", "ItemDropdownByFilte")';
+			var GetRackLocationDropdownByFilterUrl = '@Url.Page("/Inventory/Production/HologramPunching", "RackLocationDropdownByFilter")';
+			var DeleteDataUrl = '@Url.Page("/Inventory/Production/LaserNoMarking", "DeleteData")';
+			var CompleteLaserNoMarkingUrl = '@Url.Page("/Inventory/Production/LaserNoMarking", "CompleteLaserNoMarking")';
+			var GetLaserNoMarkingCompletedUrl = '@Url.Page("/Inventory/Production/LaserNoMarking", "LaserNoMarkingCompleted")';
+
+			var GetLaserNoMarkingUrl = '@Url.Page("/Inventory/Production/LaserNoMarking", "LaserNoMarkingNxtNo")';
+
+			var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+	</script>
+
+	<script src="~/customjs/inventory/production/jlasernomarking.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+	</script>
+}

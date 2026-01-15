@@ -1,0 +1,219 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.UserProfileModel
+@{
+	ViewData["Title"] = "User Profile";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">User Profile</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item active">User Profile</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row ">
+	<div class="col-xl-3 mt-3">
+		<div class="card" id="divUserDetails">
+		</div>
+	</div>
+
+	<div class="col-xl-8 mt-5">
+		<div class="container-fluid">
+			<!-- Start page title -->
+			<div class="row">
+				<div class="col-xxl-12">
+					<div class="card mt-lg-n5">
+						<div class="card-header">
+							<ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" role="tablist">
+								<li class="nav-item" role="presentation">
+									<a class="nav-link active" data-bs-toggle="tab" href="#personalDetails" role="tab" aria-selected="true">
+										<i class="fas fa-home"></i> Update User Details
+									</a>
+								</li>
+								<li class="nav-item" role="presentation">
+									<a class="nav-link" data-bs-toggle="tab" href="#changePassword" role="tab" aria-selected="false" tabindex="-1">
+										<i class="far fa-user"></i> Change Password
+									</a>
+								</li>
+								<li class="nav-item" role="presentation">
+									<a class="nav-link" data-bs-toggle="tab" href="#experience" role="tab" aria-selected="false" tabindex="-1">
+										<i class="far fa-envelope"></i> Quick Launch
+									</a>
+								</li>
+								<li class="nav-item" role="presentation">
+									<a class="nav-link" data-bs-toggle="tab" href="#privacy" role="tab" aria-selected="false" tabindex="-1">
+										<i class="far fa-envelope"></i> Upload Profile
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="card-body p-4">
+							<div class="tab-content">
+								<div class="tab-pane active show" id="personalDetails" role="tabpanel">
+									<div class="row g-3 mb-3">
+										<div class="form-group col-lg-6" id="divFirstname">
+											<label>First Name&nbsp;<span class="text-danger">*</span></label>
+											<input type="text" id="txtFirstName" class="form-control MaxThreshold" placeholder="Please enter First Name" maxlength="100" />
+										</div>
+										<div class="form-group col-lg-6" id="divLastname">
+											<label>Last Name</label>
+											<input type="text" id="txtLastName" class="form-control MaxThreshold" placeholder="Please enter Last Name" maxlength="100" />
+										</div>
+										<div class="form-group col-lg-6" id="divEmail">
+											<label>Email&nbsp;<span class="text-danger">*</span></label>
+											<input type="text" id="txtEmail" class="form-control MaxThreshold" placeholder="Please enter Email" maxlength="200" />
+										</div>
+										<div class="form-group col-lg-6" id="divLandingPage">
+											<label>
+												Landing Page
+											</label>&nbsp;<span class="text-danger">*</span>
+											<select id="ddlPageList" class="form-select select2" name=""
+													asp-data-placeholder="Select Page">
+												<option value="0">--Select Page--</option>
+											</select>
+										</div>
+										<div class="hstack gap-3 justify-content-end mt-7">
+											<button type="submit" class="btn btn-success" id="btnUserSave">Updates</button>
+										</div>
+										@* <button id="btnUserSave" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Update</button> *@
+									</div>
+								</div>
+								<!--end tab-pane-->
+								<div class="tab-pane" id="changePassword" role="tabpanel">
+									<form action="javascript:void(0);">
+										<div class="row g-2">
+											<div class="col-lg-4">
+												<div>
+													<label for="oldPasswordInput" class="col-form-label">Old Password&nbsp;<span class="text-danger me-1">*</span></label> 
+													<input type="password" class="form-control" id="profileoldPassword" placeholder="Enter current password">
+												</div>
+											</div>
+											<!--end col-->
+											<div class="col-lg-4">
+												<div>
+													<label for="newPasswordInput" class="col-form-label">New Password&nbsp;<span class="text-danger me-1">*</span></label> 
+													<input type="password" class="form-control" id="profilenewPassword" placeholder="Enter new password">
+												</div>
+											</div>
+											<!--end col-->
+											<div class="col-lg-4">
+												<div>
+													<label for="confirmNewPasswordInput" class="col-form-label">Confirm New Password&nbsp;<span class="text-danger me-1">*</span></label> 
+													<input type="password" class="form-control" id="profileconfirmNewPassword" placeholder="Confirm password">
+												</div>
+											</div>
+											<!--end col-->
+											@* <div class="col-lg-12"> *@
+											@*     <div class="mb-3"> *@
+											@*         <a href="javascript:void(0);" class="link-primary text-decoration-underline">Forgot Password ?</a> *@
+											@*     </div> *@
+											@* </div> *@
+											<!--end col-->
+											<div class="col-lg-12 mt-4">
+												<div class="text-end">
+													<button id="btnPwdSave" type="submit" class="btn btn-success">Change Password</button>
+												</div>
+											</div>
+											<!--end col-->
+										</div>
+										<!--end row-->
+									</form>
+								</div>
+								<!--end tab-pane-->
+								<div class="tab-pane" id="experience" role="tabpanel">
+									<div class="row">
+										<!-- Quick Launch Section -->
+										<div class="col-lg-12">
+											<div class="card">
+												<div class="card-body">
+													<h4 class="card-title mb-4">Quick Launch</h4>
+													<div id="task-1">
+														<div id="divAppLauncher" class="sortable d-flex flex-row flex-wrap gap-2 overflow-auto parent-container">
+															<div class="placeholder col-12 text-center d-none bg-light">
+																No items available. Drag items here.
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!-- Additional Quick Launch Section -->
+										<div class="col-lg-12">
+											<div class="card">
+												<div class="card-body">
+													<h4 class="card-title mb-4">Available Apps</h4>
+													<div id="task-2">
+														<div id="divAvailablePages" class="sortable d-flex flex-row flex-wrap gap-2 overflow-auto parent-container"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Save Changes Button -->
+										<div>
+											<button type="button" id="btnSave" class="btn btn-success waves-effect waves-light float-end">
+												Save Changes
+											</button>
+										</div>
+									</div>
+								</div>
+								<!--end tab-pane-->
+								<div class="tab-pane" id="privacy" role="tabpanel">
+									<div class="tab-body">
+										<form id="profileForm" method="post" enctype="multipart/form-data">
+											<label for="profileImage" class="col-form-label">Choose Profile &nbsp;<span class="text-danger me-1">*</span></label>
+											<input type="file" class="form-control" id="profileImage" name="profileImage" required>
+										</form>
+										<div class="mt-3">
+											<button id="btnProfileSave" type="button" class="btn btn-success waves-effect waves-light float-end"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Upload</button>
+										</div>
+									</div>
+								</div>
+								<!--end tab-pane-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End page title -->
+		</div>
+	</div>
+</div>
+
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+
+@section Scripts {
+	<input type="hidden" id="hdnUserID" />
+	<input type="hidden" id="hdnRoleID" />
+
+	<script type="text/javascript">
+
+		var GetAppLauncherByRoleIDUrl = '@Url.Page("/UserProfile", "RoleConfigurationByRoleID")';
+		var GetAppLauncherByUserIDUrl = '@Url.Page("/UserProfile", "AppLauncherByUserID")';
+		var SaveAppLauncherUrl = '@Url.Page("/UserProfile", "SaveAppLauncher")';
+		var SaveChangePasswordUrl = '@Url.Page("/UserProfile", "SaveChangePassword")';
+		var UpdateUserNameUrl = '@Url.Page("/UserProfile", "UpdateUserName")';
+		var GetUserProfileUrl = '@Url.Page("/UserProfile", "UserProfile")';
+
+		var GetDataByIDUrl = '@Url.Page("/UserProfile", "UserByID")';
+		var ListPageControlURL = '@Url.Page("/UserProfile", "PageControlList")';
+		var UploadProfileUrl = '@Url.Page("/UserProfile", "UploadUserProfile")';
+		var UploadImageURl = '@Url.Page("/UserProfile", "UploadProfile")';
+
+
+							var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+	</script>
+
+	<script src="~/customjs/authentication/juserprofile.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+		});
+	</script>
+}

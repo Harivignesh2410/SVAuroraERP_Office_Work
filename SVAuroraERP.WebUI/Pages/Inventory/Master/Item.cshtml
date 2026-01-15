@@ -1,0 +1,207 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.Master.ItemModel
+@{
+	ViewData["Title"] = "Item";
+}
+
+<!-- start page title -->
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-Item-18">Item</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item"><a href="#">Master</a></li>
+					<li class="breadcrumb-item active">Item</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="WebPageContent d-none">
+	<div class="card">
+		<div class="card-body border-bottom">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 card-title flex-grow-1"></h5>
+				<div class="flex-shrink-0">
+					<button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light">
+						<i class="fas fa-plus-square label-icon"></i>Add New
+					</button>
+					<button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+						<i class="mdi mdi-refresh label-icon"></i>Refresh
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="card-body p4">
+			<div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+				<table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+					<thead class="table-light">
+						<tr>
+							<th>S No.</th>
+							<th>Code</th>
+							<th>HSN Code</th>
+							<th>Category</th>
+							<th>Name</th>
+							<th>Price (Rs.)</th>
+							<th>Unit</th>
+							<th>Color</th>
+							<th>Size</th>
+							<th>Component Type</th>
+							<th>Stock Status</th>
+							<th class="text-center">Status</th>
+							<th class="text-center">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="divAddEditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-info">
+					<h5 class="modal-title add-task-title text-white" style="display: block;"><i class="bx bxs-plus-square font-Item-20 align-middle me-1"></i> </h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p class="card-title-desc text-danger mb-0">Please fill in all required fields&nbsp;*</p>
+					<div class="row">
+						<div class="form-group col-md-6" id="divItemCode">
+							<label for="txtItemCode" class="col-form-label">Item Code&nbsp;<span class="text-danger me-1">*</span></label>
+							<input id="txtItemCode" name="txtItemCode" type="text" class="form-control MaxThreshold" placeholder="Please enter Item Code..." maxlength="100">
+						</div>
+						<div class="form-group col-md-6" id="divHSNCode">
+							<label for="txtHSNCode" class="col-form-label">HSN Code&nbsp;<span class="text-danger me-1">*</span></label>
+							<input id="txtHSNCode" name="txtHSNCode" type="text" class="form-control MaxThreshold" placeholder="Please enter HSN Code..." maxlength="20">
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label class="col-form-label">Category&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlItemCategory" class="form-select select2" asp-items="Model.ItemCategoryList" asp-data-placeholder="Select Category">
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label class="col-form-label">Component Type&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlComponentType" class="form-select select2" asp-items="Model.ComponentList" asp-data-placeholder="Select Componenet Type">
+								</select>
+							</div>
+						</div>
+						<div class="form-group" id="divItemName">
+							<label for="txtItemName" class="col-form-label">Item Name&nbsp;<span class="text-danger me-1">*</span></label>
+							<div class="input-group">
+								<div class="input-group-text"><i class="bx bx-box font-size-20"></i></div>
+								<input id="txtItemName" name="txtItemName" type="text" class="form-control MaxThreshold" placeholder="Please enter Item Name" maxlength="150">
+							</div>
+						</div>
+						<div class="form-group" id="divDescription">
+							<label for="txtDescription" class="col-form-label">Description</label>
+							<input id="txtDescription" name="txtDescription" type="text" class="form-control MaxThreshold" placeholder="Please enter Description..." maxlength="100">
+						</div>
+
+						<div class="col-lg-6">
+							<div class="form-group" id="divPrice">
+								<label for="txtPrice" class="col-form-label">Price (Rs.)&nbsp;<span class="text-danger me-1">*</span></label>
+								<div class="input-group">
+									<div class="input-group-text"><i class="bx bx-rupee font-size-20 text-pink"></i></div>
+									<input id="txtPrice" name="txtPrice" type="text" class="form-control MaxThreshold decimal" placeholder="0.00" maxlength="20">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label class="col-form-label">Unit&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlUnit" class="form-select select2" asp-items="Model.UnitList" asp-data-placeholder="Select Unit">
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label class="col-form-label">Color&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlColor" class="form-select select2" asp-items="Model.ColorList" asp-data-placeholder="Select Color">
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label class="col-form-label">Size&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlSize" class="form-select select2" asp-items="Model.SizeList" asp-data-placeholder="Select Size">
+								</select>
+							</div>
+						</div>
+
+						<div class="col-lg-6">
+							<div class="form-check mt-2">
+								<div class="form-check-inline form-check-success me-4">
+									<input type="checkbox" class="form-check-input" id="chkActive" checked="checked">
+									<label class="form-check-label" for="chkActive">Active</label>
+								</div>						
+								<div class="form-check-inline form-check-success">
+									<input type="checkbox" class="form-check-input" id="chkStock" checked="checked">
+									<label class="form-check-label" for="chkStock">Stock Required</label>
+								</div>
+							</div>
+						</div> 
+						<div class="row d-flex justify-content-between mt-2" id="divRecordLog">
+							<div class="col-md-6">
+								<span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+							</div>
+							<div class="col-md-6 text-end">
+								<span class="fw-lighter fst-italic" id="spnLastUpdatedDate"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<button id="btnClose" type="button" class="btn btn-outline-danger waves-effect" data-bs-dismiss="modal"><i class="fas fa-window-close font-Item-16 me-2"></i>Close</button>
+					<button id="btnSave" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-Item-20 align-middle me-2"></i>Save</button>
+					<button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-edit font-Item-20 align-middle me-2"></i>Update</button>
+				</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+
+@section Scripts {
+	<input type="hidden" id="hdnItemID" />
+
+    <script type="text/javascript">
+		// Define the URL as a JavaScript variable
+
+		var SaveUpdateDataUrl = '@Url.Page("/Inventory/Master/Item", "SaveUpdateData")';
+		@*var ListDataUrl = '@Url.Page("/Inventory/Master/Item", "ItemList")';*@
+		var GetDataByIDUrl = '@Url.Page("/Inventory/Master/Item", "ItemByID")';
+		var DeleteDataUrl = '@Url.Page("/Inventory/Master/Item", "DeleteData")';
+        var ItemDataTableUrl = '@Url.Page("/Inventory/Master/Item", "ItemDataTable")';
+
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+		// Pass permissions to JavaScript
+		var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+    </script>
+
+	<script src="~/customjs/inventory/master/jitem.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+	</script>
+}

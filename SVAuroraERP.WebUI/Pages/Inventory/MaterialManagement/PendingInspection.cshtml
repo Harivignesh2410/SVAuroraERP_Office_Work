@@ -1,0 +1,249 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.MaterialManagement.PendingInspectionModel
+@{
+	ViewData["Title"] = "Pending Inspection";
+}
+<div class="row" id="divPageHeader">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Pending Inspection</h4>
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item"><a href="#">Material Management</a></li>
+					<li class="breadcrumb-item active">
+						Pending Inspection
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="WebPageContent d-none">
+	<div id="divSearchPage">
+		<div class="row g-3 mb-3">
+			<div class="col-md-3">
+				<div class="form-group" id="divitem">
+					<label class="col-form-label">Supplier Name</label>
+					<select id="ddlSupplierType" class="form-control select2" data-placeholder="Supplier" asp-items="Model.SupplierList">
+					</select>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group" id="divitem">
+					<label class="col-form-label">Component Type</label>
+					<select id="ddlComponentType" class="form-control select2" data-placeholder="Componenet Type" asp-items="Model.ComponentList">
+					</select>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group" id="divDate">
+					<label class="col-form-label">Date Range</label>
+					<div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy" data-date-autoclose="true" data-provide="datepicker" data-date-container="#datepicker6">
+						<input type="text" class="form-control" name="start" readonly="true" placeholder="Start Date" id="txtStartDate">
+						<input type="text" class="form-control" name="end" readonly="true" placeholder="End Date" id="txtEndDate">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<label class="col-form-label">Search</label>
+				<div class="input-group">
+					<span class="input-group-text">
+						<i class="fas fa-search"></i>
+					</span>
+					<input type="text" id="txtSearchbox" class="form-control Maxthreshold" placeholder="Search Text" maxlength="50">
+				</div>
+			</div>
+		</div>
+		<div class="row g-3 mb-3 d-flex justify-content-end">
+			<div class="col-md-1">
+				<button type="button" class="btn btn-outline-secondary btn-rounded waves-effect w-100" id="btnClearFilter">
+					<i class="bi bi-x-circle"></i>Clear
+				</button>
+			</div>
+			<div class="col-md-1">
+				<button class="btn btn-warning btn-rounded w-100 waves-effect" id="btnFilter">
+					<i class="bx bx-filter-alt font-size-16 align-middle me-2"></i>Filter
+				</button>
+			</div>
+		</div>
+
+		<div class="row mb-2 d-flex justify-content-end d-none">
+			<div class="dropdown d-inline-block col-md-1">
+				<button type="button" class="btn btn-warning btn-rounded w-100 right-bar-toggle waves-effect">
+					<i class="bx bx-filter-alt font-size-16 align-middle me-2"></i>Filter
+				</button>
+			</div>
+		</div>
+		@* this div for displaying the number of count in the list in js file *@
+		<div id="divSearchResultSummary"></div>
+	</div>
+
+	@* this div for listing the number of pending billing with the view details button and procced button the code in js file *@
+	<div id="divPurchasePendingData"> </div>
+
+	<div class="modal fade" id="divViewModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">Purchase Details</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div id="divbilldetails">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	@* This div is responsable for creating the proceeding page the code in js file *@
+	<div class="card" id="divMaterialInward">
+		<div class="card-header bg-info bg-gradient d-flex justify-content-between">
+			<h5 class="my-0 text-white"><i class="mdi mdi-check-all me-3"></i>Pending Inspection </h5>
+			<button id="btnCloseWindow" type="button" class="btn-close btn-close-dark"></button>
+		</div>
+		<div class="card-body">
+			<div id="divPurchaseDetails">
+			</div>
+		</div>
+		<div class="card-footer d-flex justify-content-between">
+			<button id="btnClose" type="button" class="btn btn-outline-danger waves-effect"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+			@* <button id="btnSave" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save</button> *@
+			@* <button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Update</button> *@
+		</div>
+	</div>
+
+	@* aria-hidden="true" *@
+	<div class="modal fade" id="divModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header bg-info">
+					<h5 class="modal-title add-task-title text-white" style="display: block;"><i class="bx bxs-plus-square font-size-20 align-middle me-1"></i> </h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="card-body">
+						<div id="divPurchaseDetailsbyID">
+						</div>
+					</div>
+					<p class="card-title-desc mb-0">Please fill in all required fields&nbsp;<span class="text-danger">*</span></p>
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group" id="divBatchNo">
+								<label for="txtBatchNo" class="col-form-label">Batch No&nbsp;<span class="text-danger me-1">*</span></label>
+								<input id="txtBatchNo" name="txtBatchNo" type="text" class="form-control MaxThreshold" readonly placeholder="Please enter Batch No..." maxlength="50">
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group" id="divBatchQuantity">
+								<label for="txtBatchQuantity" class="col-form-label">Quantity &nbsp;<span class="text-danger me-1">*</span></label>
+								<input id="txtBatchQuantity" name="txtBatchQuantity" type="text" class="form-control MaxThreshold decimal" placeholder="Please enter Batch Quantity..." maxlength="9">
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group" id="divLessQuantity">
+								<label for="txtLessQuantity" class="col-form-label">Less Quantity &nbsp;<span class="text-danger me-1"></span></label>
+								<input id="txtLessQuantity" name="txtLessQuantity" type="text" class="form-control MaxThreshold decimal" placeholder="Please enter Less Quantity..." maxlength="9">
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group" id="divExcessQuantity">
+								<label for="txtExcessQuantity" class="col-form-label">Excess Quantity &nbsp;<span class="text-danger me-1"></span></label>
+								<input id="txtExcessQuantity" name="txtExcessQuantity" type="text" class="form-control MaxThreshold decimal" placeholder="Please enter Excess Quantity..." maxlength="9">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<button type="button" class="btn btn-outline-danger waves-effect" data-bs-dismiss="modal"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+					<button id="btnSaveBatch" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save</button>
+					<button id="btnUpdateBatch" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-edit font-size-20 align-middle me-2"></i>Update</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div>
+
+	<div class="right-bar" id="divsidebar">
+		<div data-simplebar="init" class="h-100 simplebar-scrollable-y">
+			<div class="simplebar-wrapper" style="margin: 0px;">
+				<div class="simplebar-height-auto-observer-wrapper">
+					<div class="simplebar-height-auto-observer"></div>
+				</div>
+				<div class="simplebar-mask">
+					<div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+						<div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: 100%; overflow: hidden scroll;">
+							<div class="simplebar-content" style="padding: 0px;">
+								<div class="rightbar-title d-flex align-items-center px-3 py-4 border-bottom">
+									<h5 class="m-0 me-2 text-center">Filter Section</h5>
+									<a href="javascript:void(0);" class="right-bar-toggle ms-auto">
+										<i class="mdi mdi-close noti-icon"></i>
+									</a>
+								</div>
+								<div class="p-3">
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="simplebar-placeholder" style="width: 280px; height: 1065px;"></div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+
+@section Scripts {
+	<input type="hidden" id="hdnPurchaseEntryID" />
+	<input type="hidden" id="hdnPurchaseTransID" />
+	<input type="hidden" id="hdnPendingInwardInspectionID" />
+	<input type="hidden" id="hdnSNo"/>
+	<input type="hidden" id="txtMaxAvailableQuantity" />
+
+	<script type="text/javascript">
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+
+		// Define the URL as a JavaScript variable
+		//var GetMaterialInwardDataUrl = '@Url.Page("/Inventory/MaterialManagement/PendingInspection", "MaterialList")';
+		var GetMaterialInwardDataByIDUrl = '@Url.Page("/Inventory/MaterialManagement/PendingInspection", "PurchaseListByID")';
+		var SaveUpdateDataUrl = '@Url.Page("/Inventory/MaterialManagement/PendingInspection", "SaveUpdateData")';
+		var GetMaterialInwardDataByPurchaseIDUrl = '@Url.Page("/Inventory/MaterialManagement/PendingInspection", "MaterialListByPurchaseID")';
+		var GetNextBatchNumberUrl = '@Url.Page("/Inventory/MaterialManagement/PendingInspection", "NextBatchNumber")';
+		var GetPendingPurchaseEntryByFilterUrl = '@Url.Page("/Inventory/MaterialManagement/PendingInspection", "PendingPurchaseEntryByFilter")';
+		var DeleteDataUrl = '@Url.Page("/Inventory/MaterialManagement/PendingInspection", "SaveUpdateData")';
+
+		var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+		
+	</script>
+
+	<script src="~/customjs/inventory/materialinspection/jpendinginspection.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			$("#ddlSupplierType, #ddlComponentType").select2({
+				width: '100%',
+				dropdownParent: $("#divsidebar")
+			});
+		});
+	</script>
+}

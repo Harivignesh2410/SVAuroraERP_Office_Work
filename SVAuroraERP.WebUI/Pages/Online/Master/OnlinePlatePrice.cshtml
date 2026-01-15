@@ -1,0 +1,253 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Online.Master.OnlinePlatePriceModel
+@{
+	ViewData["Title"] = "Online Plate Pricing";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Online Plate Price</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Online</a></li>
+					<li class="breadcrumb-item"><a href="#">Master</a></li>
+					<li class="breadcrumb-item active">OnlinePlatePrice</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="WebPageContent d-none">
+	<div class="card" id="tblOnlinePlatePrice">
+		<div class="card-body border-bottom">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 card-title flex-grow-1"></h5>
+				<div class="flex-shrink-0">
+					<button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light">
+						<i class="fas fa-plus-square label-icon me-2"></i>Add New
+					</button>
+					<button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+						<i class="mdi mdi-refresh label-icon me-2"></i>Refresh
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="card-body p4">
+			<div class="mt-2">
+				<div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+					<table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+						<thead class="table-light">
+							<tr>
+								<th>S No.</th>
+								<th>Category</th>
+								<th>Vehicle Type</th>
+								<th>Vehicle Class</th>
+								<th>Fuel Type</th>
+								<th>Plate Color</th>
+								<th>Plate Type</th>
+								<th>Plate Size</th>
+								<th class="text-center">Status</th>
+								<th class="text-center">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card" id="divAddnew">
+		<div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+			<h5 class="card-title text-white" id="divCardTitle"><i class="fas fa-plus-square align-middle me-1"></i>Add New</h5>
+			<button type="button" class="btn btn-sm btn-danger text-white" id="btnCloseWindow" title="Click here to Close Window"><i class="fas fa-window-close align-middle"></i></button>
+		</div>
+		<div class="card-body">
+			<p class="card-title-desc text-danger mb-0">Please fill in all required fields&nbsp;*</p>
+            <div class="row g-2">
+                <div class="col-lg-3 col-md-4 col-sm-12" id="divVehicleCategory">
+                    <label for="ddlVehicleCategory" class="col-form-label">Vehicle Category<span class="text-danger">&nbsp;*</span></label>
+                    <select id="ddlVehicleCategory" class="form-select select2" asp-items="Model.VehicleCategoryList" asp-data-placeholder="--Select--"> </select>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-sm-12" id="divVehicleType">
+                    <label for="ddlVehicleType" class="col-form-label">Vehicle Type<span class="text-danger">&nbsp;*</span></label>
+                    <select id="ddlVehicleType" class="form-select select2" asp-items="Model.VehicleTypeList" asp-data-placeholder="--Select--"> </select>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-12" id="divFuel">
+                    <label for="ddlFuel" class="col-form-label">Vehicle Fuel Type<span class="text-danger">&nbsp;*</span></label>
+                    <select id="ddlFuel" class="form-select select2" asp-items="Model.FuelList" asp-data-placeholder="--Select--"> </select>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-12" id="divVehiclePlateColor">
+                    <label for="ddlVehiclePlateColor" class="col-form-label">Vehicle Plate Color<span class="text-danger">&nbsp;*</span></label>
+                    <select id="ddlVehiclePlateColor" class="form-select select2" asp-items="Model.VehiclePlateColorList" asp-data-placeholder="--Select--"> </select>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12" id="divVehicleClass">
+                    <label for="ddlVehicleClass" class="col-form-label">Vehicle Class<span class="text-danger">&nbsp;*</span></label>
+                    <select id="ddlVehicleClass" class="form-select select2" asp-items="Model.VehicleClassList" asp-data-placeholder="---Select--"> </select>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12" id="divVehiclePlateType">
+                    <label for="ddlVehiclePlateType" class="col-form-label">Vehicle Plate Type<span class="text-danger">&nbsp;*</span></label>
+                    <select id="ddlVehiclePlateType" class="form-select select2" data-placeholder="--Select--"> </select>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-12" id="divVehiclePlateSize">
+                    <label for="ddlVehiclePlateSize" class="col-form-label">Vehicle Plate Size<span class="text-danger">&nbsp;*</span></label>
+                    <select id="ddlVehiclePlateSize" class="form-select select2" data-placeholder="--Select--"> </select>
+                </div>
+            </div>
+			<div class="alert alert-warning mt-2 mb-0" role="alert">
+				Price Setup
+			</div>
+			<div class="row g-2">
+				<div class="col-lg-3 col-md-4 col-sm-12" id="divFront">
+					<div class="form-group">
+						<label for="txtFront" class="col-form-label">Front Plate Charges</label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+							<input type="text" id="txtFront" class="form-control MaxThreshold decimal" placeholder="00.00" maxlength="100">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-12" id="divRear">
+					<div class="form-group">
+						<label for="txtRear" class="col-form-label">Rear Plate Charges</label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+							<input type="text" id="txtRear" class="form-control MaxThreshold decimal" placeholder="00.00" maxlength="9">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-12" id="divSnapLock">
+					<div class="form-group">
+						<label for="txtSnapLock" class="col-form-label">Snap Lock Charges</label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+							<input type="text" id="txtSnapLock" class="form-control MaxThreshold decimal" placeholder="00.00" maxlength="9">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-12" id="divTLPSticker">
+					<div class="form-group">
+						<label for="txtTLPSticker" class="col-form-label">TLP Sticker Charges</label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+							<input type="text" id="txtTLPSticker" class="form-control MaxThreshold decimal" placeholder="00.00" maxlength="9">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-md-4 col-sm-12" id="divEmbossingFitmentCharges">
+					<div class="form-group">
+						<label for="txtEmbossingFitmentCharges" class="col-form-label">Embossing Fitment Charges</label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+							<input type="text" id="txtEmbossingFitmentCharges" class="form-control MaxThreshold decimal" placeholder="00.00" maxlength="9">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-12" id="divDealerFitmentCharges">
+					<div class="form-group">
+						<label for="txtDealerFitmentCharges" class="col-form-label">Dealer Fitment Charges</label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+							<input type="text" id="txtDealerFitmentCharges" class="form-control MaxThreshold decimal" placeholder="00.00" maxlength="9">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-12" id="divHomeFitmentCharges">
+					<div class="form-group">
+						<label for="txtHomeFitmentCharges" class="col-form-label">Home Fitment Charges</label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+							<input type="text" id="txtHomeFitmentCharges" class="form-control MaxThreshold decimal" placeholder="00.00" maxlength="9">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-12" id="divDealerCourierCharge">
+					<div class="form-group">
+						<label for="txtDealerCourierCharge" class="col-form-label">Dealer Courier Charge</label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+							<input type="text" id="txtDealerCourierCharge" class="form-control MaxThreshold decimal" placeholder="00.00" maxlength="9">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-12" id="divDealerLocationChangeCharge">
+					<div class="form-group">
+						<label for="txtDealerLocationChangeCharge" class="col-form-label">Dealer Location Change Charge</label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+							<input type="text" id="txtDealerLocationChangeCharge" class="form-control MaxThreshold decimal" placeholder="00.00" maxlength="9">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3  col-md-4 col-sm-12" id="OtherCharges">
+					<div class="form-group">
+						<label for="txtOtherCharges" class="col-form-label">Other Charges (Rs.)</label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
+							<input type="text" id="txtOtherCharges" class="form-control MaxThreshold decimal" placeholder="00.00" maxlength="9">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-4 col-sm-12 ps-2 mt-5" id="divcheckIsActive">
+					<div class="form-check form-check-success">
+						<input type="checkbox" class="form-check-input" name="checkbox" id="ChkcheckIsActive">
+						<label for="ChkcheckIsActive" class="form-check-label">IsActive</label>
+					</div>
+				</div>
+				<div class="row d-flex justify-content-between mt-2" id="divRecordLog">
+					<div class="col-md-6">
+						<span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+					</div>
+					<div class="col-md-6">
+						<span class="fw-lighter fst-italic float-end" id="spnLastUpdatedDate"></span>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer d-flex justify-content-between">
+				<button type="button" id="btnClose" class="btn btn-outline-danger"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+				<button type="button" id="btnSave" class="btn btn-success"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save</button>
+				<button type="button" id="btnUpdate" class="btn btn-success"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Update</button>
+			</div>
+		</div>
+	</div>
+
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+
+@section Scripts {
+	<input type="hidden" id="hdnOnlinePlatePriceID" />
+
+    <script type="text/javascript">
+		// Define the URL as a JavaScript variable
+
+		var SaveUpdateDataUrl = '@Url.Page("/Online/Master/OnlinePlatePrice", "SaveUpdateData")';
+        var OnlinePlatePriceListDataURL = '@Url.Page("/Online/Master/OnlinePlatePrice", "OnlinePlatePriceList")';
+		var GetDataByIDUrl = '@Url.Page("/Online/Master/OnlinePlatePrice", "OnlinePlatePriceByID")';
+		var DeleteDataUrl = '@Url.Page("/Online/Master/OnlinePlatePrice", "DeleteData")';
+		var LoadSizeByPlateTypeIDUrl = '@Url.Page("/Online/Master/OnlinePlatePrice", "LoadSizeByClassAndPlateTypeID")';
+        var LoadPlateTypeByVehicleClassIDUrl = '@Url.Page("/Online/Master/OnlinePlatePrice", "LoadPlateTypeByPlateTypeID")';
+
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+				  var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+	</script>
+
+	<script src="~/customjs/online/master/jonlineplateprice.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+	</script>
+}

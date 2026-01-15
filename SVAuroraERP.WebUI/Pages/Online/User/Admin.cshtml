@@ -1,0 +1,308 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Online.User.AdminModel
+@{
+	ViewData["Title"] = "Admin";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Admin</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Online</a></li>
+					<li class="breadcrumb-item"><a href="#">Users</a></li>
+					<li class="breadcrumb-item active">Admin</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="WebPageContent d-none">
+	<div class="card" id="divaddnew">
+		<div class="card-body border-bottom">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 card-title flex-grow-1"></h5>
+				<div class="flex-shrink-0">
+					<button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light">
+						<i class="fas fa-plus-square label-icon"></i>Add New
+					</button>
+					<button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+						<i class="mdi mdi-refresh label-icon"></i>Refresh
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+				<table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+					<thead class="table-light">
+						<tr>
+							<th>S No.</th>
+							<th>Code</th>
+							<th>Admin Name</th>
+							<th>Contact Person</th>
+							<th>Address</th>
+							<th>District</th>
+							<th>Pincode</th>
+							<th>Delivery Address</th>
+							<th>Delivery District</th>
+							<th>Delivery Pincode</th>
+							<th class="text-center">Status</th>
+							<th class="text-center">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="card" id="divAddEdit">
+		<div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+			<h5 class="card-title text-white" id="divCardTitle"><i class="fas fa-plus-square align-middle me-1"></i>Add New</h5>
+			<button type="button" class="btn btn-sm btn-danger text-white" id="btnCloseWindow" title="Click here to Close Window"><i class="fas fa-window-close align-middle"></i></button>
+		</div>
+		<div class="card-body">
+			<p class="card-title-desc text-danger mb-0">Please fill in all required fields&nbsp;*</p>
+			<div class="row g-3">
+				<div class="col-md-4 col-lg-4 col-sm-12" id="divAddUser">
+					<div class="form-group">
+						<label for="txtUserCode" class="col-form-label">Code&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<input type="text" id="txtUserCode" class="form-control MaxThreshold" placeholder="Please Enter User Code..." maxlength="50">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label for="txtCompanyName" class="col-form-label">Company Name&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<input type="text" id="txtCompanyName" class="form-control MaxThreshold" placeholder="Please Enter Company Name..." maxlength="50">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-lg-4 col-sm-12" id="divGSTIN">
+					<div class="form-group">
+						<label for="txtGSTIN" class="col-form-label">GSTIN&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<input type="text" id="txtGSTIN" class="form-control MaxThreshold" placeholder="Please Enter GSTIN..." maxlength="15">
+						</div>
+					</div>
+				</div>
+				<div class="alert alert-success mt-3 mb-0"> Communication Address</div>
+				<div class="col-md-4 col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label for="txtAdderssline1" class="col-form-label">Address Line 1&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<input type="text" id="txtAdderssline1" class="form-control MaxThreshold" placeholder="Please Enter Address Line 1.." maxlength="50">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4 col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label for="txtAdderssline2" class="col-form-label">Address Line 2&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<input type="text" id="txtAdderssline2" class="form-control MaxThreshold" placeholder="Please Enter Address Line 2.." maxlength="50">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label for="txtCity" class="col-form-label">City&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<input type="text" id="txtCity" class="form-control MaxThreshold" placeholder="Please Enter The City..." maxlength="50">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label class="col-form-label">State&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlStateList" class="form-select select2" asp-items="Model.StateList" asp-data-placeholder="--Select State--">
+						</select>
+					</div>
+				</div>
+				<div class="col-md-4 col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label class="col-form-label">District&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlDistrictList" class="form-select select2" asp-data-placeholder="--Select District--">
+						</select>
+					</div>
+				</div>
+
+				<div class="col-md-4 col-lg-4 col-sm-12" id="divpincode">
+					<div class="form-group">
+						<label for="txtpincode" class="col-form-label">Pincode&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<input type="text" id="txtpincode" class="form-control MaxThreshold" placeholder="Please Enter the Pincode..." maxlength="6">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label for="txtContactperson" class="col-form-label">Contact Person&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<input type="text" id="txtContactperson" class="form-control MaxThreshold" placeholder="Please Enter Person Contact Name..." maxlength="50">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label for="txtContactNo" class="col-form-label">Contact No&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<input type="text" id="txtContactNo" class="form-control MaxThreshold" placeholder="Please Enter ContactNo..." maxlength="10">
+						</div>
+					</div>
+				</div>
+				<div class="alert alert-primary mt-3 mb-0"> Delivery Address</div>
+				<div class="col-md-4 col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label for="txtDeliveryAddress1" class="col-form-label">Delivery Address Line 1&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<input type="text" id="txtDeliveryAddress1" class="form-control MaxThreshold" placeholder="Please Enter Delivery Address Line 1.." maxlength="50">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label for="txtDeliveryAddress2" class="col-form-label">Delivery Address Line 2&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<input type="text" id="txtDeliveryAddress2" class="form-control MaxThreshold" placeholder="Please Enter Delivery Address Line 2.." maxlength="50">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label for="txtDeliveryCity" class="col-form-label">Delivery City&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<input type="text" id="txtDeliveryCity" class="form-control MaxThreshold" placeholder="Please Enter Delivery City..." maxlength="50">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label class="col-form-label">Delivery State&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlDeliveryStateList" class="form-select select2" asp-items="Model.StateList" asp-data-placeholder="Select Delivery State">
+						</select>
+					</div>
+				</div>
+				<div class="col-md-4 col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label class="col-form-label">Delivery District&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlDeliveryDistrictList" class="form-select select2" asp-data-placeholder="--Select Delivery District--">
+						</select>
+					</div>
+				</div>
+				<div class="col-md-4 col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label for="txtDeliverypincode" class="col-form-label">Pincode&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<input type="text" id="txtDeliverypincode" class="form-control MaxThreshold" placeholder="Please Enter Delivery Pincode.." maxlength="6">
+						</div>
+					</div>
+				</div>
+				<div class="alert alert-warning mt-3 mb-0"> User Authentication</div>
+				<div class="row g-3 mb-3">
+					<div class="form-group col-lg-4" id="divUserName">
+						<label>User Name&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtUserName" class="form-control MaxThreshold" placeholder="Please enter Username" maxlength="150" />
+					</div>
+				<div class="form-group col-lg-4" id="divPassword">
+					<label>Password</label>&nbsp;<span class="text-danger">*</span>
+					<input type="password" class="form-control MaxThreshold" id="txtPassword" placeholder="Password" maxlength="50" />
+				</div>
+				<div class="form-group col-lg-4" id="divCPassword">
+					<label>Confirm Password</label>&nbsp;<span class="text-danger">*</span>
+					<input type="password" class="form-control MaxThreshold" id="txtConfirmPassword" placeholder="Confirm Password" maxlength="50" />
+				</div>
+					<div class="form-group col-lg-4" id="divEmail">
+						<label>Email&nbsp;</label>
+						<input type="text" id="txtEmail" class="form-control MaxThreshold" placeholder="Please enter Email" maxlength="200" />
+					</div>
+
+					<div class="form-group  col-lg-4">
+						<label>Application&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlApplication" class="form-select select2 "  asp-data-placeholder="Select Application">
+						</select>
+					</div>
+					<div class="form-group col-lg-4" id="divUserRole">
+						<label>Role</label>&nbsp;<span class="text-danger">*</span>
+						<select id="ddlUserRole" class="form-select select2"  asp-data-placeholder="Select Role">
+						</select>
+					</div>
+					<div class="form-group col-lg-4" id="divLandingPage">
+						<label>
+							Landing Page
+						</label>&nbsp;<span class="text-danger">*</span>
+						<select id="ddlPageList" class="form-select select2" name=""
+								asp-data-placeholder="Select Page">
+							<option value="0">--Select Page--</option>
+						</select>
+					</div>
+					<div class="form-group col-lg-4 mb-0">
+						<div class="checkbox checkbox-success">
+							<input id="chkStatus" type="checkbox" checked="checked" />
+							<label for="chkStatus">Active</label>
+						</div>
+					</div>
+				</div>
+				<div class="row d-flex justify-content-between mt-2" id="divRecordLog">
+					<div class="col-lg-9 col-md-9 col-sm-12">
+						<span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-12">
+						<span class="fw-lighter fst-italic float-end" id="spnLastUpdatedDate"></span>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer d-flex justify-content-between">
+				<button type="button" id="btnClose" class="btn btn-outline-danger"><i class="fas fa-window-close font-size-16 me-2 "></i>Close</button>
+				<button type="button" id="btnSave" class="btn btn-success"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save</button>
+				<button type="button" id="btnUpdate" class="btn btn-success"><i class="bx bxs-edit font-size-20 align-middle me-2"></i>Update</button>
+			</div>
+		</div>
+	</div>
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+
+@section Scripts {
+	<input type="hidden" id="hdnHSRPUserID" />
+	<input type="hidden" id="hdnUserID" />
+
+	<script type="text/javascript">
+		// Define the URL as a JavaScript variable
+
+		var SaveUpdateDataUrl = '@Url.Page("/Online/User/Admin", "SaveUpdateData")';
+		var ListDataUrl = '@Url.Page("/Online/User/Admin", "AdminList")';
+		var GetDataByIDUrl = '@Url.Page("/Online/User/Admin", "AdminByID")';
+		var DeleteDataUrl = '@Url.Page("/Online/User/Admin", "DeleteData")';
+		var DistrictListByStateIDUrl = '@Url.Page("/Online/User/Admin", "DistrictByStateID")';
+		var DeliveryDistrictListByStateIDUrl = '@Url.Page("/Online/User/Admin", "DistrictByStateID")';
+
+		var GetGlobalRoleIDByPageIDUrl = '@Url.Page("/GlobalFunctions", "GlobalRoleIDByPageID")';
+		var ApplicationListUrl = '@Url.Page("/GlobalFunctions", "ApplicationList")';
+		var GetRoleByApplicationIDUrl = '@Url.Page("/Authentication/ManageUsers", "RoleByApplicationID")';
+		var GlobalPageControlByRoleIDURL = '@Url.Page("/GlobalFunctions", "GlobalPageControlByRoleID")';
+		
+
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+					var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+	</script>
+
+	<script src="~/customjs/online/user/jadmin.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+	</script>
+}

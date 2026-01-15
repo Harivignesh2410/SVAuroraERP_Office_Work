@@ -1,0 +1,180 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Authentication.HSRPConfigModel
+@{
+    ViewData["Title"] = "HSRP Config";
+}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">HSRP Config</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Authentication</a></li>
+                    <li class="breadcrumb-item active">HSRP Config</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="WebPageContent d-none">
+    <div class="card" id="divAddEdit">
+        <div class="card-body">
+            <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#divOEMConfig" role="tab" aria-selected="true">
+                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                        <span class="d-none d-sm-block">OEM Config</span>
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation" id="tabRackCapacity">
+                    <a class="nav-link disable" data-bs-toggle="tab" href="#divRoleConfig" role="tab" aria-selected="false" tabindex="-1">
+                        <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                        <span class="d-none d-sm-block">Role Config</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+                <div class="tab-pane fade show active" id="divOEMConfig" role="tabpanel">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">TVS&nbsp;<span class="text-danger">*</span></label>
+                                <select id="ddlHSRPUserTVS" class="form-select select2" asp-items="Model.HSRPUserList" asp-data-placeholder="Select HSRPUser">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Saravana Eng&nbsp;<span class="text-danger">*</span></label>
+                                <select id="ddlHSRPUserSaravana" class="form-select select2" asp-items="Model.HSRPUserList" asp-data-placeholder="Select HSRPUser">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Eroyce Motors&nbsp;<span class="text-danger">*</span></label>
+                                <select id="ddlHSRPUserEroyceMotors" class="form-select select2" asp-items="Model.HSRPUserList" asp-data-placeholder="Select HSRPUser">
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light mt-2">
+                        <i class="bx bxs-save font-size-20 align-middle me-2"></i>Update
+                    </button>
+
+                    <div class="d-flex justify-content-between mt-2" id="divRecordLog">
+                        <span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+                        <span class="fw-lighter fst-italic" id="spnLastUpdatedDate"></span>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="divRoleConfig" role="tabpanel">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Super Admin&nbsp;<span class="text-danger">*</span></label>
+                                <select id="ddlSuperAdmin" class="form-select select2" asp-items="Model.RoleList" asp-data-placeholder="Select Role">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Admin&nbsp;<span class="text-danger">*</span></label>
+                                <select id="ddlAdmin" class="form-select select2" asp-items="Model.RoleList" asp-data-placeholder="Select Role">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Embossing Station&nbsp;<span class="text-danger">*</span></label>
+                                <select id="ddlEmbossingStation" class="form-select select2" asp-items="Model.RoleList" asp-data-placeholder="Select Role">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">OEM&nbsp;<span class="text-danger">*</span></label>
+                                <select id="ddlOEMRole" class="form-select select2" asp-items="Model.RoleList" asp-data-placeholder="Select Role">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Dealer&nbsp;<span class="text-danger">*</span></label>
+                                <select id="ddlDealer" class="form-select select2" asp-items="Model.RoleList" asp-data-placeholder="Select Role">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Dealer Sub User&nbsp;<span class="text-danger">*</span></label>
+                                <select id="ddlDealerSubUser" class="form-select select2" asp-items="Model.RoleList" asp-data-placeholder="Select Role">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Embossing Sub User&nbsp;<span class="text-danger">*</span></label>
+                                <select id="ddlEmbossingSubuser" class="form-select select2" asp-items="Model.RoleList" asp-data-placeholder="Select Role">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">OEM Sub User&nbsp;<span class="text-danger">*</span></label>
+                                <select id="ddlOEMSubUser" class="form-select select2" asp-items="Model.RoleList" asp-data-placeholder="Select Role">
+                                </select>
+                            </div>
+                        </div>
+                     
+                    </div>
+                
+                    <button id="btnUpdateRole" type="button" class="btn btn-success waves-effect waves-light mt-2">
+                        <i class="bx bxs-save font-size-20 align-middle me-2"></i>Update Role
+                    </button>
+                    <div class="d-flex justify-content-between mt-2" id="divRecordLogRole">
+                        <span class="fw-lighter fst-italic" id="spnLastUpdatedByRole"></span>
+                        <span class="fw-lighter fst-italic" id="spnLastUpdatedDateRole"></span>
+                    </div>
+                </div>                
+            </div>           
+        </div>
+    </div>
+</div>
+
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+
+@section Scripts {
+    <input type="hidden" id="hdnHSRPConfigID" />
+
+    <script type="text/javascript">
+                var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+
+        var SaveUpdateDataUrl = '@Url.Page("/Authentication/HSRPConfig", "SaveUpdateData")';
+        var SaveUpdateDataRoleUrl = '@Url.Page("/Authentication/HSRPConfig", "SaveUpdateDataRole")';
+        var GetHSRPConfigDataURL = '@Url.Page("/Authentication/HSRPConfig", "HSRPConfig")';
+
+
+
+	var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+	var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+	var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+	var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+	var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;	
+	</script>
+
+    <script src="~/customjs/authentication/jhsrpconfig.js" type="text/javascript" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var PageAuditData = new Object();
+            PageAuditData.PageControlID = currentPageControlID;
+            PageAuditData.URL = window.location.href;
+            InsertPageAccessAuditLog(_TOKEN, PageAuditData);
+        });
+    </script>
+}

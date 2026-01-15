@@ -1,0 +1,149 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.ScrapManagement.ScrapEntryModel
+@{
+	ViewData["Title"] = "Scrap Entry";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Scrap Entry</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item"><a href="#">Scrap Management</a></li>
+					<li class="breadcrumb-item active">Scrap Entry</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="WebPageContent d-none">
+	<div id="divScrapSummary"></div>
+	<div class="card" id="divRecords">
+		<div class="card-body border-bottom">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 card-title flex-grow-1"></h5>
+				<div class="flex-shrink-0">
+					<button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light" title="Click here to Add New">
+						<i class="fas fa-plus-square label-icon"></i>Add New
+					</button>
+					<button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light " title="Click here to refresh">
+						<i class="mdi mdi-refresh label-icon"></i>Refresh
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+				<table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+					<thead class="table-light">
+						<tr>
+							<th>S No.</th>
+							<th>ScrapEntry No</th>
+							<th>Date</th>
+							<th>Total Sold Qty</th>
+							<th>Sold Components</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="card" id="divAddEdit">
+		<div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+			<h5 class="card-title text-white" id="divCardTitle">
+			</h5>
+			<button type="button" class="btn btn-sm btn-danger text-white" id="btnCloseWindow" title="Click here to Close Window"><i class="fas fa-window-close align-middle"></i></button>
+		</div>
+		<div class="card-body">
+			<p class="card-title-desc text-danger mb-0">Please fill in all required fields&nbsp;*</p>
+			<div class="row g-2">
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divScrapEntryNo">
+						<label class="col-form-label">Scrap Entry No</label>
+						<input type="text" id="txtScrapEntyNo" class="form-control" placeholder="Scrap Entry No. [Auto Filled]" maxlength="50" readonly />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divScrapDate">
+						<label class="col-form-label">Scrap Date&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+							<input type="text" id="txtScrapDate" class="form-control" name="StartDate" readonly="true"  title="Click to view Calendar">
+							<div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group">
+						<label class="col-form-label">Total Sold Qty&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtTotalSoldQty" class="form-control disabled" placeholder=" [Auto Filled]" maxlength="50" readonly />
+					</div>
+				</div>
+			</div>
+
+			<div class="alert alert-success text-center mt-3" role="alert">
+				Scarp Summary
+			</div>
+
+			<div class="row mt-3">
+				<div id="divScrapStock"></div>
+			</div>
+
+			<div class="row d-flex justify-content-between mt-4" id="divRecordLog">
+				<div class="col-md-6">
+					<span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+				</div>
+				<div class="col-md-6 text-end">
+					<span class="fw-lighter fst-italic" id="spnLastUpdatedDate"></span>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer d-flex justify-content-between mt-2">
+			<button id="btnClose" type="button" class="btn btn-outline-danger waves-effect"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+			<button id="btnSave" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Sold</button>
+			<button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Update</button>
+		</div>
+	</div>
+
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+	<input type="hidden" id="hdnScrapEntryID" />
+
+	<script type="text/javascript">
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+
+		// Define the URL as a JavaScript variable
+		var ListDataUrl = '@Url.Page("/Inventory/ScrapManagement/ScrapEntry", "ScrapEntryList")';
+		var GetAvailableScrapStockUrl = '@Url.Page("/Inventory/ScrapManagement/ScrapEntry", "AvailableScrapStock")';
+		var SaveUpdateDataUrl = '@Url.Page("/Inventory/ScrapManagement/ScrapEntry", "SaveUpdateData")';
+		var DeleteDataUrl = '@Url.Page("/Inventory/ScrapManagement/ScrapEntry", "DeleteData")';
+		var GetDataByIDUrl = '@Url.Page("/Inventory/ScrapManagement/ScrapEntry", "ScrapEntryByID")';
+
+
+		// Pass permissions to JavaScript
+		var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+	</script>
+
+	<script src="~/customjs/inventory/scrapmanagement/jscrapentry.js" type="text/javascript" asp-append-version="true"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+	</script>
+}

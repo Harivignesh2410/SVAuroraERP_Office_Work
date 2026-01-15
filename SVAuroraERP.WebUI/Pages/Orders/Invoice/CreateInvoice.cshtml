@@ -1,0 +1,166 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Orders.Invoice.CreateInvoiceModel
+@{
+    ViewData["Title"] = "Create Invoice";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Create Invoice</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Orders</a></li>
+                    <li class="breadcrumb-item active">Invoice</li>
+                    <li class="breadcrumb-item active">Create Invoice</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="WebPageContent d-none">
+    <div id="divSummary" class="card mb-3">
+        <div class="card-body border-bottom">
+            <div class="d-flex align-items-center">
+                <h5 class="mb-0 card-title flex-grow-1"></h5>
+                <div class="flex-shrink-0">
+                    <button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+                        <i class="mdi mdi-refresh label-icon"></i>Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body" id="divRecords">
+            <div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+                <table id="tblSummarylist" class="table  align-middle dt-responsive nowrap w-100 table-check">
+                    <thead class="table-light">
+                        <tr>
+                            <th>S No.</th>
+                            <th>PO No.</th>
+                            <th>Dealer Code</th>
+                            <th>Dealer Name</th>
+                            <th>Dealer City</th>
+                            <th>Order Count</th>
+                            <th>Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dynamic data here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-2" id="divOrderList">
+        <div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+            <h5 class="card-title text-white">
+                <i class="fas fa-plus-square align-middle me-1"></i>    Invoice Details
+            </h5>
+            <button type="button" class="btn-close btn-close-white" id="btnCloseWindow"></button>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Left Column: 25% width for Form -->
+                @*<div class="col-md-3">
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Company Name</strong></label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Mode of Transport</strong></label>
+                        <select class="form-control select2">
+                            <option>Select</option>
+                            <option>Courier</option>
+                            <option>Transport</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Courier</strong></label>
+                        <select class="form-control select2">
+                            <option>Select</option>
+                            <option>Courier</option>
+                            <option>Transport</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Docket No</strong></label>
+                        <input type="text" class="form-control" placeholder="Please enter DOCKET NO">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Dispatch Date</strong></label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                            <input type="text" id="txtDispatchDate" class="form-control" name="txtDispatchDate" title="Click to view Calendar" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Consignment Details</strong></label>
+                        <textarea class="form-control" rows="2" placeholder="Please enter CONSIGNMENT DETAILS"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Collecting Person</strong></label>
+                        <input type="text" class="form-control" placeholder="Please enter  Collecting Person Name">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Upload POD Image File (.jpeg, .jpg, .png)</strong></label>
+                        <input type="file" class="form-control">
+                    </div>
+                </div>*@
+                <div class="col-md-12">
+                    <div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+                        <table id="tblOrderlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>
+                                     <input type="checkbox" id="selectAllCheckbox" title="Select All" class="form-check-input" checked /></th>
+                                    <th>S.No.</th>
+                                    <th>Order No/ Date</th>
+                                    <th>Reg No/Date</th>
+                                    <th>Front/Size</th>
+                                    <th>Back/Size</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <button id="btnClose" type="button" class="btn btn-outline-danger waves-effect"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+                <button id="btnCreateInvoice" type="button" class="btn btn-success waves-effect"><i class="far fa-check-circle font-size-20 align-middle me-2"></i>Generate Invoice</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+    <input type="hidden" id="hdnHSRPOrderID" />
+
+    <script type="text/javascript">
+        var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+
+        var SummaryListDataUrl = '@Url.Page("/Orders/Invoice/CreateInvoice", "SummaryForQualityProcessing")';
+        var GenerateInvoiceUrl = '@Url.Page("/Orders/Invoice/CreateInvoice", "GenerateInvoice")';
+        var ListOrderDataUrl = '@Url.Page("/Orders/Invoice/CreateInvoice", "OrderList")';
+                    var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+        var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+        var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+        var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+        var _CMPermissions  = @Json.Serialize(Model.Permissions);
+        var currentPageControlID = @Model.CurrentPageControlID;
+
+    </script>
+    <script src="~/customjs/orders/invoice/jcreateinvoice.js" type="text/javascript" asp-append-version="true"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var PageAuditData= new Object();
+            PageAuditData.PageControlID = currentPageControlID;
+            PageAuditData.URL = window.location.href;
+            InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+        });
+    </script>
+}

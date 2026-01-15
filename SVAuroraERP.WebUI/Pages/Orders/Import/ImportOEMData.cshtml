@@ -1,0 +1,174 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Orders.Import.ImportOEMDataModel
+@{
+    ViewData["Title"] = "Import OEM Data";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Import OEM Data</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Orders</a></li>
+                    <li class="breadcrumb-item"><a href="#">Import</a></li>
+                    <li class="breadcrumb-item active">Import OEM Data</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="WebPageContent d-none">
+    <div id="divRecords">
+        <div class="accordion custom-accordionwithicon custom-accordion-border accordion-border-box accordion-secondary" id="divAdvancedFilter">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="accHeader">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#divAdvancedFilterBody" aria-expanded="true" aria-controls="divAdvancedFilterBody">
+                        <i class="bx bx-filter-alt me-2"></i> Advanced Filter
+                    </button>
+                </h2>
+                <div id="divAdvancedFilterBody" class="accordion-collapse collapse show" aria-labelledby="accHeader" data-bs-parent="#divAdvancedFilter">
+                    <div class="accordion-body">
+                        <div class="row g-3 align-items-end">
+                            <!-- OEM ID -->
+                            <div class="col-lg-4 col-md-6">
+                                <label for="ddlOEMListFilter" class="form-label">OEM ID</label>
+                                <select id="ddlOEMListFilter" class="form-select select2"
+                                        placeholder="Select OEM">
+                                </select>
+                            </div>
+
+                            <!-- Date Range -->
+                            <div class="col-lg-5 col-md-6">
+                                <label class="form-label">Date</label>
+                                <div class="input-daterange input-group" id="datepicker6"
+                                     data-date-format="dd M, yyyy" data-date-autoclose="true"
+                                     data-provide="datepicker" data-date-container="#datepicker6">
+                                    <input type="text" class="form-control" name="start" id="txtStartDate"
+                                           readonly placeholder="From Date">
+                                    <input type="text" class="form-control" name="end" id="txtEndDate"
+                                           readonly placeholder="To Date">
+                                </div>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="col-lg-3 col-md-12 d-flex justify-content-end">
+                                <button type="button" class="btn btn-outline-secondary btn-rounded me-2 w-50" id="btnClearFilter">
+                                    <i class="bi bi-x-circle"></i> Clear
+                                </button>
+                                <button type="button" class="btn btn-warning w-50" id="btnFilter">
+                                    <i class="ri-equalizer-fill me-1 align-bottom"></i> Filters
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-2">
+            <div class="card-body border-bottom">
+                <div class="d-flex align-items-center">
+                    <h5 class="mb-0 card-title flex-grow-1"></h5>
+                    <div class="flex-shrink-0">
+                        <button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light" title="Click here to Add New">
+                            <i class="bx bxs-plus-square label-icon"></i>Add New
+                        </button>
+                        <button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+                            <i class="mdi mdi-refresh label-icon"></i>Refresh
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p4">
+                <div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+                    <table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+                        <thead class="table-light">
+                            <tr>
+                                <th>S No.</th>
+                                <th>Imported Date</th>
+                                <th>OEM</th>
+                                <th>File Name</th>
+                                <th>Data Row Count</th>
+                                <th>Inserted Count</th>
+                                <th>Removed Count</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="card mt-xxl" id="divAddEdit">
+        <div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+            <h5 class="card-title text-white" id="divCardTitle">
+                <i class="fas fa-plus-square align-middle me-1"></i>
+            </h5>
+            <button type="button" class="btn-close btn-close-white" id="btnCloseWindow"></button>
+        </div>
+        <div class="card-body">
+            <div class=" row g-3" id="divimportfile">
+                <div class="col-lg-4 col-md-6">
+                    <div class="form-group" id="divOEM">
+                        <label>Select OEM&nbsp;<span class="text-danger">*</span></label>
+                        <select id="ddlOEMList" class="form-select select2" placeholder="Select OEM">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <label for="file">Import Excel file:</label>
+                    <input type="file" name="ImportExcelFile" class="form-control" id="ImportExcelFile" />
+                </div>
+                <div class="col-lg-3 py-4">
+                    <button type="submit" id="btnImport" class="btn btn-primary" title="Click to Search"><i class="fas fa-file-import me-2"></i>Import OEM Data</button>
+                </div>
+            </div>
+            <div id="divListimportdata">
+                <div id="divOEMImportdata"></div>
+                <div id="divOEMImportdataSummary"></div>
+                <div id="divOEMImportTrans"></div>
+            </div>
+            <div class="card-footer d-flex justify-content-between mt-2">
+                <button id="btnClose" type="button" class="btn btn-outline-danger waves-effect"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+
+@section Scripts {
+    <input type="hidden" id="hdnHSRPUserID" />
+    <input type="hidden" id="hdnUserID" value="@Model.LoggedUserID" />
+    <script type="text/javascript">
+		// Define the URL as a JavaScript variable
+        var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+
+        var GetOEMImportDataFromExcelUrl = '@Url.Page("/Orders/Import/ImportOEMData", "OEMImportDataFromExcel")';
+        var OEMListByEmbossingStationUrl = '@Url.Page("/GlobalFunctions", "OEMListByEmbossingStation")';
+		var ListDataUrl = '@Url.Page("/Orders/Import/ImportOEMData", "ImportDataListData")';
+		var DeleteDataUrl = '@Url.Page("/Orders/Import/ImportOEMData", "DeleteData")';
+		var GetDataByIDUrl = '@Url.Page("/Orders/Import/ImportOEMData", "ImportDataByID")';
+
+		var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+    </script>
+
+    <script src="~/customjs/orders/import/jimportoemdata.js" type="text/javascript" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var PageAuditData = new Object();
+            PageAuditData.PageControlID = currentPageControlID;
+            PageAuditData.URL = window.location.href;
+            InsertPageAccessAuditLog(_TOKEN, PageAuditData);
+        });
+    </script>
+}

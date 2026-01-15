@@ -1,0 +1,192 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.Purchase.PurchaseOrderModel
+@{
+	ViewData["Title"] = "Purchase Order";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Purchase Order</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item"><a href="#">Purchase</a></li>
+					<li class="breadcrumb-item active">Purchase Order</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="WebPageContent d-none">
+	<div class="card" id="divRecords">
+		<div class="card-body border-bottom">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 card-title flex-grow-1"></h5>
+				<div class="flex-shrink-0">
+					<button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light" title="Click here to Add New">
+						<i class="fas fa-plus-square label-icon"></i>Add New
+					</button>
+					<button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+						<i class="mdi mdi-refresh label-icon"></i>Refresh
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+				<table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+					<thead class="table-light">
+						<tr>
+							<th>S No.</th>
+							<th>P.O No</th>
+							<th>P.O Date</th>
+							<th>Supplier</th>
+							<th>P.O Value(Rs.)</th>
+							<th>Status</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="card" id="divAddEdit">
+		<div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+			<h5 class="card-title text-white" id="divCardTitle">
+				<i class="fas fa-plus-square align-middle me-1"></i>
+			</h5>
+			<button type="button" class="btn btn-sm btn-danger text-white" id="btnCloseWindow" title="Click here to Close Window"><i class="fas fa-window-close align-middle"></i></button>
+		</div>
+		<div class="card-body">
+			<p class="card-title-desc mb-2">Please fill in all required fields&nbsp;<span class="text-danger">*</span></p>
+			<div class="row g-3 mb-2">
+				<div class="col-lg-2 col-md-6">
+					<div class="form-group" id="divOrderNo">
+						<label>P.O No&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtPoNo" class="form-control MaxThreshold" placeholder="Please enter P.O No" maxlength="50" />
+					</div>
+				</div>
+				<div class="col-lg-2">
+					<div class="form-group" id="divOrderDate">
+						<label>Date&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+							<input type="text" id="txtPoDate" class="form-control" name="txtPoDate" title="Click to view Calendar" readonly="readonly" />
+							<div class="input-group-text ClearDate"><i class="fas fa-eraser"></i></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divSupplier">
+						<label>Select Supplier&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlSupplierType" class="form-control select2" data-placeholder="Supplier" asp-items="Model.SupplierList">
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divOrderNo">
+						<label>P.O Value&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtPoValue" class="form-control MaxThreshold decimal" placeholder="Please enter P.O Value" maxlength="50" />
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-6 py-4">
+					<button id="btnAddNewItems" class="btn btn-warning btn-sm btn-rounded waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#divAddUnitModal" title="Click here to Add New Item"><i class="fas fa-plus-square align-middle me-1"></i>Add New Item</button>
+				</div>
+			</div>
+			<div class="table-responsive">
+				<div id="divTableData">
+				</div>
+			</div>
+
+
+			<div class="row d-flex justify-content-between mt-2" id="divRecordLog">
+				<div class="col-md-6">
+					<span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+				</div>
+				<div class="col-md-6">
+					<span class="fw-lighter fst-italic float-end" id="spnLastUpdatedDate"></span>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer d-flex justify-content-between">
+			<button id="btnClose" type="button" class="btn btn-outline-danger waves-effect"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+			<button id="btnSave" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save</button>
+			<button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Update</button>
+		</div>
+	</div>
+	<div class="modal fade" id="divAddUnitModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-info">
+					<h5 class="modal-title add-task-title text-white" style="display: block;" id="divmodalTitle"><i class="bx bxs-plus-square font-size-20 align-middle me-1"></i> </h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p class="card-title-desc mb-0">Please fill in all required fields&nbsp;<span class="text-danger">*</span></p>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="form-group" id="divItem">
+								<label>Select Item&nbsp;<span class="text-danger">*</span></label>
+								<select id="ddlItem" class="form-control select2" data-placeholder="Item">
+								</select>
+							</div>
+							<div class="form-group" id="divQuantity">
+								<label for="txtQuantity" class="col-form-label">Quantity&nbsp;<span class="text-danger me-1">*</span></label>
+								<input id="txtQuantity" name="txtQuantity" type="text" class="form-control MaxThreshold decimal" placeholder="Please enter Quantity..." maxlength="250">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<button id="btnModalClose" type="button" class="btn btn-outline-danger waves-effect" data-bs-dismiss="modal"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+					<button id="btnSaveItem" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save Item</button>
+					<button id="btnUpdateItem" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-edit font-size-20 align-middle me-2"></i>Update Item</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div>
+
+</div><!-- /.modal-dialog -->
+
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+	<input type="hidden" id="hdnPurchaseOrderID" />
+	<input type="hidden" id="hdnPurchaseOrderTransID" />
+	<input type="hidden" id="hdnSNo" />
+
+    <script type="text/javascript">
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+
+		// Define the URL as a JavaScript variable
+		var ListDataUrl = '@Url.Page("/Inventory/Purchase/PurchaseOrder", "PurchaseOrderList")';
+		var SaveUpdateDataUrl = '@Url.Page("/Inventory/Purchase/PurchaseOrder", "SaveUpdateData")';
+		var GetDataByIDUrl = '@Url.Page("/Inventory/Purchase/PurchaseOrder", "PurchaseOrderByID")';
+		var DeleteDataUrl = '@Url.Page("/Inventory/Purchase/PurchaseOrder", "DeleteData")';
+        var PurchaseOrderDataTableUrl = '@Url.Page("/Inventory/Purchase/PurchaseOrder", "PurchaseOrderDataTable")';
+
+		// var OtherChargesListUrl = '@Url.Page("/Inventory/Purchase/PurchaseEntry", "OtherChargesList")';
+		var ItemListUrl = '@Url.Page("/Inventory/Purchase/PurchaseOrder", "ItemList")';
+		// var TaxListUrl = '@Url.Page("/Inventory/Purchase/PurchaseEntry", "TaxList")';
+
+		var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+    </script>
+
+	<script src="~/customjs/inventory/purchase/jpurchaseorder.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+	</script>
+}

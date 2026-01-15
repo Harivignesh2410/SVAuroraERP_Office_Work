@@ -1,0 +1,116 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.Dispatch.DeliveryAcknowledgementModel
+@{
+	ViewData["Title"] = "Delivery Acknowledgement";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Delivery Acknowledgement</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item active">Disptach</li>
+					<li class="breadcrumb-item active">DeliveryAcknowledgement</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="WebPageContent d-none">
+	<div class="card" id="divRecords">
+		<div class="card-body border-bottom">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 card-title flex-grow-1"></h5>
+				<div class="flex-shrink-0">
+					<button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+						<i class="mdi mdi-refresh label-icon"></i>Refresh
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="card-body table-responsive">
+			<table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100">
+				<thead class="table-light">
+					<tr>
+						<th>S No.</th>
+						<th>Dispatch No</th>
+						<th>Date</th>
+						<th>Mode of Transport</th>
+						<th>Transport Details</th>
+						<th>Docket No</th>
+						<th>Docket Date</th>
+						<th>Disptached To</th>
+						<th class="text-center">Status</th>
+						<th class="text-center">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="card" id="divAddEdit">
+		<div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+			<h5 class="card-title text-white" id="divCardTitle">
+			</h5>
+			<button type="button" class="btn btn-sm btn-danger text-white" id="btnCloseWindow" title="Click here to Close Window"><i class="fas fa-window-close align-middle"></i></button>
+		</div>
+		<div class="card-body">
+			<div id="divPackingList"></div>
+			<div class="card-footer d-flex justify-content-between mt-2">
+				<button id="btnClose" type="button" class="btn btn-outline-danger waves-effect"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="divAddEditModal" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl ">
+			<div class="modal-content ">
+				<div class="modal-header bg-info">
+					<h5 class="modal-title add-task-title text-white" style="display: block;"><i class="bx bx-add-to-queue font-size-20 align-middle me-1"></i>Acknowledge Inner Box</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div id="divInnerBoxes"></div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<button type="button" class="btn btn-outline-danger waves-effect" data-bs-dismiss="modal"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+					<button id="btnSave" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bx-check-shield font-size-20 align-middle me-2"></i>Approve</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+	<input type="hidden" id="hdnNumberPlateDispatchID" />
+
+	<script type="text/javascript">
+		var GetPackingListByIDUrl = '@Url.Page("/Inventory/Dispatch/DeliveryAcknowledgement", "PackingListByID")';
+		var ListDataUrl = '@Url.Page("/Inventory/Dispatch/NumberPlateDispatch", "ListData")';
+			var AcknowledgeInnerBoxUrl = '@Url.Page("/Inventory/Dispatch/DeliveryAcknowledgement", "AcknowledgeInnerBox")';
+		var GetDataByIDUrl = '@Url.Page("/Inventory/Dispatch/Packing", "PackingByID")';
+		//var GetPackingListByIDUrl = '@Url.Page("/Inventory/Dispatch/NumberPlateDispatch", "DeleteData")';
+
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+			var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+	</script>
+	<script src="~/customjs/inventory/dispatch/jdeliveryacknowledgement.js" type="text/javascript" asp-append-version="true"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			 var PageAuditData = new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN, PageAuditData);
+		});
+	</script>
+}

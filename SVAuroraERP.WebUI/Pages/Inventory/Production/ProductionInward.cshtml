@@ -1,0 +1,174 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.Production.ProductionInwardModel
+@{
+	ViewData["Title"] = "Production Inward";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Production Inward</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item active">Production</li>
+					<li class="breadcrumb-item active">Production Inward</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="WebPageContent d-none">
+	<div id="divSearchPage">
+		<div class="row g-3 mb-3">
+			<div class="col-xxl-3 col-lg-3">
+				<div class="form-group">
+					<select id="ddlProcessType" class="form-select select2" asp-data-placeholder="Select Process Type" asp-items="Model.ProcessTypeList">
+					</select>
+				</div>
+			</div>
+			<div class="col-xxl-4 col-lg-4">
+				<div class="form-group" id="divDate">
+					<div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy" data-date-autoclose="true" data-provide="datepicker" data-date-container="#datepicker6">
+						<input type="text" class="form-control" name="start" readonly="true" placeholder="Start Date" id="txtStartDate">
+						<input type="text" class="form-control" name="end" readonly="true" placeholder="End Date" id="txtEndDate">
+					</div>
+				</div>
+			</div>
+			<div class="col-xxl-3 col-lg-3">
+				<div class="input-group">
+					<span class="input-group-text">
+						<i class="fas fa-search"></i>
+					</span>
+					<input type="text" id="txtSearchbox" class="form-control Maxthreshold" placeholder="Search Text" maxlength="50">
+				</div>
+			</div>
+			<div class="col-xxl-2 col-lg-6">
+				<div class="position-relative h-100 hstack gap-3">
+					<button class="btn btn-warning btn-rounded waves-effect h-100 w-100" id="btnFilter">
+						<i class="bx bx-filter-alt font-size-16 align-middle me-2"></i>Filter
+					</button>
+					<button type="button" class="btn btn-outline-secondary btn-rounded waves-effect h-100 w-100" id="btnClearFilter">
+						<i class="bi bi-x-circle"></i>Clear
+					</button>
+				</div>
+			</div>
+		</div>
+
+		@* this div for displaying the number of count in the list in js file *@
+		<div class="card">
+			<div class="card-body">				
+				<div id="divSearchResultSummary">
+				</div>
+			</div>		
+		</div>
+	</div>
+	<div class="card" id="divPendingStockRequest">
+		<div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+			<h5 class="card-title text-white" id="divCardTitle"><i class='bx bxs-edit font-size-20 align-middle me-1'></i>&nbsp; Update Production Inward</h5>
+			</h5>
+			<button type="button" class="btn btn-sm btn-danger text-white" id="btnCloseWindow" title="Click here to Close Window"><i class="fas fa-window-close align-middle"></i></button>
+		</div>
+		<div class="card-body">
+			<div id="divPendingStockRequestTrans">
+			</div>
+			<div class="alert alert-info mt-3" role="alert">
+				<i class="mdi mdi-check-all me-3"></i>Output Component Type 
+			</div>
+			<div class="row g-3 mb-3">
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divEmployee">
+						<label for="ddlEmployee" class="col-form-label">Operator&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlEmployeee" class="form-select select2" asp-data-placeholder="Select Employee" asp-items="Model.EmployeeList">
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divComponentType">
+						<label for="ddlComponentType" class="col-form-label">Component Type&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlComponentType" class="form-select select2" asp-data-placeholder="Select Component Type" asp-items="Model.ComponentTypeList">
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divSize">
+						<label for="ddlSize" class="col-form-label">Size&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlSize" class="form-select select2" asp-data-placeholder="Select Size" asp-items="Model.SizeList">
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divColor">
+						<label for="ddlColor" class="col-form-label">Color&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlColor" class="form-select select2" asp-data-placeholder="Select Color" asp-items="Model.ColorList">
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divItem">
+						<label for="ddlItem" class="col-form-label">Item&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlItem" class="form-select select2" asp-data-placeholder="Select Item">
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divRackLocation">
+						<label for="ddlRackLocation" class="col-form-label">Rack Location&nbsp;<span class="text-danger">*</span></label>
+						<select id="ddlRackLocation" class="form-select select2" asp-data-placeholder="Select RackLocation">
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divExpectedProductQty">
+						<label for="txtExpectedProductQty" class="col-form-label">Expected Product Qty&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtExpectedProductQty" class="form-control MaxThreshold decimal"  placeholder="0.00" maxlength="50" />
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group" id="divActualProductQty">
+						<label for="txtActualProductQty" class="col-form-label">Actual Product Qty&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" id="txtActualProductQty" class="form-control MaxThreshold decimal" placeholder="0.00" maxlength="50" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer d-flex justify-content-between">
+			<button id="btnClose" type="button" class="btn btn-outline-danger waves-effect">
+				<i class="fas fa-window-close font-size-16 me-2"></i>Close
+			</button>
+			<div class="ms-auto">
+				<button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light">
+					<i class="bx bx-package font-size-20 align-middle me-2"></i>Inward Stock
+				</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+	<input type="hidden" id="hdnStockRequestID" />
+	<input type="hidden" id="hdnRequestedBy" />
+
+	<script type="text/javascript">
+		 var UpdateProductionInwardUrl = '@Url.Page("/Inventory/Production/ProductionInward", "UpdateProductionInward")';
+		var GetStockRequestDetailsByIDUrl = '@Url.Page("/Inventory/Production/StockRequest", "StockRequestByID")';
+		 var GetPendingForApprovalByFilterUrl = '@Url.Page("/Inventory/Production/ProductionInward", "ProductionInwardByFilter")';
+		 var GetItemDropdownByFilterUrl = '@Url.Page("/Inventory/Production/ProductionInward", "ItemDropdownByFilte")';
+		  var GetRackLocationDropdownByFilterUrl = '@Url.Page("/Inventory/Production/ProductionInward", "RackLocationDropdownByFilter")';
+		var GetHologramPunchingByIDUrl = '@Url.Page("/Inventory/Production/ProductionInward", "HologramPunchingByID")';
+
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+	</script>
+
+	<script src="~/customjs/inventory/production/jproductioninward.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+	</script>
+}

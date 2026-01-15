@@ -1,0 +1,137 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.MaterialManagement.BatchStockModel
+@{
+	ViewData["Title"] = "Batch Stock";
+}
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Batch Stock</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item"><a href="#">Material Management</a></li>
+					<li class="breadcrumb-item active">Batch Stock</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="WebPageContent d-none">
+	<div id="divSearchPage">
+		<div class="row g-3 mb-3">
+			<div class="col-md-3">
+				<div class="form-group" id="divWarehouse">
+					<label class="col-form-label">Warehouse</label>
+					<select id="ddlWarehouse" class="form-control select2" data-placeholder="Warehouse" asp-items="Model.WarehouseList">
+					</select>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group" id="divRackLocation">
+					<label class="col-form-label">RackLocation</label>
+					<select id="ddlRackLocation" class="form-control select2" data-placeholder="--Select RackLocation--" placeholder="0">
+					</select>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group" id="divitem">
+					<label class="col-form-label">Component Type</label>
+					<select id="ddlComponentType" class="form-control select2" data-placeholder="Componenet Type" asp-items="Model.ComponentList">
+					</select>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group" id="divSize">
+					<label class="col-form-label">Size</label>
+					<select id="ddlSize" class="form-control select2" data-placeholder="Size" asp-items="Model.SizeList">
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row g-3 mb-3">
+		<div class="col-md-3">
+			<div class="form-group" id="divColor">
+				<label class="col-form-label">Color</label>
+				<select id="ddlColor" class="form-control select2" data-placeholder="Color" asp-items="Model.ColorList">
+				</select>
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="form-group" id="divReport">
+				<label class="col-form-label">Report Type</label>
+				<select id="ddlReportType" class="form-control select2">
+					<option value="0" selected="selected">--ALL--</option>
+					<option value="1">Available Stock</option>
+					<option value="2">Consumed Stock</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<label class="col-form-label">Search text</label>
+			<div class="input-group">
+				<span class="input-group-text">
+					<i class="fas fa-search"></i>
+				</span>
+				<input type="text" id="txtSearchbox" class="form-control Maxthreshold" placeholder="Search Text" maxlength="50">
+			</div>
+		</div>
+
+		<div class="col-md-1 d-flex align-items-end">
+			<button type="button" class="btn btn-outline-secondary btn-rounded w-100 waves-effect" id="btnClearFilter">
+				<i class="bi bi-x-circle"></i> Clear
+			</button>
+		</div>
+
+		<div class="col-md-1 d-flex align-items-end">
+			<button class="btn btn-warning btn-rounded w-100 waves-effect" id="btnFilter">
+				<i class="bx bx-filter-alt font-size-16 align-middle me-2"></i> Filter
+			</button>
+		</div>
+
+	</div>
+</div>
+
+
+@* this div for displaying the number of count in the list in js file *@
+<div class="card">
+	<div class="card-body" id="divSearchResultSummary">
+	</div>
+</div>
+</div>
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+	<input type="hidden" id="hdnPurchaseTransID" />
+	<input type="hidden" id="hdnMaterialInwardInspectionID" />
+	<input type="hidden" id="hdnSNo" />
+
+	<script type="text/javascript">
+		   var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+
+		var GetBatchStockByFilterUrl = '@Url.Page("/Inventory/MaterialManagement/BatchStock", "BatckStocktByFilter")';
+		var GetRackLocationByWareHouseIDUrl = '@Url.Page("/Inventory/MaterialManagement/BatchStock", "RackLocationByWareHouseID")';
+
+		var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+	</script>
+
+	<script src="~/customjs/inventory/materialinspection/jbatchstock.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+
+		});
+	</script>
+}

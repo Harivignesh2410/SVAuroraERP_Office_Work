@@ -1,0 +1,32 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.AccessDeniedModel
+@{
+	ViewData["Title"] = "Access Denied";
+}
+
+<div class="home-btn d-none d-sm-block">
+    <a class="text-dark" asp-page="/Index"><i class="fas fa-home h2"></i></a>
+</div>
+
+<section class="my-5 pt-sm-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="home-wrapper">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-4">
+                            <div class="maintenance-img">
+                                <img src="~/images/maintenance.svg" alt="" class="img-fluid mx-auto d-block">
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="mt-2 text-danger">You don't have permission to access the page</h3>
+                    <p>For more information, Please contact Administrator.</p>
+                    <div class="mt-4 d-none">
+                        <a class="btn btn-info" asp-page="/Index">Back to Home Page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

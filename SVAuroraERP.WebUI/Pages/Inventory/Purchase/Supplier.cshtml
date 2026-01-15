@@ -1,0 +1,228 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Inventory.Purchase.SupplierModel
+@{
+	ViewData["Title"] = "Supplier";
+}
+
+<!-- start page title -->
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">Supplier</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Inventory</a></li>
+					<li class="breadcrumb-item"><a href="#">Purchase</a></li>
+					<li class="breadcrumb-item active">Supplier</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="WebPageContent d-none">
+	<div class="card" id="divRecords">
+		<div class="card-body border-bottom">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 card-title flex-grow-1"></h5>
+				<div class="flex-shrink-0">
+					<button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light" title="Click here to Add New">
+						<i class="fas fa-plus-square label-icon"></i>Add New
+					</button>
+					<button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+						<i class="mdi mdi-refresh label-icon"></i>Refresh
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="card-body p4">
+			<div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+				<table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+					<thead class="table-light">
+						<tr>
+							<th>S No.</th>
+							<th>Code</th>
+							<th>Name</th>
+							<th>GST No</th>
+							<th>City</th>
+							<th>Mobile</th>
+							<th>Email</th>
+							<th class="text-center">Status</th>
+							<th class="text-center">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+	<div class="card" id="divAddEdit">
+		<div class="card-header bg-info bg-gradient d-flex justify-content-between align-items-center">
+			<h5 class="card-title text-white" id="divCardTitle">
+				<i class="fas fa-plus-square align-middle me-1"></i>Add New Supplier
+			</h5>
+			<button type="button" id="btnCloseWindow" class="btn-close btn-close-white"></button>
+		</div>
+		<div class="card-body">
+			<p class="card-title-desc mb-2">Please fill in all required fields&nbsp;<span class="text-danger">*</span></p>
+			<div class="row g-3 mb-2">
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divSupplierCode">
+						<label>Supplier Code&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-key me-2"></i></div>
+							<input id="txtSupplierCode" name="txtSupplierCode" type="text" class="form-control MaxThreshold" placeholder="Please enter Supplier Code" maxlength="150">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divFullName">
+						<label>Full Name&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-id-badge me-2"></i></div>
+							<input id="txtFullName" name="txtFullName" type="text" class="form-control MaxThreshold" placeholder="Please enter Full Name" maxlength="150">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divGstNo">
+						<label>GST No&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-file-invoice-dollar me-2"></i></div>
+							<input id="txtGstNo" name="txtGstNo" type="text" class="form-control MaxThreshold" placeholder="Please enter GST Number" maxlength="50">
+						</div>
+					</div>
+				</div>
+				<div class="form-group col-lg-1 mt-5">
+					<div class="checkbox checkbox-success">
+						<input id="chkStatus" type="checkbox" checked="checked" />
+						<label for="chkStatus">Active</label>
+					</div>
+				</div>
+			</div>
+			<div class="alert alert-info" role="alert">
+				Communication Details
+			</div>
+			<div class="row g-3">
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divAddressLine1">
+						<label>Address Line 1&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-map-marked-alt me-2"></i></div>
+							<input id="txtAddressLine1" name="txtAddressLine1" type="text" class="form-control MaxThreshold" placeholder="Please enter Address Line 1" maxlength="100">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divAddressLine2">
+						<label>Address Line 2</label>
+						<input id="txtAddressLine2" name="txtAddressLine2" type="text" class="form-control MaxThreshold" placeholder="Please enter Address Line 2" maxlength="100">
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divCity">
+						<label>City</label>
+						<input id="txtCity" name="txtCity" type="text" class="form-control MaxThreshold" placeholder="Please enterCity" maxlength="100">
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divState">
+						<label>State</label>
+						<input type="text" id="txtState" class="form-control MaxThreshold" placeholder="Please enter State" maxlength="100" />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divCountry">
+						<label>Country</label>
+						<input type="text" id="txtCountry" class="form-control MaxThreshold" placeholder="Please enter Country" maxlength="100" />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divPinCode">
+						<label>Pincode</label>
+						<input type="text" id="txtPincode" class="form-control MaxThreshold" placeholder="Please enter Pincode" maxlength="6" />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divTelNo1">
+						<label>Tel No (1)</label>
+						<input type="text" id="txtTelNo1" class="form-control MaxThreshold" placeholder="Please enter Tel No (1)" maxlength="15" />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divTelNo2">
+						<label>Tel No (2)</label>
+						<input type="text" id="txtTelNo2" class="form-control MaxThreshold" placeholder="Please enter Tel No (2)" maxlength="15" />
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divMobileNo">
+						<label>Mobile No&nbsp;<span class="text-danger">*</span></label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-mobile-alt me-2"></i></div>
+							<input id="txtMobileNo" name="txtMobileNo" type="text" class="form-control MaxThreshold" placeholder="Please enter Mobile No" maxlength="15">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="form-group" id="divEmail">
+						<label>Email&nbsp;</label>
+						<input id="txtEmail" name="txtEmail" type="text" class="form-control MaxThreshold" placeholder="Please enter Email" maxlength="200">
+					</div>
+				</div>
+			</div>
+			<div class="row d-flex justify-content-between mt-2" id="divRecordLog">
+				<div class="col-md-6">
+					<span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+				</div>
+				<div class="col-md-6">
+					<span class="fw-lighter fst-italic float-end" id="spnLastUpdatedDate"></span>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer d-flex justify-content-between">
+			<button id="btnClose" type="button" class="btn btn-outline-danger waves-effect"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+			<button id="btnSave" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save</button>
+			<button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Update</button>
+		</div>
+	</div>
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+@section Scripts {
+	<input type="hidden" id="hdnSupplierID" />
+
+    <script type="text/javascript">
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+
+		// Define the URL as a JavaScript variable
+		var ListDataUrl = '@Url.Page("/Inventory/Purchase/Supplier", "SupplierList")';
+		var SaveUpdateDataUrl = '@Url.Page("/Inventory/Purchase/Supplier", "SaveUpdateData")';
+		var GetDataByIDUrl = '@Url.Page("/Inventory/Purchase/Supplier", "SupplierByID")';
+		var DeleteDataUrl = '@Url.Page("/Inventory/Purchase/Supplier", "DeleteData")';
+        var SupplierDataTableUrl = '@Url.Page("/Inventory/Purchase/Supplier", "SupplierDataTable")';
+
+		var CheckDuplicateUrl = '@Url.Page("/Inventory/Purchase/Supplier", "CheckForDuplicate")';
+
+		var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+
+    </script>
+
+	<script src="~/customjs/inventory/purchase/jsupplier.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var PageAuditData= new Object();
+			PageAuditData.PageControlID = currentPageControlID;
+			PageAuditData.URL = window.location.href;
+			InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+	</script>
+}

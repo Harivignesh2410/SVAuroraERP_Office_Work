@@ -1,0 +1,48 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.AppLauncherModel
+@{
+	ViewData["Title"] = "App Launcher";
+}
+
+<!-- start page title -->
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+			<h4 class="mb-sm-0 font-size-18">App Launcher</h4>
+
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					<li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+					<li class="breadcrumb-item active">App Launcher</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="divAppLauncher" class="parent-container row"> </div>
+
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+
+@section Scripts {
+	<script type="text/javascript">
+		var GetAppLauncherByUserIDUrl = '@Url.Page("/UserProfile", "AppLauncherByUserID")';
+		var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+		var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+		var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+		var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+		var _CMPermissions  = @Json.Serialize(Model.Permissions);
+		var currentPageControlID = @Model.CurrentPageControlID;
+		var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+	</script>
+	<script src="~/customjs/authentication/japplauncher.js" type="text/javascript" asp-append-version="true"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+		var PageAuditData= new Object();
+					PageAuditData.PageControlID = currentPageControlID;
+					PageAuditData.URL = window.location.href;
+
+					InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+		});
+	</script>
+}

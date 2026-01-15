@@ -1,0 +1,153 @@
+﻿@page
+@model SVAuroraERP.WebUI.Pages.Online.Master.VehiclePlateSizeMappingModel
+@{
+    ViewData["Title"] = "Vehicle Plate Size Mapping";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Vehicle Plate Size Mapping</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a asp-page="/AppLauncher">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Online</a></li>
+                    <li class="breadcrumb-item"><a href="#">Master</a></li>
+                    <li class="breadcrumb-item active">Vehicle Plate Size Mapping</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="WebPageContent d-none">
+    <div class="card">
+        <div class="card-body border-bottom">
+            <div class="d-flex align-items-center">
+                <h5 class="mb-0 card-title flex-grow-1"></h5>
+                <div class="flex-shrink-0">
+                    <button id="btnAddNew" type="button" class="btn btn-info waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#divAddEditModal" title="Click here to Add New">
+                        <i class="fas fa-plus-square label-icon"></i>Add New
+                    </button>
+                    <button id="btnRefresh" type="button" class="btn btn-light waves-effect btn-label waves-light" title="Click here to refresh">
+                        <i class="mdi mdi-refresh label-icon"></i>Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="dataTables_wrapper dt-bootstrap4 no-footer mt-2">
+                <table id="tblrecordlist" class="table align-middle dt-responsive nowrap w-100 table-check">
+                    <thead class="table-light">
+                        <tr>
+                            <th>S No.</th>
+                            <th>Vehicle Type</th>
+                            <th>Vehicle Category</th>
+                            <th>Fuel</th>
+                            <th>Vehicle Class</th>
+                            <th>Plate Color</th>
+                            <th>Plate Size</th>
+                            <th>Description</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="divAddEditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title add-task-title text-white" style="display: block;"><i class="bx bxs-plus-square font-size-20 align-middle me-1"></i> </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="card-title-desc mb-0">Please fill in all required fields&nbsp;<span class="text-danger">*</span></p>
+                    <div class="row g-2">
+                        <div class="col-lg-6 col-md-4 col-sm-12" id="divVehicleCategory">
+                            <label for="ddlVehicleCategory" class="col-form-label">Vehicle Category<span class="text-danger">&nbsp;*</span></label>
+                            <select id="ddlVehicleCategory" class="form-select select2" asp-items="Model.VehicleCategoryList" asp-data-placeholder="--Select--"> </select>
+                        </div>
+
+                        <div class="col-lg-6 col-md-4 col-sm-12" id="divVehicleType">
+                            <label for="ddlVehicleType" class="col-form-label">Vehicle Type<span class="text-danger">&nbsp;*</span></label>
+                            <select id="ddlVehicleType" class="form-select select2" asp-items="Model.VehicleTypeList" asp-data-placeholder="--Select--"> </select>
+                        </div>
+                        <div class="col-lg-6 col-md-4 col-sm-12" id="divFuel">
+                            <label for="ddlFuel" class="col-form-label">Vehicle Fuel Type<span class="text-danger">&nbsp;*</span></label>
+                            <select id="ddlFuel" class="form-select select2" asp-items="Model.FuelList" asp-data-placeholder="--Select--"> </select>
+                        </div>
+                        <div class="col-lg-6 col-md-4 col-sm-12" id="divVehiclePlateColor">
+                            <label for="ddlVehiclePlateColor" class="col-form-label">Vehicle Plate Color<span class="text-danger">&nbsp;*</span></label>
+                            <select id="ddlVehiclePlateColor" class="form-select select2" asp-items="Model.VehiclePlateColorList" asp-data-placeholder="--Select--"> </select>
+                        </div>
+                        <div class="col-lg-6 col-md-4 col-sm-12" id="divVehicleClass">
+                            <label for="ddlVehicleClass" class="col-form-label">Vehicle Class<span class="text-danger">&nbsp;*</span></label>
+                            <select id="ddlVehicleClass" class="form-select select2" asp-items="Model.VehicleClassList" asp-data-placeholder="---Select--"> </select>
+                        </div>
+                        <div class="col-lg-6 col-md-4 col-sm-12" id="divVehiclePlateType">
+                            <label for="ddlVehiclePlateType" class="col-form-label">Vehicle Plate Type<span class="text-danger">&nbsp;*</span></label>
+                            <select id="ddlVehiclePlateType" class="form-select select2" asp-items="Model.VehiclePlateTypeList" asp-data-placeholder="--Select--"> </select>
+                        </div>
+
+                        <div class="col-lg-6 col-md-4 col-sm-12" id="divVehiclePlateSize">
+                            <label for="ddlVehiclePlateSize" class="col-form-label">Vehicle Plate Size<span class="text-danger">&nbsp;*</span></label>
+                            <select id="ddlVehiclePlateSize" class="form-select select2" asp-items="Model.VehiclePlateSizeList" asp-data-placeholder="--Select--"> </select>
+                        </div>
+                        <div class="col-lg-6 col-md-4 col-sm-12" id="divVehiclePlateSize">
+                            <div class="form-group" id="divDescription">
+                                <label for="txtDescription" class="col-form-label">Description</label>
+                                <input id="txtDescription" name="txtDescription" type="text" class="form-control MaxThreshold" placeholder="Please enter Description..." maxlength="50">
+                            </div>
+                        </div>
+                            <div class="d-flex justify-content-between mt-2" id="divRecordLog">
+                                <span class="fw-lighter fst-italic" id="spnLastUpdatedBy"></span>
+                                <span class="fw-lighter fst-italic" id="spnLastUpdatedDate"></span>
+                            </div>
+                        </div>
+                    </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button id="btnClose" type="button" class="btn btn-outline-danger waves-effect" data-bs-dismiss="modal"><i class="fas fa-window-close font-size-16 me-2"></i>Close</button>
+                    <button id="btnSave" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-save font-size-20 align-middle me-2"></i>Save</button>
+                    <button id="btnUpdate" type="button" class="btn btn-success waves-effect waves-light"><i class="bx bxs-edit font-size-20 align-middle me-2"></i>Update</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+</div>
+<span id="anti-forgery-token" data-token="@Model.AntiforgeryToken"></span>
+
+@section Scripts {
+    <input type="hidden" id="hdnVehiclePlateSizeMappingID" />
+
+    <script type="text/javascript">
+        // Define the URL as a JavaScript variable
+
+        var SaveUpdateDataUrl = '@Url.Page("/Online/Master/VehiclePlateSizeMapping", "SaveUpdateData")';
+        var ListDataUrl = '@Url.Page("/Online/Master/VehiclePlateSizeMapping", "VehiclePlateSizeMappingList")';
+        var GetDataByIDUrl = '@Url.Page("/Online/Master/VehiclePlateSizeMapping", "VehiclePlateSizeMappingeByID")';
+        var DeleteDataUrl = '@Url.Page("/Online/Master/VehiclePlateSizeMapping", "DeleteData")';
+        		var LoadSizeByPlateTypeIDUrl = '@Url.Page("/Online/Master/OnlinePlatePrice", "LoadSizeByClassAndPlateTypeID")';
+        var LoadPlateTypeByVehicleClassIDUrl = '@Url.Page("/Online/Master/OnlinePlatePrice", "LoadPlateTypeByPlateTypeID")';
+
+        var _TOKEN = document.getElementById('anti-forgery-token').getAttribute('data-token');
+                       var _CMActionAdd = @Json.Serialize(Model.Permissions.HasAdd);
+        var _CMActionUpdate = @Json.Serialize(Model.Permissions.HasEdit);
+        var _CMActionDelete = @Json.Serialize(Model.Permissions.HasDelete);
+        var _CMActionView = @Json.Serialize(Model.Permissions.HasView);
+        var _CMPermissions  = @Json.Serialize(Model.Permissions);
+        var currentPageControlID = @Model.CurrentPageControlID;
+    </script>
+
+    <script src="~/customjs/online/master/jvehicleplatesizemapping.js" type="text/javascript" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var PageAuditData= new Object();
+            PageAuditData.PageControlID = currentPageControlID;
+            PageAuditData.URL = window.location.href;
+            InsertPageAccessAuditLog(_TOKEN,PageAuditData);
+        });
+    </script>
+}
